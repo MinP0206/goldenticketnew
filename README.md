@@ -7,10 +7,7 @@
      Cre: idtruoc
      <br/>
 
-    <br />
-<!--     <a href=""><strong>Explore the docs »</strong></a> -->
-    <br />
-    <br />
+  
   </p>
 </div>
 
@@ -30,9 +27,9 @@ This project was created for the TLCN...(add more).
 ```sh
 npm install -g npm@8.1.2
 ```
-- java SE DEvelopment Kit version 17
+- java SE DEvelopment Kit version 11
 ```sh
-- https://www.oracle.com/java/technologies/downloads/#java17
+- https://www.oracle.com/java/technologies/downloads/#java11
 ```
 - For Backend Code, i used Springboot and IntelliJ IDEA as IDE for programming, you can use Eclipse instead of IntelliJ IDEA
 ```sh
@@ -61,4 +58,5 @@ For database i use https://cloud.mongodb.com
 Any information please contact me through this email: 
 ```sh
 minhphuongtmp2001@gmail.com
+lequocvinh2001@gmail.com
 ```
