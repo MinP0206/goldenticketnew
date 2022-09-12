@@ -1,5 +1,6 @@
 import React from 'react'
 import Button from '../../../UI/Button/Button';
+import ProfileIcon from './../../../UI/Logo Profile/LogoProfile';
 
 import classes from './Nav.module.scss';
 
@@ -9,7 +10,12 @@ const Nav = ({isMenu, menuToggle}) => {
             <ul>
                 <li onClick={menuToggle}>
                     <a href='/'>
-                        Locations
+                        Movie
+                    </a>
+                </li>
+                <li onClick={menuToggle}>
+                    <a href='/'>
+                        News and Event
                     </a>
                 </li>
                 <li onClick={menuToggle}>
@@ -17,15 +23,11 @@ const Nav = ({isMenu, menuToggle}) => {
                         Pricing
                     </a>
                 </li>
-                <li onClick={menuToggle}>
-                    <a href='/'>
-                        Learn More
-                    </a>
-                </li>
             </ul>
             <Button outline className={classes.booknow} onClick={menuToggle}>
                 Book Now
             </Button>
+            <ProfileIcon />
         </nav>
   );
 }

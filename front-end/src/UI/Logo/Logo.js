@@ -1,14 +1,14 @@
 import React from 'react';
-// import LeafSVG from './../../assets/LeafSVG';
+import LeafSVG from './../../assets/LeafSVG';
 
 import classes from './Logo.module.scss';
 
 const Logo = () => {
   return (
     <a href='/' className={classes.logo}>
-        {/* <LeafSVG fillColor={"white"} /> */}
+        <LeafSVG fillColor={"white"} />
         <span>
-            Golden Ticket
+            Golden Ticket Booking
         </span>
     </a>
   )

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 
 import { CgMenuRight, CgClose } from 'react-icons/cg';
+import Logo from '../../UI/Logo/Logo';
 import classes from './Header.module.scss';
 import Nav from './Nav/Nav';
 
@@ -20,7 +21,7 @@ const Header = () => {
     
   return (
     <header className={classes.header}>
-        {/* <Logo /> */}
+        <Logo />
         <Nav />
         <div className={classes.header__menu}>
             <div className={classes.header__menu__toggle}>
