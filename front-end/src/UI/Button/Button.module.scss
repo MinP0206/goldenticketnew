@@ -10,22 +10,22 @@
     font-weight: 700;
     letter-spacing: $letterSpacing;
     font-size: 1.1rem;
-    background: $light;
+    background: $orange;
     color: dark;
     border: 1px solid $dark;
     transition: all 0.3s ease;
 
     &:hover{
-        background: rgab($light, 0.8);
+        background: rgab($orange, 0.8);
     }
 
     &.outline{
-        border: 1px solid $light;
+        border: 1px solid $orange;
         background: transparent;
-        color: $light;
+        color: $orange;
         
         &:hover{
-            background: rgab($light, 0.2);
+            background: rgab($orange, 0.2);
 
         }
     }
