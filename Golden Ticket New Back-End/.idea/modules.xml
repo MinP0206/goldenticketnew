@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Golden Ticket New Back-End.iml" filepath="$PROJECT_DIR$/.idea/Golden Ticket New Back-End.iml" />
+      <module fileurl="file://$PROJECT_DIR$/goldenticketnew/goldenticketnew.iml" filepath="$PROJECT_DIR$/goldenticketnew/goldenticketnew.iml" />
+    </modules>
+  </component>
+</project>
