@@ -1,23 +1,24 @@
 @import './../../style/variables.scss';
 
 .search{
-
-    width: auto;
-    align-items: center;
-    text-decoration: none;
-    min-width: 100px;
-    padding-right: $spacing-lg;
-    padding-left: $spacing-lg;
-    justify-items: center;
+    min-width: 25rem;
+    position: absolute;
+    top:10%;
+    @include breakpoint(md){
+        width: 100%;
+        position: relative;
+        top: 30%;
+    }
 
     &__input{
         width: 100%;
-        height: 43px;
+        height: 20%;
         display: flex;
-        
+
         &__text{
-            width: 100%;
-            height: 40px;
+            height: 5vh;
+            display: block;
+            width: 30vw;
             background-color: transparent;
             color: #fff;
             font-family: $lato;
@@ -31,14 +32,19 @@
         }
 
         &__button{
-            width: 40px;
-            height: 40px;
+            width: 5vh;
+            height: 5vh;
             border: 0;
             background: $orange;
             text-align: center;
             color: #fff;
             border-radius: 0 5px 5px 0;
             cursor: pointer;
+            &:hover{
+                background-color: rgba($orange, $alpha: 0.7);
+                width: 6vh;
+            }
         }
     }
+
 }
