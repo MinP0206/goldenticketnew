@@ -1,15 +1,31 @@
-import { Fragment } from "react";
-import Footer from "./components/Footer/Footer";
-import Header from "./components/Header/Header";
-import Home from "./pages/Home";
-
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Home from './pages/Home';
+import Profile from "./pages/Profile";
+import SingInPage from "./pages/SignInPage";
+import SingUpPage from './pages/SignUpPage';
 
 function App() {
-  return <Fragment>
-    <Header />
-    <Home />
-    <Footer />
-  </Fragment>
+  return <div className="App">
+    <Router>
+
+      <Routes>
+         <Route path="/" element={<Home></Home>}></Route>
+      </Routes>
+
+      <Routes>
+         <Route path="/profile" element={<Profile></Profile>}></Route>
+      </Routes>
+
+      <Routes>
+         <Route path="/signin" element={<SingInPage></SingInPage>}></Route>
+      </Routes>
+
+      <Routes>
+         <Route path="/signup" element={<SingUpPage></SingUpPage>}></Route>
+      </Routes>
+
+    </Router>
+  </div>
 }
 
 export default App;

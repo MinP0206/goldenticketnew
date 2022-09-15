@@ -1,15 +1,16 @@
 import React from 'react'
 import Button from '../../../UI/Button/Button';
 import Search from '../../Search/Search';
-import ProfileIcon from './../../../UI/Logo Profile/LogoProfile';
 
 import classes from './Nav.module.scss';
 
 const Nav = ({isMenu, menuToggle}) => {
   return (
         <nav className={isMenu ? classes.menu__nav : classes.nav}>
-            <Search />
             <ul>
+                <li>
+                    <Search />
+                </li>
                 <li onClick={menuToggle}>
                     <a href='/'>
                         Movie
@@ -22,14 +23,13 @@ const Nav = ({isMenu, menuToggle}) => {
                 </li>
                 <li onClick={menuToggle}>
                     <a href='/'>
-                        Pricing
+                        Book now
                     </a>
                 </li>
             </ul>
             <Button outline className={classes.booknow} onClick={menuToggle}>
-                Book Now
+                Sign-in
             </Button>
-            <ProfileIcon />
         </nav>
   );
 }

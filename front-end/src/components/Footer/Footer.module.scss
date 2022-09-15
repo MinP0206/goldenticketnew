@@ -1,20 +1,97 @@
 @import "./../../style//variables.scss";
 
-.footer {
-    height: 40px;
+.footer{
+    width: 100%;
+    height: auto;
     position: fixed;
-    align-items: center;
-    background-color: $dark;
-    text-align: center;
+    background-color: #070617;
     bottom: 0;
     left: 0;
     right: 0;
     justify-content: center;
     justify-items: center;
+    display: flex;
+    max-height: 6rem;
+    align-items: center;
+    background: $dark;
 
-        span{
-            font-family: $lato;
-            font-size: large;
-            color: $orange;
+        &__col{
+            width: 20rem;
+            height: auto;
+            float: left;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            padding: 0px 20px 20px 20px;
+
+            h1{
+                color: $orange;
+                margin: 0;
+                padding: 0;
+                font-family: inherit;
+                font-size: small;
+                line-height: 15px;
+                padding: 15px 0px 5px 0px;
+                font-weight: 900;
+                text-transform: uppercase;
+                letter-spacing: 0.250em;
+
+                @include breakpoint(md){
+                    font-size: 15px;
+                }
+            }
+
+            ul{
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+
+                li{
+                    color: gray;
+                    font-size: 14px;
+                    font-family: inherit;
+                    font-weight: bold;
+                    padding: 5px 0px 5px 0px;
+                    cursor: pointer;
+                    transition: .2s;
+                    -webkit-transition: .2s;
+                    -moz-transition: .2s;
+                }
+                &:hover{
+                    color: #ffffff;
+                    transition: .1s;
+                    -webkit-transition: .1s;
+                    -moz-transition: .1s;
+                }
+            }
+
+            &__socials{
+
+                h1{
+                    color: $orange;
+                    margin: 0;
+                    padding: 0;
+                    font-family: inherit;
+                    font-size: 10px;
+                    line-height: 17px;
+                    padding: 20px 10px 10px 0px;
+                    font-weight: 900;
+                    text-transform: uppercase;
+                    letter-spacing: 0.250em;  
+                    
+                    @include breakpoint(md){
+                        font-size: 15px;
+                    }
+                }
+
+                ul{
+                    li{
+                        display: inline-block;
+                        padding-right: 5px !important;
+                    }
+                }
+
+            }
         }
 }
+
