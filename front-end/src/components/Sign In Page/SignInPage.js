@@ -1,10 +1,15 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import classes from './SignInPage.module.scss';
+import quantum from './../../assets/theater.jpg';
 
 const SignInPage = () => {
   return (
     <div className={classes.signin}>
+        <img
+            className={classes.img}
+            src={quantum}
+        ></img>
         <div>
             <h2 className={classes.signin__title}>
                 Welcome to Golden Ticket Website Booking
