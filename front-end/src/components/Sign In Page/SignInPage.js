@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import classes from './SignInPage.module.scss';
 
 const SignInPage = () => {
@@ -30,7 +31,11 @@ const SignInPage = () => {
                     type="password"/>
                 </div>
             </div>
-                <a href='/signup'>Haven't a account? Register now!</a>
+                <NavLink to={'/signup'}>
+                    <span>
+                        Haven't a account? Register now!
+                    </span>
+                </NavLink>
             <button className={classes.signin__form__button}>
                 Sign In
             </button>

@@ -1,6 +1,7 @@
 import React from 'react'
 import Button from '../../../UI/Button/Button';
 import Search from '../../Search/Search';
+import { NavLink } from 'react-router-dom';
 
 import classes from './Nav.module.scss';
 
@@ -27,9 +28,14 @@ const Nav = ({isMenu, menuToggle}) => {
                     </a>
                 </li>
             </ul>
-            <Button outline className={classes.booknow} onClick={menuToggle}>
-                Sign-in
-            </Button>
+
+            <NavLink to = {"/signin"}>
+                <Button outline className={classes.booknow} onClick={menuToggle}>
+                    <span>
+                        Sign In
+                    </span>
+                    </Button>
+            </NavLink>
         </nav>
   );
 }
