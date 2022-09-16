@@ -1,19 +1,18 @@
 @import "./../../style//variables.scss";
 
+.container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
 .footer{
     width: 100%;
-    height: auto;
-    position: fixed;
-    background-color: #070617;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    justify-content: center;
-    justify-items: center;
     display: flex;
-    max-height: 6rem;
+    justify-content: center;
+    justify-items: center;  
     align-items: center;
-    background: $dark;
+    background: rgba($dark, 0.7);
 
         &__col{
             width: 20rem;
@@ -88,6 +87,10 @@
                     li{
                         display: inline-block;
                         padding-right: 5px !important;
+                        width: 25px;
+                        a{
+                            color: #ffffff;
+                        }
                     }
                 }
 
