@@ -1,0 +1,12 @@
+@import './../../style/variables.scss';
+
+.container{
+    position: relative;
+
+    span{
+        position: absolute;
+        top: 13%;
+        left: 63%;
+        cursor: pointer;
+    }
+}

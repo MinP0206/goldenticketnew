@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <Fragment>
       <Header />
-        <Movie/>
+        <Movie page={true}/>
       <Footer />
     </Fragment>
   )

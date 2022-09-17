@@ -2,8 +2,56 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import classes from './SignInPage.module.scss';
 import quantum from './../../assets/theater.jpg';
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import useToggleValue from './../../hooks/useToggleValue';
+import { toast } from "react-toastify";
+import { useSelector, useDispatch } from "react-redux";
+import IconEyeToggle from '../../UI/Icons/IconEyeToggle';
+import Input from '../../UI/Input/Input';
+
+const schema = yup
+    .object()
+    .shape({
+        email: yup
+            .string()
+            .required("Plase enter email")
+            .email("Please enter valid email"),
+        password: yup
+        .string()
+        .required("Plase enter password")
+        .email("Please enter valid password"),
+    })
+    .required();
 
 const SignInPage = () => {
+    const {
+        handleSubmit,
+        control,
+        formState: {errors},
+    } = useForm({
+        resolver: yupResolver(schema),
+        mode: "onSubmit",
+    });
+
+    // const { isLoading, errorMessage } = useSelector((state) => state.auth);
+
+    // const dispatch = useDispatch();
+    // const navigate = useNavigate();
+
+    // const handleSignIn = (formValue) => {
+    //     dispatch(setPassword(formValue?.password));
+    //     dispatch(login({ formValue, navigate, toast }));
+    //     if (errorMessage !== null) {
+    //       toast.error(errorMessage);
+    //       dispatch(resetError());
+    //     }
+    //   };
+
+    const { value: showPassword, handleToggleValue: handleTogglePassword } =
+        useToggleValue(false);
+
   return (
     <div className={classes.signin}>
         <img
@@ -20,20 +68,35 @@ const SignInPage = () => {
                 Sign In
             </h3>
         </div>
-        <form className={classes.signin__form}>
+        <form onSubmit={handleSubmit()} className={classes.signin__form}>
             <div className={classes.signin__form_formgroup}>
                 <div>
-                    <input className={classes.signin__form__input}
-                    placeholder='Enter Email'
-                    type="text"/>
+                    <Input className={classes.signin__form__input}
+                    control={control}
+                    placeholder='example@mail.com'
+                    name='email'
+                    type='email'
+                    error={errors.email?.message}
+                    autoComplete="off"
+                    />
                 </div>
                 </div>
 
             <div className={classes.signin__form_formgroup}>
                 <div>
-                    <input  className={classes.signin__form__input}
-                    placeholder='Enter Password'
-                    type="password"/>
+                <Input
+                    control={control}
+                    name="password"
+                    type={`${showPassword ? "text" : "password"}`}
+                    placeholder="Enter password"
+                    error={errors.password?.message}
+                    className={classes.signin__form__input}
+                >
+                    <IconEyeToggle
+                        open={showPassword}
+                        onClick={handleTogglePassword}
+                    ></IconEyeToggle>
+          </Input>
                 </div>
             </div>
                 <NavLink to={'/signup'}>
