@@ -4,6 +4,7 @@ import Profile from "./pages/Profile";
 import SingInPage from "./pages/SignInPage";
 import SingUpPage from './pages/SignUpPage';
 import Movies from "./pages/Movies";
+import PageNotFound from "./pages/PageNotFound";
 
 function App() {
   return <div className="App">
@@ -28,6 +29,10 @@ function App() {
       <Routes>
          <Route path="/movies" element={<Movies></Movies>}></Route>
       </Routes>
+{/*       
+      <Routes>
+         <Route path="*" element={<PageNotFound></PageNotFound>}></Route>
+      </Routes> */}
 
     </Router>
   </div>

@@ -16,8 +16,8 @@ public interface UserService {
     List<User> getAllUser();
     UserSummary getCurrentUser(UserPrincipal currentUser) ;
     UserProfile getUserProfile(String username);
-    Boolean existsByUsername(String username);
-    Boolean existsByEmail(String email);
+    boolean existsByUsername(String username);
+    boolean existsByEmail(String email);
     URI updateInfoUser(UserProfile userProfile);
     Boolean deleteUserById(Long Id);
 }

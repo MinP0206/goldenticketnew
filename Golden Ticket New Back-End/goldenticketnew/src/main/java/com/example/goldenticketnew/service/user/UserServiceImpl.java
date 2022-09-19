@@ -8,7 +8,6 @@ import com.example.goldenticketnew.payload.UserSummary;
 import com.example.goldenticketnew.repository.UserRepository;
 import com.example.goldenticketnew.security.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -61,13 +60,13 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public Boolean existsByUsername(String username) {
+    public boolean existsByUsername(String username) {
         return userRepository.existsByUsername(username);
 
     }
 
     @Override
-    public Boolean existsByEmail(String email) {
+    public boolean existsByEmail(String email) {
         return userRepository.existsByEmail(email);
     }
 
