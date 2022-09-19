@@ -30,9 +30,9 @@ function Input(props) {
         {...field}
         />
     {error.length > 0 && (
-        <span>
+        <p>
           {error}
-        </span>
+        </p>
       )}
       {children && (
         <span>

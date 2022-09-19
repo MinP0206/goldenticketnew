@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import classes from './../../components/Sign In Page/SignInPage.module.scss';
 import quantum from './../../assets/theater.jpg';
 import Input from '../../UI/Input/Input';
@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import useToggleValue from './../../hooks/useToggleValue';
 import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
+import { register, resetError, setPassword } from '../../app/features/authSlice';
 
 const schema = yup
   .object()
@@ -27,9 +28,9 @@ const schema = yup
   .required();
 
 const SignUpPage = () => {
-//     const { isLoading, errorMessage } = useSelector((state) => state.auth);
-//   const dispatch = useDispatch();
-//   const navigate = useNavigate();
+  const { errorMessage } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const {
     handleSubmit,
@@ -40,14 +41,14 @@ const SignUpPage = () => {
     mode: "onSubmit",
   });
 
-//   const handleSignUp = (formValue) => {
-//     dispatch(setPassword(formValue?.password));
-//     dispatch(register({ formValue, navigate, toast }));
-//     if (errorMessage !== null) {
-//       toast.error(errorMessage);
-//     }
-//     dispatch(resetError());
-//   };
+  const handleSignUp = (formValue) => {
+    dispatch(setPassword(formValue?.password));
+    dispatch(register({ formValue, navigate, toast }));
+    if (errorMessage !== null) {
+      toast.error(errorMessage);
+    }
+    dispatch(resetError());
+  };
 
   const { value: showPassword, handleToggleValue: handleTogglePassword } =
     useToggleValue(false);
@@ -67,14 +68,19 @@ const SignUpPage = () => {
                 Sign Up
             </h3>
         </div>
-        <form className={classes.signin__form}>
+        <form className={classes.signin__form} onSubmit={handleSubmit(handleSignUp)} method="post">
             <div className={classes.signin__form_formgroup}>
                 <div>
-                    <input className={classes.signin__form__input}
-                    placeholder='Create Email'
-                    type="text"/>
+                    <Input
+                        control={control}
+                        name="email"
+                        type="email"
+                        placeholder="Create email"
+                        error={errors.email?.message}
+                        autoComplete="off"
+                    ></Input>
                 </div>
-                </div>
+            </div>
 
             <div className={classes.signin__form_formgroup}>
                 <div>
@@ -82,9 +88,8 @@ const SignUpPage = () => {
                     control={control}
                     name="password"
                     type={`${showPassword ? "text" : "password"}`}
-                    placeholder="Create Password"
+                    placeholder="Create a password"
                     error={errors.password?.message}
-                    className={classes.signin__form__input}
                 >
                     <IconEyeToggle
                         open={showPassword}
@@ -116,7 +121,7 @@ const SignUpPage = () => {
                         If you had an account? Sign In!
                     </span>
                 </NavLink>
-            <button className={classes.signin__form__button}>
+            <button className={classes.signin__form__button} type="submit">
                 Sign Up
             </button>
 
