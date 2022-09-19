@@ -1,1 +1,110 @@
 @import './../../style//variables.scss';
+
+.profile{
+    height: 100vh;
+    background-color: $dark;
+}
+.container{
+    left:50;
+    position: absolute;
+    display: flex;
+    width: 14rem;
+    min-width: 14rem;
+    margin-left: 25rem;
+    margin-top: 8rem;
+    border-radius: 0.2rem;
+    background-color: $white;
+
+}
+.avt{
+    height: auto;
+    width: 20rem;
+    display: inline-block;
+    justify-content: center;
+    justify-items: center;
+    text-align: center;
+    margin: 2rem;
+
+    &__img{
+        display: flex;
+        height: 10rem;
+        width: 10rem;
+        border-radius: 50%;
+    }
+
+    &__changebtn{
+        display: flex;
+        width: 10rem;
+        height: 2rem;
+        cursor: pointer;
+        font-size: medium;
+        justify-content: center;
+        font-weight: 600;
+        font-family: $lato;
+        border: 1px solid $orange;
+        border-radius: 0.5rem;
+        background-color: $orange;
+        margin-top: 1rem;
+        &:hover{
+            height: 2.2rem;
+            width: 10.2rem;
+        }
+    }
+}
+.formgroup{
+    background-color: $white;
+    border-radius: 2px;
+    width: 25rem;
+    min-width: 15rem;
+    float: right;
+    position: absolute;
+    top: 8rem;
+    right:30%;
+    padding: 1rem;
+    &__row{
+        padding: 1rem;
+        &__input{
+            display: flex;
+            width: 20rem;
+            height: 3rem;
+            font-size: medium;
+            justify-content: center;
+            font-family: $lato;
+            border: 1px solid $orange;
+            border-radius: 2px;
+            margin-top: 0.5rem;
+            
+        }
+        label{
+            font-weight: bolder;
+            font-size: large;
+        }
+    }
+    &__buttonsave{
+        width: 10rem;
+        display: flex;
+        position: absolute;
+        text-align: center;
+        cursor: pointer;
+        justify-content: center;
+        float: right;
+        margin-top: 7rem;
+        height: 2rem;
+        background-color: $orange;
+        border-radius: 2px;
+        border: 1px solid $white;
+        span{
+            font-size: large;
+            font-family: $lato;
+            justify-content: center;
+            justify-items: center;
+            text-align: center;
+            color: $white;
+            font-weight: 600;
+        }
+        &:hover{
+            height: 2.2rem;
+            width: 10.2rem;
+        }
+    }
+}

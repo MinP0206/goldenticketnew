@@ -9,4 +9,11 @@
         left: 63%;
         cursor: pointer;
     }
+    p{
+        position: relative;
+        display: flex;
+        justify-content: center;
+        padding-top: 0.2rem;
+        color: red;
+    }
 }

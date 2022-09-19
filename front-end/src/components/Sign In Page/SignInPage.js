@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import classes from './SignInPage.module.scss';
 import quantum from './../../assets/theater.jpg';
 import * as yup from "yup";
@@ -10,48 +10,47 @@ import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 import IconEyeToggle from '../../UI/Icons/IconEyeToggle';
 import Input from '../../UI/Input/Input';
+import { login, resetError, setPassword } from "./../../app/features/authSlice";
 
 const schema = yup
-    .object()
-    .shape({
-        email: yup
-            .string()
-            .required("Plase enter email")
-            .email("Please enter valid email"),
-        password: yup
-        .string()
-        .required("Plase enter password")
-        .email("Please enter valid password"),
-    })
-    .required();
-
+  .object()
+  .shape({
+    email: yup
+      .string()
+      .required("Vui lòng nhập email")
+      .email("Vui lòng nhập email hợp lệ"),
+    password: yup
+      .string()
+      .required("Vui lòng nhập mật khẩu")
+      .min(8, "Mật khẩu phải có độ dài tối đa 8 ký tự"),
+  })
+  .required();
 const SignInPage = () => {
-    const {
-        handleSubmit,
-        control,
-        formState: {errors},
-    } = useForm({
-        resolver: yupResolver(schema),
-        mode: "onSubmit",
-    });
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+    mode: "onSubmit",
+  });
+  const { isLoading, errorMessage } = useSelector((state) => state.auth);
 
-    // const { isLoading, errorMessage } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    // const dispatch = useDispatch();
-    // const navigate = useNavigate();
+  const handleSignIn = (formValue) => {
+    dispatch(setPassword(formValue?.password));
+    dispatch(login({ formValue, navigate, toast }));
+    console.log(formValue);
+    if (errorMessage !== null) {
+      toast.error(errorMessage);
+      dispatch(resetError());
+    }
+  };
 
-    // const handleSignIn = (formValue) => {
-    //     dispatch(setPassword(formValue?.password));
-    //     dispatch(login({ formValue, navigate, toast }));
-    //     if (errorMessage !== null) {
-    //       toast.error(errorMessage);
-    //       dispatch(resetError());
-    //     }
-    //   };
-
-    const { value: showPassword, handleToggleValue: handleTogglePassword } =
-        useToggleValue(false);
-
+  const { value: showPassword, handleToggleValue: handleTogglePassword } =
+    useToggleValue(false);
   return (
     <div className={classes.signin}>
         <img
@@ -68,7 +67,7 @@ const SignInPage = () => {
                 Sign In
             </h3>
         </div>
-        <form onSubmit={handleSubmit()} className={classes.signin__form}>
+        <form onSubmit={handleSubmit(handleSignIn)} className={classes.signin__form}>
             <div className={classes.signin__form_formgroup}>
                 <div>
                     <Input className={classes.signin__form__input}
@@ -104,7 +103,7 @@ const SignInPage = () => {
                         Haven't a account? Register now!
                     </span>
                 </NavLink>
-            <button className={classes.signin__form__button}>
+            <button className={classes.signin__form__button} type="submit">
                 Sign In
             </button>
 
