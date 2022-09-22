@@ -1,7 +1,5 @@
 package com.example.goldenticketnew.payload;
 
-import java.time.Instant;
-
 public class UserProfile {
     private Long id;
     private String username;

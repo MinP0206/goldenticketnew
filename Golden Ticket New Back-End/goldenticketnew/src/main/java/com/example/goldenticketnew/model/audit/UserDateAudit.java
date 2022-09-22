@@ -3,11 +3,12 @@ package com.example.goldenticketnew.model.audit;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.MappedSuperclass;
 
 
-@MappedSuperclass
+
+@Document
 @JsonIgnoreProperties(
         value = {"createdBy", "updatedBy"},
         allowGetters = true
