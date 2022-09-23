@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
-@Data
+
 @NoArgsConstructor
 @Document(collection = "roles")
 public class Role {
@@ -15,5 +15,11 @@ public class Role {
     @Indexed(unique = true)
     private RoleName role;
 
+    public RoleName getRole() {
+        return role;
+    }
 
+    public void setRole(RoleName role) {
+        this.role = role;
+    }
 }

@@ -4,7 +4,9 @@ import com.example.goldenmovieticketnew.models.User;
 import com.example.goldenmovieticketnew.payload.ApiResponse;
 import com.example.goldenmovieticketnew.payload.SignUpRequest;
 import com.example.goldenmovieticketnew.payload.UserProfile;
-import com.example.goldenmovieticketnew.services.User.UserService;
+import com.example.goldenmovieticketnew.services.User.IUserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,14 +17,16 @@ import java.util.List;
 @RestController
 @CrossOrigin("http://localhost:8080")
 @RequestMapping("/api")
+@Api(value = "User APIs")
 public class UserController {
     @Autowired
-    private UserService userService;
+    private IUserService userService;
     @GetMapping("/{email}")
     public ResponseEntity<User> getUserProfile(@PathVariable String email) {
 
         return new ResponseEntity<>(userService.getUser(email), HttpStatus.OK);
     }
+    @ApiOperation(value = "Xem danh sách User", response = List.class)
     @GetMapping("")
     public ResponseEntity<List<User>>  getAllUser() {
 

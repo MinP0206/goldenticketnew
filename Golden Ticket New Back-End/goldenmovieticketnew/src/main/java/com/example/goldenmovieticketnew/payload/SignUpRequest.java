@@ -3,20 +3,44 @@ package com.example.goldenmovieticketnew.payload;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+import java.util.Set;
 
 
 public class SignUpRequest {
 
-    private String fullname;
+    @NotBlank
+    @Size(min = 3, max = 20)
+    private String username;
 
-
-    private String image;
-
-
+    @NotBlank
+    @Size(max = 50)
+    @Email
     private String email;
 
+    private Set<String> roles;
 
+    @NotBlank
+    @Size(min = 6, max = 40)
     private String password;
+
+    private String image;
+    private String fullname;
+    public String getUsername() {
+        return username;
+    }
+
+
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public String getFullname() {
         return fullname;
@@ -26,12 +50,8 @@ public class SignUpRequest {
         this.fullname = fullname;
     }
 
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {
@@ -50,10 +70,13 @@ public class SignUpRequest {
         this.password = password;
     }
 
-    public SignUpRequest(String fullname, String image, String email, String password) {
-        this.fullname = fullname;
-        this.image = image;
-        this.email = email;
-        this.password = password;
+    public Set<String> getRoles() {
+        return this.roles;
     }
+
+    public void setRole(Set<String> roles) {
+        this.roles = roles;
+    }
+
+
 }

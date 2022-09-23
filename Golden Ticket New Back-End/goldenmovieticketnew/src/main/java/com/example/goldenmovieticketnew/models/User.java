@@ -78,16 +78,27 @@ public class User {
 
     @Indexed(unique = true, direction = IndexDirection.DESCENDING)
     private String email;
-
+    @Indexed(unique = true)
+    private String username;
     private String image;
     private String password;
     private String fullname;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     private boolean enabled;
     @DBRef
     private Set<Role> roles;
 
-    public User(String email, String image, String password, String fullname) {
+    public User(String email, String username, String image, String password, String fullname) {
         this.email = email;
+        this.username = username;
         this.image = image;
         this.password = password;
         this.fullname = fullname;

@@ -1,7 +1,7 @@
 package com.example.goldenticketnew.service.auth;
 
-import com.example.goldenticketnew.payload.LoginRequest;
-import com.example.goldenticketnew.payload.SignUpRequest;
+import com.example.goldenticketnew.security.payload.LoginRequest;
+import com.example.goldenticketnew.security.payload.SignUpRequest;
 import org.springframework.stereotype.Service;
 
 import java.net.URI;
