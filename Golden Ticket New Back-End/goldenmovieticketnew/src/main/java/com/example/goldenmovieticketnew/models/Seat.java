@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
-@Document(collection = "rooms")
+@Document(collection = "seats")
 @NoArgsConstructor
 public class Seat {
     @Id

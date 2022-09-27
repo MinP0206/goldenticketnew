@@ -1,4 +1,8 @@
 package com.example.goldenmovieticketnew.repositories;
 
-public class BillRepository {
+
+import com.example.goldenmovieticketnew.models.Bill;
+import org.springframework.data.mongodb.repository.MongoRepository;
+
+public interface BillRepository  extends MongoRepository<Bill, String> {
 }
