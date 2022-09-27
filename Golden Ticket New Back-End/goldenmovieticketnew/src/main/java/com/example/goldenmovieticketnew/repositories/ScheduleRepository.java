@@ -4,11 +4,12 @@ import com.example.goldenmovieticketnew.models.Schedule;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-
+@Repository
 public interface ScheduleRepository extends MongoRepository<Schedule, String> {
     @Query("{}")
     List<LocalTime> getStartTimeByMovie_IdAndBranch_IdAndStartDate(@Param("movieId") String movieId

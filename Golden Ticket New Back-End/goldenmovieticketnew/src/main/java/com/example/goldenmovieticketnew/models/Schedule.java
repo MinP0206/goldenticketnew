@@ -3,6 +3,7 @@ package com.example.goldenmovieticketnew.models;
 
 
 
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -10,12 +11,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-
+@NoArgsConstructor
 @Document(collection = "schedules")
 public class Schedule {
-    public Schedule(){
 
-    }
     @Id
     private String id;
 

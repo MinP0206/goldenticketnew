@@ -14,7 +14,9 @@ public class Movie {
     public String getId() {
         return id;
     }
+    public Movie(){
 
+    }
     public Movie(String name, String smallImageURl, String shortDescription, String longDescription, String largeImageURL, String director, String actors, String categories, LocalDate releaseDate, int duration, String trailerURL, String language, String rated, int isShowing) {
         this.name = name;
         this.smallImageURl = smallImageURl;
