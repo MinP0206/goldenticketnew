@@ -1,6 +1,7 @@
 package com.example.goldenmovieticketnew.services.Movie;
 
 import com.example.goldenmovieticketnew.dtos.MovieDto;
+import com.example.goldenmovieticketnew.models.Movie;
 import com.example.goldenmovieticketnew.repositories.MovieRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,12 @@ public class MovieService implements IMovieService{
     private ModelMapper modelMapper;
     @Override
     public List<MovieDto> findAllShowingMovies() {
+        List<Movie> movies= movieRepository.findMoviesByIsShowingOrderByIdDesc(1);
+        MovieDto moviesdto = new MovieDto();
+                moviesdto.setId("aa");
+
+                moviesdto= modelMapper.map(movies.get(0), MovieDto.class);
+
         return movieRepository.findMoviesByIsShowingOrderByIdDesc(1)
                 .stream()
                 .map(movie -> modelMapper.map(movie, MovieDto.class))

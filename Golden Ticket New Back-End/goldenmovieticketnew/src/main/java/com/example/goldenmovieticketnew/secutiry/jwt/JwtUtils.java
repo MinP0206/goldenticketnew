@@ -35,19 +35,30 @@ public class JwtUtils {
 //				.signWith(SignatureAlgorithm.HS512, jwtSecret)
 //				.compact();
 //	}
-	public String generateJwtToken(Authentication authentication) {
-		//The JWT signature algorithm we will be using to sign the token
-		SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
-		UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
-		byte[] apiKeySecretBytes = Base64.getDecoder().decode(jwtSecret);
-		Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
-		return Jwts.builder()
-				.setSubject((userPrincipal.getId()))
-				.setIssuedAt(new Date())
-				.setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
-				.signWith(signatureAlgorithm,signingKey)
-				.compact();
-	}
+public String generateJwtToken(Authentication authentication) {
+
+	UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
+
+	return Jwts.builder()
+			.setSubject((userPrincipal.getUsername()))
+			.setIssuedAt(new Date())
+			.setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
+			.signWith(SignatureAlgorithm.HS256, jwtSecret)
+			.compact();
+}
+//	public String generateJwtToken(Authentication authentication) {
+//		//The JWT signature algorithm we will be using to sign the token
+//		SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
+//		UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
+//		byte[] apiKeySecretBytes = Base64.getDecoder().decode(jwtSecret);
+//		Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
+//		return Jwts.builder()
+//				.setSubject((userPrincipal.getId()))
+//				.setIssuedAt(new Date())
+//				.setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
+//				.signWith(signatureAlgorithm,signingKey)
+//				.compact();
+//	}
 	public String getUserNameFromJwtToken(String token) {
 		return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
 	}

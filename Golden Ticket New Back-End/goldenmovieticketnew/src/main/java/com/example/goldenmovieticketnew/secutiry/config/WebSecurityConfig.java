@@ -1,5 +1,7 @@
 package com.example.goldenmovieticketnew.secutiry.config;
 
+
+import com.example.goldenmovieticketnew.models.RoleName;
 import com.example.goldenmovieticketnew.secutiry.UserDetailsServiceImpl;
 import com.example.goldenmovieticketnew.secutiry.jwt.AuthEntryPointJwt;
 import com.example.goldenmovieticketnew.secutiry.jwt.AuthTokenFilter;
@@ -40,7 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
 		authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 	}
-	
+
 //	@Bean
 //  public DaoAuthenticationProvider authenticationProvider() {
 //      DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -56,7 +58,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	public AuthenticationManager authenticationManagerBean() throws Exception {
 		return super.authenticationManagerBean();
 	}
-	
+
 //	@Bean
 //  public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
 //    return authConfig.getAuthenticationManager();
@@ -72,16 +74,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.cors().and().csrf().disable()
 			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-			.authorizeRequests().antMatchers("/api/auth/**").permitAll()
-			.antMatchers("/api/test/**").permitAll()
-				.antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources", "/configuration/security",
-						"/swagger-ui.html", "/webjars/**", "/swagger/**").permitAll()
+			.authorizeRequests()
+			.antMatchers("/api/user/**","api/movie/**").hasAnyAuthority(RoleName.ROLE_USER.name(),RoleName.ROLE_STAFF.name(),RoleName.ROLE_ADMIN.name())
+			.antMatchers("/api/auth/**").permitAll()
 
-			.anyRequest().authenticated();
+			.anyRequest().permitAll();
 
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
-	
+
 //	@Bean
 //  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 //    http.cors().and().csrf().disable()

@@ -36,7 +36,20 @@ dependencies {
 // https://mvnrepository.com/artifact/org.modelmapper/modelmapper
 	implementation 'org.modelmapper:modelmapper:2.4.4'
 
-	compileOnly("org.projectlombok:lombok:1.16.10")
+	// https://mvnrepository.com/artifact/org.projectlombok/lombok
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	//fix filter chain
+	// https://mvnrepository.com/artifact/com.sun.xml.bind/jaxb-impl
+	implementation 'com.sun.xml.bind:jaxb-impl:4.0.0'
+
+	// https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api
+	implementation 'javax.xml.bind:jaxb-api:2.3.1'
+	// https://mvnrepository.com/artifact/com.sun.xml.bind/jaxb-core
+	implementation 'com.sun.xml.bind:jaxb-core:4.0.0'
+
+
 }
 
 tasks.named('test') {
