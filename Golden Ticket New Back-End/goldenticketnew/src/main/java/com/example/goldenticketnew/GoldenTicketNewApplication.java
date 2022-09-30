@@ -3,16 +3,15 @@ package com.example.goldenticketnew;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
+
+import org.springframework.data.mongodb.config.EnableMongoAuditing;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 import javax.annotation.PostConstruct;
 import java.util.TimeZone;
 
 @SpringBootApplication
-@EntityScan(basePackageClasses = {
-		GoldenTicketNewApplication.class,
-		Jsr310JpaConverters.class
-})
+@EnableMongoAuditing
 public class GoldenTicketNewApplication {
 	@PostConstruct
 	void init() {

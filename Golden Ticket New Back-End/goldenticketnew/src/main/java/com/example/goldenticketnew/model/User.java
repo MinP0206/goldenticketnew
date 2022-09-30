@@ -2,55 +2,47 @@ package com.example.goldenticketnew.model;
 
 
 import com.example.goldenticketnew.model.audit.DateAudit;
-import org.hibernate.annotations.NaturalId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
-@Table(name = "users", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {
-            "username"
-        }),
-        @UniqueConstraint(columnNames = {
-            "email"
-        })
-})
+@Document(collection = "users")
+//@(name = "users", uniqueConstraints = {
+//        @UniqueConstraint(columnNames = {
+//            "username"
+//        }),
+//        @UniqueConstraint(columnNames = {
+//            "email"
+//        })
+//})
 public class User extends DateAudit {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
-    @Size(max = 40)
+
     private String name;
 
-    @NotBlank
-    @Size(max = 15)
+    @Indexed(unique = true)
     private String username;
 
-    @NaturalId
-    @NotBlank
-    @Size(max = 40)
-    @Email
+
+    @Indexed(unique = true)
     private String email;
 
-    @Size(max = 100)
+
     private String image;
 
-    @NotBlank
-    @Size(max = 100)
+
     private String password;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
+
+
+
     private Set<Role> roles = new HashSet<>();
+
 
     public User() {
 

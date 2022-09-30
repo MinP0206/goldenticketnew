@@ -1,21 +1,21 @@
 package com.example.goldenticketnew.model;
 
-import org.hibernate.annotations.NaturalId;
 
-import javax.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-@Table(name = "roles")
+import java.util.List;
+
+@Document(collection = "roles")
 public class Role {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
-    @NaturalId
-    @Column(length = 60)
-    private RoleName name;
 
+    private RoleName name;
+    @DBRef
+    private List<User> users;
     public Role() {
 
     }

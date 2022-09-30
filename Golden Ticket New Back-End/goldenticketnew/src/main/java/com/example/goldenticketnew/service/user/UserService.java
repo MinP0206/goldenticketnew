@@ -2,14 +2,13 @@ package com.example.goldenticketnew.service.user;
 
 
 import com.example.goldenticketnew.model.User;
-import com.example.goldenticketnew.payload.UserProfile;
-import com.example.goldenticketnew.payload.UserSummary;
+import com.example.goldenticketnew.security.payload.UserProfile;
+import com.example.goldenticketnew.security.payload.UserSummary;
 import com.example.goldenticketnew.security.UserPrincipal;
 import org.springframework.stereotype.Service;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public interface UserService {
