@@ -4,6 +4,7 @@ import com.example.goldenmovieticketnew.dtos.MovieDto;
 import com.example.goldenmovieticketnew.models.Movie;
 import com.example.goldenmovieticketnew.repositories.MovieRepository;
 import com.example.goldenmovieticketnew.services.Movie.MovieService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,7 @@ import java.util.List;
 @RestController
 @CrossOrigin("*")
 @RequestMapping(value="/api/movies", produces = "application/json")
+@Api(value = "Movie APIs")
 public class MovieController {
     @Autowired
     private MovieService movieService;

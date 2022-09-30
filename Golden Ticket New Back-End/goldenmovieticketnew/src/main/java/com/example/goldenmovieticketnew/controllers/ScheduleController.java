@@ -2,6 +2,7 @@ package com.example.goldenmovieticketnew.controllers;
 
 import com.example.goldenmovieticketnew.dtos.ScheduleDto;
 import com.example.goldenmovieticketnew.services.Schedule.ScheduleService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,6 +12,7 @@ import java.util.List;
 @CrossOrigin("*")
 @RestController
 @RequestMapping(value = "/api/schedule", produces = "application/json")
+@Api(value = "Schedule APIs")
 public class ScheduleController {
     @Autowired
     private ScheduleService scheduleService;
