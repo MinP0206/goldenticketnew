@@ -2,10 +2,10 @@ package com.example.goldenticketnew.controller;
 
 
 import com.example.goldenticketnew.model.User;
-import com.example.goldenticketnew.payload.ApiResponse;
-import com.example.goldenticketnew.payload.UserIdentityAvailability;
-import com.example.goldenticketnew.payload.UserProfile;
-import com.example.goldenticketnew.payload.UserSummary;
+import com.example.goldenticketnew.security.payload.ApiResponse;
+import com.example.goldenticketnew.security.payload.UserIdentityAvailability;
+import com.example.goldenticketnew.security.payload.UserProfile;
+import com.example.goldenticketnew.security.payload.UserSummary;
 import com.example.goldenticketnew.security.CurrentUser;
 import com.example.goldenticketnew.security.UserPrincipal;
 import com.example.goldenticketnew.service.user.UserService;

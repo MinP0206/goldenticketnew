@@ -1,10 +1,10 @@
 package com.example.goldenticketnew.controller;
 
 
-import com.example.goldenticketnew.payload.ApiResponse;
-import com.example.goldenticketnew.payload.JwtAuthenticationResponse;
-import com.example.goldenticketnew.payload.LoginRequest;
-import com.example.goldenticketnew.payload.SignUpRequest;
+import com.example.goldenticketnew.security.payload.ApiResponse;
+import com.example.goldenticketnew.security.payload.JwtAuthenticationResponse;
+import com.example.goldenticketnew.security.payload.LoginRequest;
+import com.example.goldenticketnew.security.payload.SignUpRequest;
 import com.example.goldenticketnew.service.auth.AuthService;
 import com.example.goldenticketnew.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

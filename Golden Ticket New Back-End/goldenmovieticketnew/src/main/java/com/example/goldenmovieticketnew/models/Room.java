@@ -13,6 +13,9 @@ public class Room {
     @Id
     private String id;
     private String name;
+
+
+
     private int capacity;
     private double totalArea;
 

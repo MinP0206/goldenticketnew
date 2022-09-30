@@ -1,19 +1,28 @@
 package com.example.goldenmovieticketnew.models;
 
+
+
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-
 @Data
 @NoArgsConstructor
-
+@Document(collection = "schedules")
 public class Schedule {
+
     @Id
-    private int id;
+    private String id;
+
+
+
+
+
     private LocalDate startDate;
     private LocalTime startTime;
     private double price;
@@ -26,3 +35,4 @@ public class Schedule {
     @DBRef
     private Room room;
 }
+
