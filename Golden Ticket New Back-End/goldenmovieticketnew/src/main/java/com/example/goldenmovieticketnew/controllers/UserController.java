@@ -21,6 +21,7 @@ import java.util.List;
 public class UserController {
     @Autowired
     private IUserService userService;
+    @ApiOperation(value = "Xem chi tiet user by email")
     @GetMapping("/{email}")
     public ResponseEntity<User> getUserProfile(@PathVariable String email) {
 
@@ -46,6 +47,7 @@ public class UserController {
 
         return new ApiResponse(false, "Please check the id");
     }
+    @ApiOperation(value = "Cap nhat chi tiet user")
     @PutMapping("")
     public ResponseEntity<?> updateInfoUser(@RequestBody UserProfile userProfile) {
         return new ResponseEntity<>(userService.updateUser(userProfile), HttpStatus.OK);

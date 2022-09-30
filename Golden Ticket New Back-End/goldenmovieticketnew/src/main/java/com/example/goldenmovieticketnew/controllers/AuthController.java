@@ -12,6 +12,7 @@ import com.example.goldenmovieticketnew.repositories.RoleRepository;
 import com.example.goldenmovieticketnew.repositories.UserRepository;
 import com.example.goldenmovieticketnew.secutiry.UserDetailsImpl;
 import com.example.goldenmovieticketnew.secutiry.jwt.JwtUtils;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -30,6 +31,7 @@ import java.util.stream.Collectors;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/auth")
+@Api(value = "Auth APIs")
 public class AuthController {
 	@Autowired
 	AuthenticationManager authenticationManager;
