@@ -14,7 +14,7 @@ import java.util.List;
 @CrossOrigin("*")
 @RestController
 @RequestMapping(value = "/api/schedule", produces = "application/json")
-@Tag(name = "Schedule Controller", description = "Thao tác với auth")
+@Tag(name = "Schedule Controller", description = "Thao tác với Schedule")
 public class ScheduleController {
     @Autowired
     private IScheduleService scheduleService;

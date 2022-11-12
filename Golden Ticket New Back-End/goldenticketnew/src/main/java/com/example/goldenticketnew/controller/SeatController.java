@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/api/seats")
-@Tag(name = "Seat Controller", description = "Thao tác với auth")
+@Tag(name = "Seat Controller", description = "Thao tác với Seat")
 public class SeatController {
     @Autowired
     private ISeatService seatService;

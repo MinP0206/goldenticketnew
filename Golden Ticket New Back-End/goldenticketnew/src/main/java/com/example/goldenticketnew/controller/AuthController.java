@@ -1,8 +1,8 @@
 package com.example.goldenticketnew.controller;
 
 
-import com.example.goldenticketnew.payload.ApiResponse;
-import com.example.goldenticketnew.payload.JwtAuthenticationResponse;
+import com.example.goldenticketnew.payload.response.ApiResponse;
+import com.example.goldenticketnew.payload.response.JwtAuthenticationResponse;
 import com.example.goldenticketnew.payload.LoginRequest;
 import com.example.goldenticketnew.payload.SignUpRequest;
 import com.example.goldenticketnew.service.auth.IAuthService;

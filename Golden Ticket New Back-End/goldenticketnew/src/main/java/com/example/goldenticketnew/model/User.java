@@ -2,6 +2,7 @@ package com.example.goldenticketnew.model;
 
 
 import com.example.goldenticketnew.model.audit.DateAudit;
+import com.example.goldenticketnew.model.audit.UserDateAudit;
 import lombok.Data;
 import org.hibernate.annotations.NaturalId;
 

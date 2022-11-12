@@ -4,6 +4,7 @@ package com.example.goldenticketnew.controller;
 import com.example.goldenticketnew.model.User;
 import com.example.goldenticketnew.payload.*;
 
+import com.example.goldenticketnew.payload.response.ApiResponse;
 import com.example.goldenticketnew.security.CurrentUser;
 import com.example.goldenticketnew.security.UserPrincipal;
 import com.example.goldenticketnew.service.user.IUserService;
@@ -22,7 +23,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-@Tag(name = "User Controller", description = "Thao tác với auth")
+@Tag(name = "User Controller", description = "Thao tác với User")
 public class UserController {
 
 
@@ -30,8 +31,6 @@ public class UserController {
     @Autowired
     private IUserService IUserService;
 
-    //private static final Logger logger = LoggerFactory.getLogger(UserController.class);
-//    @ApiOperation(value = "Get user dang lam viec hien tai")
     @GetMapping("/user/me")
     @PreAuthorize("hasRole('USER')")
     public UserSummary getCurrentUser(@CurrentUser UserPrincipal currentUser) {
@@ -80,4 +79,5 @@ public class UserController {
 
         return new ApiResponse(false, "Please check the id");
     }
+
 }

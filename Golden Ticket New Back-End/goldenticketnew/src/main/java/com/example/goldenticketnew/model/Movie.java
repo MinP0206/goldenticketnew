@@ -1,5 +1,6 @@
 package com.example.goldenticketnew.model;
 
+import com.example.goldenticketnew.model.audit.UserDateAudit;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,7 +12,7 @@ import java.time.LocalDate;
 @Table(name = "movie")
 @Entity
 @NoArgsConstructor
-public class Movie {
+public class Movie extends UserDateAudit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

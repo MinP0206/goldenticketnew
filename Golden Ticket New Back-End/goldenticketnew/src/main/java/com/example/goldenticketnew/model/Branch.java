@@ -16,6 +16,6 @@ public class Branch {
     @Column(length = 2000)
     private String imgURL;
     private String name;
-    private String diaChi;
+    private String address;
     private String phoneNo;
 }

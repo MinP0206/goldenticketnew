@@ -1,4 +1,4 @@
-package com.example.goldenticketnew.payload;
+package com.example.goldenticketnew.payload.response;
 
 public class JwtAuthenticationResponse {
     private String accessToken;

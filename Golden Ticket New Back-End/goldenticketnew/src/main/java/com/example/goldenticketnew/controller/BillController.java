@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/api/bills")
-@Tag(name = "Bill Controller", description = "Thao tác với auth")
+@Tag(name = "Bill Controller", description = "Thao tác với hóa đơn")
 public class BillController {
     @Autowired
     private IBillService billService;

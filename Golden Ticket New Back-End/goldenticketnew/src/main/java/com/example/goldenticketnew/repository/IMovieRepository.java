@@ -1,6 +1,7 @@
 package com.example.goldenticketnew.repository;
 
 import com.example.goldenticketnew.model.Movie;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
