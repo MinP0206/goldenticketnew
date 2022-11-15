@@ -3,6 +3,7 @@ package com.example.goldenticketnew.model;
 import com.example.goldenticketnew.model.audit.UserDateAudit;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldNameConstants;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 @Table(name = "movie")
 @Entity
 @NoArgsConstructor
+@FieldNameConstants
 public class Movie extends UserDateAudit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
