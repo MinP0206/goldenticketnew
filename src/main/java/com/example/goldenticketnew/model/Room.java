@@ -2,6 +2,7 @@ package com.example.goldenticketnew.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldNameConstants;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -11,6 +12,7 @@ import javax.persistence.*;
 @Table(name = "room")
 @Entity
 @NoArgsConstructor
+@FieldNameConstants
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

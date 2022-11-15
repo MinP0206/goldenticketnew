@@ -2,6 +2,7 @@ package com.example.goldenticketnew.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldNameConstants;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -13,6 +14,7 @@ import java.time.LocalTime;
 @Table(name = "schedule")
 @Entity
 @NoArgsConstructor
+@FieldNameConstants
 public class Schedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
