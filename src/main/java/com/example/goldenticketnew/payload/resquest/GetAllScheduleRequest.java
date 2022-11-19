@@ -35,7 +35,7 @@ public class GetAllScheduleRequest {
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
             if (movieId != null) {
-                Join<Movie, Schedule> join = root.join("schedule", JoinType.INNER);
+                Join<Movie, Schedule> join = root.join("movie", JoinType.INNER);
                 predicates.add(cb.equal(join.get(Movie.Fields.id), movieId));
             }
             if (branchId!= null) {
