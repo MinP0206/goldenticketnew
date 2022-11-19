@@ -36,7 +36,6 @@ public class UserController {
         description = "- Get thông tin user hiện tại toàn bộ user"
     )
     @GetMapping("/user/me")
-    @PreAuthorize("hasRole('USER')")
     public UserSummary getCurrentUser(@CurrentUser UserPrincipal currentUser) {
         return userService.getCurrentUser(currentUser);
     }

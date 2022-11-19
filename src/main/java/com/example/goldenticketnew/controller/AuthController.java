@@ -11,10 +11,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -47,4 +44,17 @@ public class AuthController {
         }
         return ResponseEntity.created(IAuthService.registerUser(signUpRequest)).body(new ApiResponse(true, "User registered successfully"));
     }
+
+//    @PutMapping("/changePassword")
+//    public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
+//        if (IUserService.existsByUsername(signUpRequest.getUsername())) {
+//            return new ResponseEntity(new ApiResponse(false, "Username is already taken!"),
+//                HttpStatus.BAD_REQUEST);
+//        }
+//        if (IUserService.existsByEmail(signUpRequest.getEmail())) {
+//            return new ResponseEntity(new ApiResponse(false, "Email Address already in use!"),
+//                HttpStatus.BAD_REQUEST);
+//        }
+//        return ResponseEntity.created(IAuthService.registerUser(signUpRequest)).body(new ApiResponse(true, "User registered successfully"));
+//    }
 }
