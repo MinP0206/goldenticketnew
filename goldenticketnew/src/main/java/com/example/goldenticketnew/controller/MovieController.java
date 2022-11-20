@@ -4,11 +4,16 @@ package com.example.goldenticketnew.controller;
 import com.example.goldenticketnew.dtos.MovieDto;
 import com.example.goldenticketnew.model.Movie;
 import com.example.goldenticketnew.payload.response.ApiResponse;
+import com.example.goldenticketnew.payload.response.PageResponse;
+import com.example.goldenticketnew.payload.resquest.GetAllMovieRequest;
 import com.example.goldenticketnew.repository.IMovieRepository;
 import com.example.goldenticketnew.service.movie.IMovieService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,9 +28,6 @@ import java.util.List;
 public class MovieController {
     @Autowired
     private IMovieService movieService;
-
-    @Autowired
-    private IMovieRepository IMovieRepository;
 
     @GetMapping("/showing")
     public ResponseEntity<List<MovieDto>> findAllShowingMovies(){
@@ -53,11 +55,17 @@ public class MovieController {
 
     @DeleteMapping("/{movieId}")
     public ApiResponse deleteMovie(@Valid @PathVariable Integer movieId) {
-
         if(movieService.deleteMovieById(movieId))
             return new ApiResponse(true, "Delete Movie Successfully");
-
-
         return new ApiResponse(false, "Please check the id");
+    }
+    @Operation(
+        summary = "Get All Movie với filter ",
+        description = "- Get All Movie với filter"
+    )
+    @GetMapping("/getAll")
+    public ResponseEntity<PageResponse<MovieDto>> findAllShowingMovies(@ParameterObject Pageable pageable, @ParameterObject GetAllMovieRequest request){
+        request.setPageable(pageable);
+        return new ResponseEntity<>(movieService.getAllMovie(request), HttpStatus.OK);
     }
 }

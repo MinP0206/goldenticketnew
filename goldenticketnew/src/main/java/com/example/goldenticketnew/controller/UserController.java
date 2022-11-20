@@ -10,6 +10,7 @@ import com.example.goldenticketnew.security.UserPrincipal;
 import com.example.goldenticketnew.service.user.IUserService;
 
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,56 +28,70 @@ import java.util.List;
 public class UserController {
 
 
-
     @Autowired
-    private IUserService IUserService;
+    private IUserService userService;
 
+    @Operation(
+        summary = "Get thông tin user hiện tại",
+        description = "- Get thông tin user hiện tại toàn bộ user"
+    )
     @GetMapping("/user/me")
-    @PreAuthorize("hasRole('USER')")
     public UserSummary getCurrentUser(@CurrentUser UserPrincipal currentUser) {
-        return IUserService.getCurrentUser(currentUser);
+        return userService.getCurrentUser(currentUser);
     }
-//    @ApiOperation(value = "Get all")
+
+    @Operation(
+        summary = "Get toàn bộ user",
+        description = "- Get toàn bộ user"
+    )
     @GetMapping("/user/getAll")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<List<User>> getAllUser(){
-        return  new ResponseEntity<>(IUserService.getAllUser(), HttpStatus.NOT_FOUND);
+    public ResponseEntity<List<User>> getAllUser() {
+        return new ResponseEntity<>(userService.getAllUser(), HttpStatus.NOT_FOUND);
     }
+
     @GetMapping("/user/checkUsernameAvailability")
     public UserIdentityAvailability checkUsernameAvailability(@RequestParam(value = "username") String username) {
 
-        return new UserIdentityAvailability(!IUserService.existsByUsername(username));
+        return new UserIdentityAvailability(!userService.existsByUsername(username));
     }
 
     @GetMapping("/user/checkEmailAvailability")
     public UserIdentityAvailability checkEmailAvailability(@RequestParam(value = "email") String email) {
 
-        return new UserIdentityAvailability(!IUserService.existsByEmail(email));
+        return new UserIdentityAvailability(!userService.existsByEmail(email));
     }
-//    @ApiOperation(value = "Get chi tiet user")
+
+    @Operation(
+        summary = "Get chi tiết user by username",
+        description = "- Get chi tiết user"
+    )
     @GetMapping("/users/{username}")
     public UserProfile getUserProfile(@PathVariable(value = "username") String username) {
 
-        return IUserService.getUserProfile(username);
+        return userService.getUserProfile(username);
     }
-//    @ApiOperation(value = "update user")
+
     //Edit user
-    @PreAuthorize("hasRole('ADMIN')")
+    @Operation(
+        summary = "Chỉnh sửa thông tin User",
+        description = "- Chỉnh sửa thông tin UserXóa một User"
+    )
     @PostMapping("/user/updateInfo")
     public ResponseEntity<?> updateInfoUser(@Valid @RequestBody UserProfile userProfile) {
 
-        return ResponseEntity.created(IUserService.updateInfoUser(userProfile)).body(new ApiResponse(true, "User changed successfully"));
+        return ResponseEntity.created(userService.updateInfoUser(userProfile)).body(new ApiResponse(true, "User changed successfully"));
     }
-//    @ApiOperation(value = "delete user")
-    //Delete user
+
+    @Operation(
+        summary = "Xóa một User",
+        description = "- Xóa một User"
+    )
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/user/{id}")
-    public ApiResponse DeleteUser(@Valid @PathVariable Long id) {
-
-        if(IUserService.deleteUserById(id))
+    public ApiResponse deleteUser(@Valid @PathVariable Long id) {
+        if (userService.deleteUserById(id))
             return new ApiResponse(true, "Delete User Successfully");
-
-
         return new ApiResponse(false, "Please check the id");
     }
 

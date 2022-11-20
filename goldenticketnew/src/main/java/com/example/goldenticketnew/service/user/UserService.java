@@ -6,6 +6,7 @@ import com.example.goldenticketnew.model.Role;
 import com.example.goldenticketnew.model.User;
 import com.example.goldenticketnew.payload.UserProfile;
 import com.example.goldenticketnew.payload.UserSummary;
+import com.example.goldenticketnew.repository.IRoleRepository;
 import com.example.goldenticketnew.repository.UserRepository;
 import com.example.goldenticketnew.security.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,21 +23,22 @@ public class UserService implements IUserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private IRoleRepository roleRepository;
 
     @Override
-    public List<User> getAllUser(){
-        userRepository.findAll();
-        int check =0;
-        List <User> notAdmin =  userRepository.findAll();
-        for (int i=notAdmin.size()-1;i>=0;i--) {
+    public List<User> getAllUser() {
+        int check = 0;
+        List<User> notAdmin = userRepository.findAll();
+        for (int i = notAdmin.size() - 1; i >= 0; i--) {
             for (Role element : notAdmin.get(i).getRoles()) {
-               if(element.getId()==2){
-                    check =1;
-               }
+                if (element.getId() == 2) {
+                    check = 1;
+                }
             }
-            if(check ==1) {
+            if (check == 1) {
                 notAdmin.remove(i);
-                check =0;
+                check = 0;
             }
 
         }
@@ -46,18 +48,15 @@ public class UserService implements IUserService {
 
     @Override
     public UserSummary getCurrentUser(UserPrincipal currentUser) {
-        return  new UserSummary(currentUser.getId(), currentUser.getUsername(), currentUser.getName());
+        return new UserSummary(currentUser.getId(), currentUser.getUsername(), currentUser.getName());
     }
 
     @Override
     public UserProfile getUserProfile(String username) {
         User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new ResourceNotFoundException("User", "username", username));
-
-        UserProfile userProfile = new UserProfile(user.getId(), user.getUsername(), user.getName(), user.getEmail(),user.getImage());
-
+            .orElseThrow(() -> new ResourceNotFoundException("User", "username", username));
+        UserProfile userProfile = new UserProfile(user.getId(), user.getUsername(), user.getName(), user.getEmail(), user.getImage());
         return userProfile;
-
     }
 
     @Override
@@ -76,7 +75,7 @@ public class UserService implements IUserService {
 
         Optional<User> oldUser = userRepository.findByUsername(userProfile.getUsername());
 
-        if(oldUser.isEmpty()){
+        if (oldUser.isEmpty()) {
             throw new UsernameNotFoundException("Please login to continue  ");
         }
         oldUser.get().setName(userProfile.getName());
@@ -86,14 +85,14 @@ public class UserService implements IUserService {
 
         //return URI
         return ServletUriComponentsBuilder
-                .fromCurrentContextPath().path("/users/{username}")
-                .buildAndExpand(oldUser.get().getUsername()).toUri();
+            .fromCurrentContextPath().path("/users/{username}")
+            .buildAndExpand(oldUser.get().getUsername()).toUri();
 
     }
 
     @Override
-    public Boolean deleteUserById(Long id ) {
-        if(userRepository.existsById(id)){
+    public Boolean deleteUserById(Long id) {
+        if (userRepository.existsById(id)) {
             userRepository.deleteById(id);
 
             return true;

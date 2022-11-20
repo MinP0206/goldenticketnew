@@ -1,5 +1,6 @@
 package com.example.goldenticketnew.dtos;
 
+import com.example.goldenticketnew.model.Room;
 import lombok.Data;
 
 @Data
@@ -8,6 +9,16 @@ public class RoomDto {
     private String name;
     private int capacity;
     private double totalArea;
+
+    public RoomDto(Room room) {
+        this.id = room.getId();
+        this.name = room.getName();
+        this.capacity = room.getCapacity();
+        this.totalArea = room.getTotalArea();
+        this.imgURL = room.getImgURL();
+        this.branch = new BranchDto(room.getBranch());
+    }
+
     private String imgURL;
     private BranchDto branch;
 }

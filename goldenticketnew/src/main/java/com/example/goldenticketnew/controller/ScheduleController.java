@@ -1,11 +1,17 @@
 package com.example.goldenticketnew.controller;
 
-
 import com.example.goldenticketnew.dtos.ScheduleDto;
+import com.example.goldenticketnew.payload.response.PageResponse;
+import com.example.goldenticketnew.payload.resquest.GetAllScheduleRequest;
 import com.example.goldenticketnew.service.schedule.IScheduleService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -31,4 +37,14 @@ public class ScheduleController {
                                           @RequestParam Integer roomId){
         return scheduleService.getSchedules(movieId,branchId,startDate,startTime,roomId);
     }
+    @Operation(
+        summary = "Get All Schedule với filter ",
+        description = "- Get All Schedule với filter"
+    )
+    @GetMapping("/getAll")
+    public ResponseEntity<PageResponse<ScheduleDto>> getSchedules(@ParameterObject Pageable pageable, @ParameterObject GetAllScheduleRequest request ){
+        request.setPageable(pageable);
+        return new ResponseEntity<>(scheduleService.getAllSchedule(request), HttpStatus.OK);
+    }
+
 }

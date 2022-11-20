@@ -4,8 +4,8 @@ import com.example.goldenticketnew.exception.AppException;
 import com.example.goldenticketnew.model.Role;
 import com.example.goldenticketnew.model.RoleName;
 import com.example.goldenticketnew.model.User;
-import com.example.goldenticketnew.payload.LoginRequest;
-import com.example.goldenticketnew.payload.SignUpRequest;
+import com.example.goldenticketnew.payload.resquest.LoginRequest;
+import com.example.goldenticketnew.payload.resquest.SignUpRequest;
 import com.example.goldenticketnew.repository.IRoleRepository;
 import com.example.goldenticketnew.repository.UserRepository;
 import com.example.goldenticketnew.security.JwtTokenProvider;
@@ -31,18 +31,19 @@ public class AuthService implements IAuthService {
     PasswordEncoder passwordEncoder;
 
     @Autowired
-    IRoleRepository IRoleRepository;
+    IRoleRepository roleRepository;
 
     @Autowired
     UserRepository userRepository;
+
     @Override
     public String authenticateUser(LoginRequest loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        loginRequest.getUsernameOrEmail(),
-                        loginRequest.getPassword()
-                )
+            new UsernamePasswordAuthenticationToken(
+                loginRequest.getUsernameOrEmail(),
+                loginRequest.getPassword()
+            )
         );
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -54,12 +55,12 @@ public class AuthService implements IAuthService {
     public URI registerUser(SignUpRequest signUpRequest) {
         // Creating user's account
         User user = new User(signUpRequest.getName(), signUpRequest.getUsername(),
-                signUpRequest.getEmail(), signUpRequest.getPassword());
+            signUpRequest.getEmail(), signUpRequest.getPassword());
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        Role userRole = IRoleRepository.findByName(RoleName.ROLE_USER)
-                .orElseThrow(() -> new AppException("User Role not set."));
+        Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
+            .orElseThrow(() -> new AppException("User Role not set."));
 
         user.setRoles(Collections.singleton(userRole));
 
@@ -67,7 +68,7 @@ public class AuthService implements IAuthService {
 
         //return URI
         return ServletUriComponentsBuilder
-                .fromCurrentContextPath().path("/users/{username}")
-                .buildAndExpand(result.getUsername()).toUri();
+            .fromCurrentContextPath().path("/users/{username}")
+            .buildAndExpand(result.getUsername()).toUri();
     }
 }

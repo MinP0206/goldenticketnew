@@ -88,7 +88,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/api/user/checkUsernameAvailability","/swagger-ui.html", "/swagger-ui/**", "/api/user/checkEmailAvailability")
                         .permitAll()
                     .antMatchers(HttpMethod.GET, "/api/polls/**","/api/users/**")
-                        .hasRole("ADMIN")
+                        .permitAll()
                     .anyRequest()
                         .permitAll();
 
