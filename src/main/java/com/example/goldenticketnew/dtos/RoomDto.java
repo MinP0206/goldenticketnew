@@ -1,6 +1,7 @@
 package com.example.goldenticketnew.dtos;
 
 import com.example.goldenticketnew.model.Room;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 @Data
@@ -20,5 +21,6 @@ public class RoomDto {
     }
 
     private String imgURL;
+    @JsonIgnore
     private BranchDto branch;
 }
