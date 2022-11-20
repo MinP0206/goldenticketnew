@@ -19,7 +19,7 @@ public class TicketController {
     private ITicketService ticketService;
 
     @GetMapping
-    public List<TicketDto> getTicketsByUserId(@RequestParam Integer userId){
+    public List<TicketDto> getTicketsByUserId(@RequestParam Long userId){
         return ticketService.getTicketsByUserId(userId);
     }
 }
