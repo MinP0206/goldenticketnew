@@ -1,10 +1,11 @@
 package com.example.goldenticketnew.service.auth;
 
+import com.example.goldenticketnew.enums.ResponseCode;
 import com.example.goldenticketnew.exception.AppException;
+import com.example.goldenticketnew.exception.InternalException;
 import com.example.goldenticketnew.model.Role;
 import com.example.goldenticketnew.model.RoleName;
 import com.example.goldenticketnew.model.User;
-import com.example.goldenticketnew.payload.resquest.ChangePasswordRequest;
 import com.example.goldenticketnew.payload.resquest.LoginRequest;
 import com.example.goldenticketnew.payload.resquest.SignUpRequest;
 import com.example.goldenticketnew.repository.IRoleRepository;
@@ -76,7 +77,7 @@ public class AuthService implements IAuthService {
 
     @Override
     public Boolean changePassword(UserPrincipal currentUser, String newPassword) {
-        User user = userRepository.findById(currentUser.getId()).orElseThrow(() -> new AppException("User not found."));
+        User user = userRepository.findById(currentUser.getId()).orElseThrow(() -> new InternalException(ResponseCode.FAILED));
         if(passwordEncoder.encode(newPassword).equals(user.getPassword())){
             throw new AppException(
                 "Password must not be the same as the old password");

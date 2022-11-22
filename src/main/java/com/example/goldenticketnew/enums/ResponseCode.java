@@ -5,8 +5,6 @@ public enum ResponseCode {
     FAILED(1, "Failed"),
     COMMON_ERROR(2, "Common Error");
 
-
-
     private final int code;
     private final String message;
 

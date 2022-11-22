@@ -1,6 +1,7 @@
 package com.example.goldenticketnew.exception;
 
-import vn.unicloud.paygate.enums.ResponseCode;
+
+import com.example.goldenticketnew.enums.ResponseCode;
 
 public class InternalException extends RuntimeException {
 
