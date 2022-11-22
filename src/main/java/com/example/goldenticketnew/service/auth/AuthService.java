@@ -1,6 +1,8 @@
 package com.example.goldenticketnew.service.auth;
 
+import com.example.goldenticketnew.enums.ResponseCode;
 import com.example.goldenticketnew.exception.AppException;
+import com.example.goldenticketnew.exception.InternalException;
 import com.example.goldenticketnew.model.Role;
 import com.example.goldenticketnew.model.RoleName;
 import com.example.goldenticketnew.model.User;
@@ -9,6 +11,7 @@ import com.example.goldenticketnew.payload.resquest.SignUpRequest;
 import com.example.goldenticketnew.repository.IRoleRepository;
 import com.example.goldenticketnew.repository.UserRepository;
 import com.example.goldenticketnew.security.JwtTokenProvider;
+import com.example.goldenticketnew.security.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -52,14 +55,14 @@ public class AuthService implements IAuthService {
     }
 
     @Override
-    public URI registerUser(SignUpRequest signUpRequest) {
+    public URI registerUser(SignUpRequest signUpRequest, RoleName roleName) {
         // Creating user's account
         User user = new User(signUpRequest.getName(), signUpRequest.getUsername(),
             signUpRequest.getEmail(), signUpRequest.getPassword());
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
+        Role userRole = roleRepository.findByName(roleName)
             .orElseThrow(() -> new AppException("User Role not set."));
 
         user.setRoles(Collections.singleton(userRole));
@@ -71,4 +74,17 @@ public class AuthService implements IAuthService {
             .fromCurrentContextPath().path("/users/{username}")
             .buildAndExpand(result.getUsername()).toUri();
     }
+
+    @Override
+    public Boolean changePassword(UserPrincipal currentUser, String newPassword) {
+        User user = userRepository.findById(currentUser.getId()).orElseThrow(() -> new InternalException(ResponseCode.FAILED));
+        if(passwordEncoder.encode(newPassword).equals(user.getPassword())){
+            throw new AppException(
+                "Password must not be the same as the old password");
+        }
+        user.setPassword(passwordEncoder.encode(newPassword));
+        return true;
+    }
+
+
 }
