@@ -1,9 +1,10 @@
 package com.example.goldenticketnew.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+
+
 
 import javax.persistence.*;
 
@@ -21,9 +22,9 @@ public class Content {
     private String description;
 
     private String image;
-//
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(nullable = false,name = "article_id")
-//    @OnDelete(action = OnDeleteAction.CASCADE)
-//    private Article article;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "article_id", referencedColumnName = "id")
+    @JsonIgnore
+    private Article article;
 }
