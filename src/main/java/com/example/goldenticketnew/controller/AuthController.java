@@ -62,8 +62,8 @@ public class AuthController {
         return ResponseEntity.created(authService.registerUser(signUpRequest, RoleName.ROLE_STAFF)).body(new ApiResponse(true, "User registered successfully"));
     }
     @PutMapping("/changePassword")
-    public ResponseEntity<?> changePassword(@CurrentUser UserPrincipal currentUser , @Valid @RequestParam String newPassword) {
-        if(authService.changePassword(currentUser,newPassword))
+    public ResponseEntity<?> changePassword(@CurrentUser UserPrincipal currentUser , @Valid @RequestParam String newPassword, @Valid @RequestParam String oldPassword) {
+        if(authService.changePassword(currentUser,newPassword,oldPassword))
             return new ResponseEntity(new ApiResponse(true, "Success! New password can be use right now!") , HttpStatus.OK);
         return new ResponseEntity(new ApiResponse(false, "Fail to change password!"),  HttpStatus.INTERNAL_SERVER_ERROR);
     }

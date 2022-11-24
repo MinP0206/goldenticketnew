@@ -3,6 +3,7 @@ package com.example.goldenticketnew.model;
 
 import com.example.goldenticketnew.model.audit.DateAudit;
 import com.example.goldenticketnew.model.audit.UserDateAudit;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.hibernate.annotations.NaturalId;
 
@@ -25,7 +26,7 @@ import java.util.Set;
 public class User extends DateAudit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     @NotBlank
     @Size(max = 40)
@@ -41,9 +42,10 @@ public class User extends DateAudit {
     @Email
     private String email;
 
-    @Size(max = 100)
+    @Size(max = 1000)
     private String image;
 
+    @JsonIgnore
     @NotBlank
     @Size(max = 100)
     private String password;

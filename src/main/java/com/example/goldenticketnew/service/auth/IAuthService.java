@@ -14,6 +14,6 @@ public interface IAuthService {
     String authenticateUser(LoginRequest loginRequest);
     URI registerUser(SignUpRequest signUpRequest, RoleName roleName);
 
-    Boolean changePassword(UserPrincipal currentUser, String newPassword);
+    Boolean changePassword(UserPrincipal currentUser, String newPassword, String oldPassword);
 
 }
