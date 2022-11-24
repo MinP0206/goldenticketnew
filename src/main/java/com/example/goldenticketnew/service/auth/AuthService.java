@@ -76,13 +76,27 @@ public class AuthService implements IAuthService {
     }
 
     @Override
-    public Boolean changePassword(UserPrincipal currentUser, String newPassword) {
+    public Boolean changePassword(UserPrincipal currentUser, String newPassword, String oldPassword) {
         User user = userRepository.findById(currentUser.getId()).orElseThrow(() -> new InternalException(ResponseCode.FAILED));
-        if(passwordEncoder.encode(newPassword).equals(user.getPassword())){
+        Authentication authentication = authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(
+                user.getUsername(),
+                oldPassword
+            )
+        );
+
+        String a = passwordEncoder.encode(newPassword);
+        String b = user.getPassword();
+        if(!authentication.isAuthenticated()){
+            throw new AppException(
+                "Password invalid");
+        }
+        if(oldPassword.equals(newPassword)){
             throw new AppException(
                 "Password must not be the same as the old password");
         }
         user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
         return true;
     }
 

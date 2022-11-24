@@ -16,5 +16,6 @@ public class UserProfile extends DateAudit {
     private String email;
     private String name;
     private String image;
+    private String role;
 
 }
