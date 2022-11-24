@@ -26,24 +26,23 @@ public class MovieService implements IMovieService {
     @Override
     public MovieDto addNewMovie(Movie movie) {
         Movie movieNew = movieRepository.save(movie);
-        return modelMapper.map(movieNew,MovieDto.class);
+        return modelMapper.map(movieNew, MovieDto.class);
     }
 
     @Override
     public MovieDto updateMovie(Movie movie) {
-        if(movieRepository.getById(movie.getId()) != null) {
+        if (movieRepository.getById(movie.getId()) != null) {
             Movie movieNew = movieRepository.save(movie);
             return modelMapper.map(movieNew, MovieDto.class);
-        }
-        else return new MovieDto();
+        } else return new MovieDto();
     }
 
     @Override
     public List<MovieDto> findAllShowingMovies() {
         return movieRepository.findMoviesByIsShowingOrderByIdDesc(1)
-                .stream()
-                .map(movie -> modelMapper.map(movie, MovieDto.class))
-                .collect(Collectors.toList());
+            .stream()
+            .map(movie -> modelMapper.map(movie, MovieDto.class))
+            .collect(Collectors.toList());
     }
 
     @Override
@@ -53,17 +52,17 @@ public class MovieService implements IMovieService {
 
     @Override
     public List<MovieDto> findAllShowingMoviesByName(String keyword) {
-        return movieRepository.findMoviesByIsShowingAndNameContaining(1,keyword)
-                .stream().map(movie -> modelMapper.map(movie, MovieDto.class))
-                .collect(Collectors.toList());
+        return movieRepository.findMoviesByIsShowingAndNameContaining(1, keyword)
+            .stream().map(movie -> modelMapper.map(movie, MovieDto.class))
+            .collect(Collectors.toList());
     }
 
     @Override
     public Boolean deleteMovieById(Integer movieId) {
-        try{
+        try {
             movieRepository.deleteById(movieId);
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
 
@@ -71,7 +70,7 @@ public class MovieService implements IMovieService {
 
     @Override
     public PageResponse<MovieDto> getAllMovie(GetAllMovieRequest request) {
-        Page<Movie> moviePage = movieRepository.findAll(request.getSpecification(),request.getPageable());
+        Page<Movie> moviePage = movieRepository.findAll(request.getSpecification(), request.getPageable());
         return new PageResponse<>(moviePage.map(MovieDto::new));
     }
 }

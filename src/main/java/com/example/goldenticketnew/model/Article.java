@@ -30,5 +30,4 @@ public class Article {
     List<Content> contents;
 
 
-
 }
