@@ -41,17 +41,21 @@ public class AuthService implements IAuthService {
 
     @Override
     public String authenticateUser(LoginRequest loginRequest) {
+        try{
+            Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                    loginRequest.getUsernameOrEmail(),
+                    loginRequest.getPassword()
+                )
+            );
 
-        Authentication authentication = authenticationManager.authenticate(
-            new UsernamePasswordAuthenticationToken(
-                loginRequest.getUsernameOrEmail(),
-                loginRequest.getPassword()
-            )
-        );
+            SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+            return tokenProvider.generateToken(authentication); //jwt
+        } catch (Exception e){
+            throw new InternalException(ResponseCode.LOGIN_FAIL);
+        }
 
-        return tokenProvider.generateToken(authentication); //jwt
     }
 
     @Override

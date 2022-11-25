@@ -1,7 +1,10 @@
 package com.example.goldenticketnew.service.seat;
 
 import com.example.goldenticketnew.dtos.SeatDto;
+import com.example.goldenticketnew.enums.ResponseCode;
+import com.example.goldenticketnew.exception.InternalException;
 import com.example.goldenticketnew.model.Room;
+import com.example.goldenticketnew.model.Schedule;
 import com.example.goldenticketnew.model.Seat;
 import com.example.goldenticketnew.repository.IScheduleRepository;
 import com.example.goldenticketnew.repository.ISeatRepository;
@@ -27,6 +30,7 @@ public class SeatService implements ISeatService{
     @Override
     public List<SeatDto> getSeatsByScheduleId(Integer scheduleId) {
         // Lấy ra các chỗ ngồi của phòng trong lịch đó
+        Schedule schedule = IScheduleRepository.findById(scheduleId).orElseThrow(() -> new InternalException(ResponseCode.SCHEDULE_NOT_FOUND));
         Room room = IScheduleRepository.getById(scheduleId).getRoom();
         List<Seat> listSeat = ISeatRepository.getSeatByRoom_Id(room.getId());
 

@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/api/bills")
@@ -23,7 +25,7 @@ public class BillController {
         description = "- Tạo hóa đơn"
     )
     @PostMapping("/create-new-bill")
-    public ResponseEntity<String> createNewBill(@RequestBody BookingRequestDto bookingRequestDTO) {
+    public ResponseEntity<String> createNewBill(@Valid @RequestBody BookingRequestDto bookingRequestDTO) {
         try {
             billService.createNewBill(bookingRequestDTO);
         } catch (RuntimeException e) {

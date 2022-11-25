@@ -1,10 +1,13 @@
 package com.example.goldenticketnew.controller;
 
 
+import com.example.goldenticketnew.dtos.UserDto;
 import com.example.goldenticketnew.model.User;
 import com.example.goldenticketnew.payload.*;
 
 import com.example.goldenticketnew.payload.response.ApiResponse;
+import com.example.goldenticketnew.payload.response.ResponseBase;
+import com.example.goldenticketnew.payload.resquest.UpdateUserRequest;
 import com.example.goldenticketnew.security.CurrentUser;
 import com.example.goldenticketnew.security.UserPrincipal;
 import com.example.goldenticketnew.service.user.IUserService;
@@ -12,6 +15,7 @@ import com.example.goldenticketnew.service.user.IUserService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,64 +27,67 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/user")
+@RequiredArgsConstructor
 @Tag(name = "User Controller", description = "Thao tác với User")
 public class UserController {
 
 
-    @Autowired
     private IUserService userService;
 
     @Operation(
-        summary = "Get thông tin user hiện tại",
-        description = "- Get thông tin user hiện tại toàn bộ user"
+        summary = "Lấy thông tin user hiện tại",
+        description = "- Lấy thông tin user hiện tại đang đăng nhập"
     )
-    @GetMapping("/user/me")
-    public UserSummary getCurrentUser(@CurrentUser UserPrincipal currentUser) {
-        return userService.getCurrentUser(currentUser);
+    @GetMapping("/me")
+    public ResponseEntity<ResponseBase<UserSummary>> getCurrentUser(@CurrentUser UserPrincipal currentUser) {
+        return ResponseEntity.ok(new ResponseBase<> (userService.getCurrentUser(currentUser)));
     }
 
     @Operation(
         summary = "Get toàn bộ user",
         description = "- Get toàn bộ user"
     )
-    @GetMapping("/user/getAll")
+    @GetMapping("/getAll")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<List<User>> getAllUser() {
-        return new ResponseEntity<>(userService.getAllUser(), HttpStatus.NOT_FOUND);
+    public ResponseEntity<ResponseBase<List<UserDto>>> getAllUser() {
+        return ResponseEntity.ok(new ResponseBase<>(userService.getAllUser()));
     }
-
-    @GetMapping("/user/checkUsernameAvailability")
+    @Operation(
+        summary = "Kiểm tra username",
+        description = "- Kiểm tra xem username đã được sử dụng hay chưa"
+    )
+    @GetMapping("/checkUsernameAvailability")
     public UserIdentityAvailability checkUsernameAvailability(@RequestParam(value = "username") String username) {
 
         return new UserIdentityAvailability(!userService.existsByUsername(username));
     }
-
-    @GetMapping("/user/checkEmailAvailability")
+    @Operation(
+        summary = "Kiểm tra email",
+        description = "- Kiểm tra xem email đã được sử dụng hay chưa"
+    )
+    @GetMapping("/checkEmailAvailability")
     public UserIdentityAvailability checkEmailAvailability(@RequestParam(value = "email") String email) {
-
         return new UserIdentityAvailability(!userService.existsByEmail(email));
     }
 
     @Operation(
-        summary = "Get chi tiết user by username",
-        description = "- Get chi tiết user"
+        summary = "Get chi tiết user",
+        description = "- Get chi tiết user by username"
     )
-    @GetMapping("/users/{username}")
-    public UserProfile getUserProfile(@PathVariable(value = "username") String username) {
-
-        return userService.getUserProfile(username);
+    @GetMapping("/{username}")
+    public ResponseEntity<ResponseBase<UserProfile>> getUserProfile(@PathVariable(value = "username") String username) {
+        return ResponseEntity.ok(new ResponseBase<>(userService.getUserProfile(username)));
     }
 
     //Edit user
     @Operation(
         summary = "Chỉnh sửa thông tin User",
-        description = "- Chỉnh sửa thông tin UserXóa một User"
+        description = "- Chỉnh sửa thông tin User"
     )
-    @PostMapping("/user/updateInfo")
-    public ResponseEntity<?> updateInfoUser(@Valid @RequestBody UserProfile userProfile) {
-
-        return ResponseEntity.created(userService.updateInfoUser(userProfile)).body(new ApiResponse(true, "User changed successfully"));
+    @PutMapping("/updateInfo")
+    public ResponseEntity<ResponseBase<UserProfile>>  updateInfoUser(@Valid @RequestBody UpdateUserRequest request) {
+        return ResponseEntity.ok(new ResponseBase<>(userService.updateInfoUser(request)));
     }
 
     @Operation(
@@ -88,11 +95,11 @@ public class UserController {
         description = "- Xóa một User"
     )
     @PreAuthorize("hasRole('ADMIN')")
-    @DeleteMapping("/user/{id}")
-    public ApiResponse deleteUser(@Valid @PathVariable Long id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse> deleteUser(@Valid @PathVariable Long id) {
         if (userService.deleteUserById(id))
-            return new ApiResponse(true, "Delete User Successfully");
-        return new ApiResponse(false, "Please check the id");
+            return ResponseEntity.ok(new ApiResponse(true, "Delete User Successfully"));
+        return ResponseEntity.ok(new ApiResponse(false, "Please check the id"));
     }
 
 }
