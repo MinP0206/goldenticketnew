@@ -1,20 +1,20 @@
-package com.example.goldenticketnew.payload;
-
+package com.example.goldenticketnew.payload.resquest;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.Instant;
+import javax.validation.constraints.NotNull;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserProfile {
+public class UpdateUserRequest {
+    @NotNull
     private Long id;
-    private String username;
-    private String email;
+
     private String name;
+
     private String image;
 
 }

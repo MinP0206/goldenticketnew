@@ -6,6 +6,7 @@ import com.example.goldenticketnew.model.Branch;
 import com.example.goldenticketnew.payload.response.PageResponse;
 import com.example.goldenticketnew.payload.resquest.GetAllBranchRequest;
 import com.example.goldenticketnew.repository.IBranchRepository;
+import com.example.goldenticketnew.utils.ModelMapperUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,9 +26,8 @@ public class BranchService implements IBranchService {
 
     @Override
     public List<BranchDto> getBranchesThatShowTheMovie(Integer movieId) {
-        return IBranchRepository.getBranchThatShowTheMovie(movieId)
-                .stream().map(branch -> modelMapper.map(branch, BranchDto.class))
-                .collect(Collectors.toList());
+        List<Branch> branches = IBranchRepository.getBranchThatShowTheMovie(movieId);
+        return branches.stream().map(BranchDto::new).collect(Collectors.toList());
     }
     @Override
     public PageResponse<BranchDto> getAllBranch(GetAllBranchRequest request) {

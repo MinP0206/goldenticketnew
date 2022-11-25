@@ -1,6 +1,8 @@
 package com.example.goldenticketnew.model;
 
 import com.example.goldenticketnew.model.audit.UserDateAudit;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldNameConstants;
@@ -14,6 +16,8 @@ import java.time.LocalDate;
 @Entity
 @NoArgsConstructor
 @FieldNameConstants
+@Builder
+@AllArgsConstructor
 public class Movie extends UserDateAudit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

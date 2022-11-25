@@ -1,14 +1,19 @@
 package com.example.goldenticketnew.service.user;
 
 
+import com.example.goldenticketnew.dtos.UserDto;
+import com.example.goldenticketnew.enums.ResponseCode;
+import com.example.goldenticketnew.exception.InternalException;
 import com.example.goldenticketnew.exception.ResourceNotFoundException;
 import com.example.goldenticketnew.model.Role;
 import com.example.goldenticketnew.model.User;
 import com.example.goldenticketnew.payload.UserProfile;
 import com.example.goldenticketnew.payload.UserSummary;
+import com.example.goldenticketnew.payload.resquest.UpdateUserRequest;
 import com.example.goldenticketnew.repository.IRoleRepository;
 import com.example.goldenticketnew.repository.UserRepository;
 import com.example.goldenticketnew.security.UserPrincipal;
+import com.example.goldenticketnew.utils.ModelMapperUtils;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -30,7 +35,7 @@ public class UserService implements IUserService {
     private IRoleRepository roleRepository;
 
     @Override
-    public List<User> getAllUser() {
+    public List<UserDto> getAllUser() {
         int check = 0;
         List<User> notAdmin = userRepository.findAll();
         for (int i = notAdmin.size() - 1; i >= 0; i--) {
@@ -46,7 +51,7 @@ public class UserService implements IUserService {
 
         }
 
-        return notAdmin;
+        return ModelMapperUtils.mapList(notAdmin, UserDto.class);
     }
 
     @Override
@@ -58,7 +63,7 @@ public class UserService implements IUserService {
     public UserProfile getUserProfile(String username) {
         User user = userRepository.findByUsername(username)
             .orElseThrow(() -> new ResourceNotFoundException("User", "username", username));
-        UserProfile userProfile = new UserProfile(user.getId(), user.getUsername(), user.getName(), user.getEmail(), user.getImage(),user.getRoles().stream().collect(Collectors.toList()).get(0).getName().name());
+        UserProfile userProfile = new UserProfile(user.getId(), user.getUsername(), user.getName(), user.getEmail(), user.getImage());
         return userProfile;
     }
 
@@ -74,25 +79,11 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public URI updateInfoUser(UserProfile userProfile) {
-
-        User oldUser = userRepository.findByUsername(userProfile.getUsername()).orElseThrow(() -> new UsernameNotFoundException("Please login to continue  "));
-
-
-        oldUser.setName(userProfile.getName());
-        oldUser.setImage(userProfile.getImage());
-        try {
-            userRepository.save(oldUser);
-        }
-        catch (Exception e){
-            log.debug(e);
-        }
-
-        //return URI
-        return ServletUriComponentsBuilder
-            .fromCurrentContextPath().path("/users/{username}")
-            .buildAndExpand(oldUser.getUsername()).toUri();
-
+    public UserProfile updateInfoUser(UpdateUserRequest request) {
+        User user = userRepository.findById(request.getId()).orElseThrow(() -> new InternalException(ResponseCode.USER_NOT_FOUND));
+        if(!request.getName().isBlank()) user.setName(request.getName());
+        if(!request.getImage().isBlank())  user.setImage(request.getImage());
+        return ModelMapperUtils.mapper(userRepository.save(user), UserProfile.class);
     }
 
     @Override

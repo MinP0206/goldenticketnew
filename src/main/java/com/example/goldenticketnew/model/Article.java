@@ -1,5 +1,6 @@
 package com.example.goldenticketnew.model;
 
+import com.example.goldenticketnew.enums.ArticleStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,6 +21,8 @@ public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "main_image")
+    private String mainImage;
 
     @Column(name = "title")
     private String title;
@@ -27,7 +30,7 @@ public class Article {
     private String brief;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "article")
-    List<Content> contents;
-
-
+    private List<Content> contents;
+    @Column(name = "status")
+    private ArticleStatus status;
 }

@@ -5,8 +5,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IMovieRepository extends JpaRepository<Movie, Integer> , JpaSpecificationExecutor<Movie> {
     List<Movie> findMoviesByIsShowingOrderByIdDesc(Integer isShowing);
     List<Movie> findMoviesByIsShowingAndNameContaining(Integer isShowing,String name);
+
+    Optional<Movie> findMovieByName(String name);
 }

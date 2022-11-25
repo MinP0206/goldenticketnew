@@ -2,6 +2,7 @@ package com.example.goldenticketnew.controller;
 
 import com.example.goldenticketnew.dtos.ScheduleDto;
 import com.example.goldenticketnew.payload.response.PageResponse;
+import com.example.goldenticketnew.payload.response.ResponseBase;
 import com.example.goldenticketnew.payload.resquest.GetAllScheduleRequest;
 import com.example.goldenticketnew.service.schedule.IScheduleService;
 
@@ -42,9 +43,9 @@ public class ScheduleController {
         description = "- Get All Schedule với filter"
     )
     @GetMapping("/getAll")
-    public ResponseEntity<PageResponse<ScheduleDto>> getSchedules(@ParameterObject Pageable pageable, @ParameterObject GetAllScheduleRequest request ){
+    public ResponseEntity<ResponseBase<PageResponse<ScheduleDto>>> getSchedules(@ParameterObject Pageable pageable, @ParameterObject GetAllScheduleRequest request ){
         request.setPageable(pageable);
-        return new ResponseEntity<>(scheduleService.getAllSchedule(request), HttpStatus.OK);
+        return new ResponseEntity<>(new ResponseBase<>(scheduleService.getAllSchedule(request)), HttpStatus.OK);
     }
 
 }

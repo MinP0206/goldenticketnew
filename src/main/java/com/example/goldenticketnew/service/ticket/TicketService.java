@@ -28,7 +28,7 @@ public class TicketService implements ITicketService {
         List<TicketDto> ticketDtoList = new ArrayList<>();
         TicketDto ticketDto = new TicketDto();
         for(Ticket ticket : ticketList){
-            ticketDto.setBill(ModelMapperUtils.mapper(ticket.getBill(), BillDto.class));
+            ticketDto.setBill(new BillDto(ticket.getBill()));
             ticketDto.setQrImageURL(ticket.getQrImageURL());
             ticketDto.setSeat(ModelMapperUtils.mapper(ticket.getSeat(), SeatDto.class));
             ticketDto.setId(ticket.getId());
