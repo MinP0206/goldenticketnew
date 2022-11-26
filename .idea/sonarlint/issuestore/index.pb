@@ -41,7 +41,5 @@ i
 9src/main/java/com/example/goldenticketnew/model/User.java,9/b/9bfdc285513304306dc4854c27e363167c7a0342
 r
 Bsrc/main/java/com/example/goldenticketnew/payload/UserSummary.java,c/9/c94044b9ba4aa6ac36b9685455300bd793c66986
-9
-	README.md,8/e/8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 7
 pom.xml,4/4/442292b8a7efeabbe4cc176709b833b1792140ec
