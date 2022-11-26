@@ -11,7 +11,6 @@ import com.example.goldenticketnew.payload.resquest.UpdateMovieRequest;
 import com.example.goldenticketnew.service.movie.IMovieService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
 import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;

@@ -2,22 +2,18 @@ package com.example.goldenticketnew.controller;
 
 
 import com.example.goldenticketnew.dtos.UserDto;
-import com.example.goldenticketnew.model.User;
-import com.example.goldenticketnew.payload.*;
-
+import com.example.goldenticketnew.payload.UserIdentityAvailability;
+import com.example.goldenticketnew.payload.UserProfile;
+import com.example.goldenticketnew.payload.UserSummary;
 import com.example.goldenticketnew.payload.response.ApiResponse;
 import com.example.goldenticketnew.payload.response.ResponseBase;
 import com.example.goldenticketnew.payload.resquest.UpdateUserRequest;
 import com.example.goldenticketnew.security.CurrentUser;
 import com.example.goldenticketnew.security.UserPrincipal;
 import com.example.goldenticketnew.service.user.IUserService;
-
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -28,11 +24,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
-@RequiredArgsConstructor
 @Tag(name = "User Controller", description = "Thao tác với User")
 public class UserController {
 
-
+    @Autowired
     private IUserService userService;
 
     @Operation(
