@@ -31,10 +31,9 @@ public class ScheduleService implements IScheduleService {
     }
 
     @Override
-    public List<ScheduleDto> getSchedules(Integer movieId, Integer branchId, String startDate, String startTime, Integer roomId) {
-        return scheduleRepository.getSchedulesByMovie_IdAndBranch_IdAndStartDateAndStartTimeAndRoom_Id(movieId, branchId
-                , LocalDate.parse(startDate), LocalTime.parse(startTime), roomId)
-            .stream().map(schedule -> modelMapper.map(schedule, ScheduleDto.class))
+    public List<ScheduleDto> getSchedules(GetAllScheduleRequest request) {
+        return scheduleRepository.findAll(request.getSpecification())
+            .stream().map(schedule -> new ScheduleDto(schedule))
             .collect(Collectors.toList());
     }
 

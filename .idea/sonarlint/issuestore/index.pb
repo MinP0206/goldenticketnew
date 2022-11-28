@@ -21,8 +21,6 @@ x
 Hsrc/main/java/com/example/goldenticketnew/service/bill/IBillService.java,1/2/12f2c9996075afda0104231d2be3290358b54dd3
 w
 Gsrc/main/java/com/example/goldenticketnew/service/bill/BillService.java,c/3/c3665d0e58b9a035cbc34576b78fa490b178f7f0
-x
-Hsrc/main/java/com/example/goldenticketnew/controller/RoomController.java,1/0/10facccf47d2afb83acd7e309f37af3617cf6148
 i
 9src/main/java/com/example/goldenticketnew/model/Role.java,0/6/061de7d2deddf45791917affd80513508c451062
 i
@@ -34,8 +32,6 @@ k
 i
 9src/main/java/com/example/goldenticketnew/model/Bill.java,8/2/824d18ded8de788a95057abe67d96a9c4c95336a
 x
-Hsrc/main/java/com/example/goldenticketnew/controller/AuthController.java,d/2/d21f6e54093bbaac5071be3b1061fc2d1c2461a9
-x
 Hsrc/main/java/com/example/goldenticketnew/service/auth/IAuthService.java,c/6/c6a7b87de0f245bbeaf1b6e0cacf3785d2597df2
 i
 9src/main/java/com/example/goldenticketnew/model/User.java,9/b/9bfdc285513304306dc4854c27e363167c7a0342
@@ -43,3 +39,11 @@ r
 Bsrc/main/java/com/example/goldenticketnew/payload/UserSummary.java,c/9/c94044b9ba4aa6ac36b9685455300bd793c66986
 7
 pom.xml,4/4/442292b8a7efeabbe4cc176709b833b1792140ec
+9
+	README.md,8/e/8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
+z
+Jsrc/main/java/com/example/goldenticketnew/controller/TicketController.java,9/6/9650dae1235ccf6d4ef8fa8ae9c6178b1b67a01d
+x
+Hsrc/main/java/com/example/goldenticketnew/service/user/IUserService.java,a/9/a97c6e3e2f200b9c56065b205549f3b28e31222c
+S
+#.idea/sonarlint/issuestore/index.pb,9/f/9fe84ebb15faf917b7def6236dba604453cc61e0
