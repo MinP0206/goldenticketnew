@@ -1,6 +1,7 @@
 package com.example.goldenticketnew.dtos;
 
 import com.example.goldenticketnew.enums.ArticleStatus;
+import com.example.goldenticketnew.enums.ArticleType;
 import com.example.goldenticketnew.model.Article;
 import com.example.goldenticketnew.model.Content;
 import lombok.AllArgsConstructor;
@@ -18,6 +19,8 @@ public class ArticleDto {
     private String brief;
     private List<Content> contents;
     private ArticleStatus status;
+
+    private ArticleType type;
 
     public ArticleDto(Article article) {
         this.id = article.getId();

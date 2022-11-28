@@ -41,8 +41,6 @@ Bsrc/main/java/com/example/goldenticketnew/payload/UserSummary.java,c/9/c94044b
 pom.xml,4/4/442292b8a7efeabbe4cc176709b833b1792140ec
 9
 	README.md,8/e/8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
-z
-Jsrc/main/java/com/example/goldenticketnew/controller/TicketController.java,9/6/9650dae1235ccf6d4ef8fa8ae9c6178b1b67a01d
 x
 Hsrc/main/java/com/example/goldenticketnew/service/user/IUserService.java,a/9/a97c6e3e2f200b9c56065b205549f3b28e31222c
 S

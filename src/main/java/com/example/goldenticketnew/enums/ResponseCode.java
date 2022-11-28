@@ -7,7 +7,7 @@ public enum ResponseCode {
     COMMON_ERROR(2, "Common Error"),
     INVALID_PARAM(3, "Invalid param"),
 
-    LOGIN_FAIL(4,"Login fail"),
+    LOGIN_FAIL(4,"Login failed"),
 
     //User
     USER_NOT_FOUND(101, " User not found"),

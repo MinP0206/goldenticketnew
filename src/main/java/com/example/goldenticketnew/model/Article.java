@@ -1,6 +1,7 @@
 package com.example.goldenticketnew.model;
 
 import com.example.goldenticketnew.enums.ArticleStatus;
+import com.example.goldenticketnew.enums.ArticleType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,4 +34,6 @@ public class Article {
     private List<Content> contents;
     @Column(name = "status")
     private ArticleStatus status;
+    @Column(name = "type")
+    private ArticleType type;
 }
