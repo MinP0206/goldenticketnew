@@ -36,8 +36,8 @@ public class ScheduleController {
         description = "- Get All Schedule với filter"
     )
     @GetMapping
-    public List<ScheduleDto> getSchedules(@ParameterObject GetAllScheduleRequest request){
-        return scheduleService.getSchedules(request);
+    public ResponseEntity<ResponseBase<List<ScheduleDto>>> getSchedules(@ParameterObject GetAllScheduleRequest request){
+        return new ResponseEntity<>(new ResponseBase<>(scheduleService.getSchedules(request)), HttpStatus.OK);
     }
     @Operation(
         summary = "Get All Schedule với filter (Page) ",
