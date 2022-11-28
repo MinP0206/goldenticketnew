@@ -31,15 +31,16 @@ public class ScheduleController {
                                          @RequestParam String startDate) {
         return scheduleService.getStartTimes(movieId,branchId,LocalDate.parse(startDate));
     }
-
+    @Operation(
+        summary = "Get All Schedule với filter (List)",
+        description = "- Get All Schedule với filter"
+    )
     @GetMapping
-    public List<ScheduleDto> getSchedules(@RequestParam Integer movieId, @RequestParam Integer branchId,
-                                          @RequestParam String startDate, @RequestParam String startTime,
-                                          @RequestParam Integer roomId){
-        return scheduleService.getSchedules(movieId,branchId,startDate,startTime,roomId);
+    public List<ScheduleDto> getSchedules(@ParameterObject GetAllScheduleRequest request){
+        return scheduleService.getSchedules(request);
     }
     @Operation(
-        summary = "Get All Schedule với filter ",
+        summary = "Get All Schedule với filter (Page) ",
         description = "- Get All Schedule với filter"
     )
     @GetMapping("/getAll")

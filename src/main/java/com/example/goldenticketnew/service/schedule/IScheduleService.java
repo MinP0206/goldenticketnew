@@ -10,7 +10,6 @@ import java.util.List;
 
 public interface IScheduleService {
     List<String> getStartTimes(Integer movieId, Integer branchId, LocalDate startDate);
-    List<ScheduleDto> getSchedules(Integer movieId, Integer branchId, String startDate, String startTime,
-                                   Integer roomId);
+    List<ScheduleDto> getSchedules(GetAllScheduleRequest request);
     PageResponse<ScheduleDto> getAllSchedule(GetAllScheduleRequest request);
 }
