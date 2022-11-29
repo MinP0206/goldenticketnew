@@ -8,6 +8,8 @@ import com.example.goldenticketnew.payload.article.request.UpdateArticleRequest;
 import com.example.goldenticketnew.payload.response.PageResponse;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public interface IArticleService {
     ArticleDto addNewArticle(AddNewArticleRequest request);
@@ -18,5 +20,7 @@ public interface IArticleService {
 
     Boolean changeStatusArticle(ChangeArticleStatusRequest request);
 
-    PageResponse<ArticleDto> getAllArticle(GetAllArticleRequest request);
+    PageResponse<ArticleDto> getAllArticlePaging(GetAllArticleRequest request);
+
+    List<ArticleDto> getAllArticle(GetAllArticleRequest request);
 }

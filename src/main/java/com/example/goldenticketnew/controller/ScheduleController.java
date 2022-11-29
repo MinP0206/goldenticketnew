@@ -40,8 +40,8 @@ public class ScheduleController {
         return new ResponseEntity<>(new ResponseBase<>(scheduleService.getSchedules(request)), HttpStatus.OK);
     }
     @Operation(
-        summary = "Get All Schedule với filter (Page) ",
-        description = "- Get All Schedule với filter"
+        summary = "Get All Schedule với filter và paging ",
+        description = "- Get All Schedule với filter và paging"
     )
     @GetMapping("/getAll")
     public ResponseEntity<ResponseBase<PageResponse<ScheduleDto>>> getSchedules(@ParameterObject Pageable pageable, @ParameterObject GetAllScheduleRequest request ){

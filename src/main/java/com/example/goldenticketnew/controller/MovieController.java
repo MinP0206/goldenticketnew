@@ -60,8 +60,8 @@ public class MovieController {
         return new ApiResponse(false, "Please check the id");
     }
     @Operation(
-        summary = "Get All Movie với filter ",
-        description = "- Get All Movie với filter"
+        summary = "Get All Movie với filter và paging ",
+        description = "- Get All Movie với filter và paging"
     )
     @GetMapping("/getAll")
     public ResponseBase<PageResponse<MovieDto>> findAllShowingMovies(@ParameterObject Pageable pageable, @ParameterObject GetAllMovieRequest request){
