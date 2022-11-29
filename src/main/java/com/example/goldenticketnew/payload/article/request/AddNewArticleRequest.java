@@ -1,5 +1,6 @@
 package com.example.goldenticketnew.payload.article.request;
 
+import com.example.goldenticketnew.dtos.ContentDto;
 import com.example.goldenticketnew.enums.ArticleType;
 import com.example.goldenticketnew.model.Article;
 import com.example.goldenticketnew.model.Content;
@@ -20,8 +21,5 @@ public class AddNewArticleRequest {
     @JsonIgnore
     private ArticleType type;
     @NotEmpty
-    private List<NoIdContentDto> contents;
-
-
-
+    private List<ContentDto> contents;
 }

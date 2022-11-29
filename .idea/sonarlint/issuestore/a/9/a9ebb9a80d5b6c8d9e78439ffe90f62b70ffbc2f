@@ -1,0 +1,53 @@
+
+c
+java:S1192¹"LDefine a constant instead of duplicating this literal "2021-01-05" 15 times.(¶§ÿú
+a
+java:S1192Å"JDefine a constant instead of duplicating this literal "1900 6017" 3 times.(Ö‹ğç
+b
+java:S1192Õ"FDefine a constant instead of duplicating this literal "16:20" 6 times.(ûÓ„ßıÿÿÿÿ
+
+java:S1192q"iDefine a constant instead of duplicating this literal "P - PHIM DÃ€NH CHO Má»ŒI Äá»I TÆ¯á»¢NG" 3 times.(ûÌ¸•
+¾
+java:S1192³"¡Define a constant instead of duplicating this literal "http://hdradio.vn/upload/hinhanh/Cinema-tong-hop/cinema-thiet-ke/Cinema-kd100/cinema-hdradio.jpg" 4 times.(¿âáúÿÿÿÿ
+]
+java:S1192º"FDefine a constant instead of duplicating this literal "10:15" 6 times.(Ğ•şô
+Â
+java:S1192u"¦Define a constant instead of duplicating this literal "https://www.cgv.vn/media/banner/cache/1/b58515f018eb873dafa430b6f9ae0c1e/b/l/blackpink-rolling_1_.jpg" 3 times.(¶ù„‡üÿÿÿÿ
+„
+java:S1192y"iDefine a constant instead of duplicating this literal "Tiáº¿ng Anh - Phá»¥ Ä‘á» Tiáº¿ng Viá»‡t" 3 times.(Í³ úûÿÿÿÿ
+f
+java:S1192n"KDefine a constant instead of duplicating this literal "24/12/2021" 4 times.(–‹éšùÿÿÿÿ
+X	java:S107–"=Method has 14 parameters, which is greater than 7 authorized.(ÜÆÊŠıÿÿÿÿ
+[
+java:S1854‹"DRemove this useless assignment to local variable "cauChuyenPhiaTay".(ÏÒ–é
+W
+java:S1854ƒ";Remove this useless assignment to local variable "doremon".(œÉÔÿÿÿÿÿ
+U
+java:S1854z":Remove this useless assignment to local variable "maTran".(‰öó˜üÿÿÿÿ
+R
+java:S1854i"<Remove this useless assignment to local variable "nhocTrum".(ùë±±
+S
+java:S1854å"7Remove this useless assignment to local variable "r11".(Ø†Õİıÿÿÿÿ
+S
+java:S1854ä"7Remove this useless assignment to local variable "r10".(îã»Äşÿÿÿÿ
+M
+java:S1854Í"6Remove this useless assignment to local variable "r7".(Êƒå¶
+R
+java:S1854Ì"6Remove this useless assignment to local variable "r6".(‰¦ı«üÿÿÿÿ
+V	java:S1256"<This block of commented-out lines of code should be removed.(à¼´…úÿÿÿÿ
+C
+java:S1481i"-Remove this unused "nhocTrum" local variable.(ùë±±
+F
+java:S1481z"+Remove this unused "maTran" local variable.(‰öó˜üÿÿÿÿ
+H
+java:S1481ƒ",Remove this unused "doremon" local variable.(œÉÔÿÿÿÿÿ
+L
+java:S1481‹"5Remove this unused "cauChuyenPhiaTay" local variable.(ÏÒ–é
+C
+java:S1481Ì"'Remove this unused "r6" local variable.(‰¦ı«üÿÿÿÿ
+>
+java:S1481Í"'Remove this unused "r7" local variable.(Êƒå¶
+D
+java:S1481ä"(Remove this unused "r10" local variable.(îã»Äşÿÿÿÿ
+D
+java:S1481å"(Remove this unused "r11" local variable.(Ø†Õİıÿÿÿÿ

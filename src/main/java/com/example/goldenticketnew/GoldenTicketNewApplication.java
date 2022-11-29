@@ -47,10 +47,10 @@ public class GoldenTicketNewApplication {
     @Autowired
     private ISeatRepository seatRepository;
 
-    // Do chưa có trang admin để thêm phim và lịch chiếu nên thêm tạm dữ liệu xuống db để demo
+//     Do chưa có trang admin để thêm phim và lịch chiếu nên thêm tạm dữ liệu xuống db để demo
     @PostConstruct
     public void init() {
-        // Chạy 1 lần đầu app rồi bỏ comment đoạn này rồi chạy lại để add data ghế ngồi cho phòng 1
+//         Chạy 1 lần đầu app rồi bỏ comment đoạn này rồi chạy lại để add data ghế ngồi cho phòng 1
 //        Room room = roomRepository.findById(1).get();
 //
 //        for(int i=1;i<=8;i++){
@@ -85,8 +85,8 @@ public class GoldenTicketNewApplication {
 //            seatRepository.save(seat);
 //        }
 //
-
-
+//
+//
 //            User admin = new User();
 //            Set<Role> roles = new HashSet<>();
 //            Role roleAdmin = new Role();

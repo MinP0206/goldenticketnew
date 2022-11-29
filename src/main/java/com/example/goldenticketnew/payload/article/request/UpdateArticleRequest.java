@@ -1,7 +1,8 @@
 package com.example.goldenticketnew.payload.article.request;
 
 
-import com.example.goldenticketnew.model.Content;
+import com.example.goldenticketnew.dtos.ContentDto;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,5 +23,5 @@ public class UpdateArticleRequest {
 
     private String brief;
 
-    private List<Content> contents;
+    private List<ContentDto> contents;
 }

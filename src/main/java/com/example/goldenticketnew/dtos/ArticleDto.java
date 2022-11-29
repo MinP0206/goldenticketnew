@@ -4,6 +4,7 @@ import com.example.goldenticketnew.enums.ArticleStatus;
 import com.example.goldenticketnew.enums.ArticleType;
 import com.example.goldenticketnew.model.Article;
 import com.example.goldenticketnew.model.Content;
+import com.example.goldenticketnew.utils.ModelMapperUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,7 +18,7 @@ public class ArticleDto {
     private Long id;
     private String title;
     private String brief;
-    private List<Content> contents;
+    private List<ContentDto> contents;
     private ArticleStatus status;
 
     private ArticleType type;
@@ -26,7 +27,7 @@ public class ArticleDto {
         this.id = article.getId();
         this.title = article.getTitle();
         this.brief = article.getBrief();
-        this.contents = article.getContents();
+        this.contents = ModelMapperUtils.mapList(article.getContents(), ContentDto.class);
         this.status = article.getStatus();
     }
 }

@@ -2,6 +2,7 @@ package com.example.goldenticketnew.service.article;
 
 import com.example.goldenticketnew.dtos.ArticleDto;
 
+import com.example.goldenticketnew.dtos.ContentDto;
 import com.example.goldenticketnew.enums.ArticleStatus;
 import com.example.goldenticketnew.enums.ResponseCode;
 import com.example.goldenticketnew.exception.InternalException;
@@ -53,13 +54,14 @@ public class ArticleService implements IArticleService{
         if(!request.getBrief().isBlank()) article.setBrief(request.getBrief());
         if(!request.getTitle().isBlank()) article.setTitle(request.getTitle());
         if(request.getContents() != null){
+            List<Content> contents = ModelMapperUtils.mapList(request.getContents(), Content.class);
             contentRepository.deleteAllByArticleId(request.getId());
-            for(Content content : request.getContents()) {
+            for(Content content : contents){
                 content.setArticle(article);
                 contentRepository.save(content);
             }
+            article.setContents(contents);
         }
-        article.setContents(request.getContents());
         return ModelMapperUtils.mapper(article, ArticleDto.class);
     }
 
