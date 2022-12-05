@@ -62,6 +62,7 @@ jobs:
             scp docker-compose.yaml $DEPLOY_USER@$DEPLOY_SERVER:~/
       - run: ssh -v $DEPLOY_USER@$DEPLOY_SERVER './deploy.sh'
 
+
 # Invoke jobs via workflows
 workflows:
   my-workflow:
