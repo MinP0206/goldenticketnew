@@ -16,14 +16,9 @@ import com.example.goldenticketnew.security.UserPrincipal;
 import com.example.goldenticketnew.utils.ModelMapperUtils;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Log4j2
 @Service
@@ -51,7 +46,9 @@ public class UserService implements IUserService {
 
         }
 
-        return ModelMapperUtils.mapList(notAdmin, UserDto.class);
+//        return ModelMapperUtils.mapList(notAdmin, UserDto.class);
+        return ModelMapperUtils.mapListUser(notAdmin);
+
     }
 
     @Override
@@ -63,8 +60,7 @@ public class UserService implements IUserService {
     public UserProfile getUserProfile(String username) {
         User user = userRepository.findByUsername(username)
             .orElseThrow(() -> new ResourceNotFoundException("User", "username", username));
-        UserProfile userProfile = new UserProfile(user.getId(), user.getUsername(), user.getName(), user.getEmail(), user.getImage());
-        return userProfile;
+        return new UserProfile(user.getId(), user.getUsername(), user.getName(), user.getEmail(), user.getImage());
     }
 
     @Override
@@ -90,7 +86,6 @@ public class UserService implements IUserService {
     public Boolean deleteUserById(Long id) {
         if (userRepository.existsById(id)) {
             userRepository.deleteById(id);
-
             return true;
         }
         return false;

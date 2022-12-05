@@ -1,5 +1,7 @@
 package com.example.goldenticketnew.utils;
 
+import com.example.goldenticketnew.dtos.UserDto;
+import com.example.goldenticketnew.model.User;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -30,6 +32,11 @@ public class ModelMapperUtils {
         return source.stream()
                 .map(e -> getInstance().map(e, targetClass))
                 .collect(Collectors.toList());
+    }
+    public static List<UserDto> mapListUser(List<User> source) {
+        return source.stream()
+            .map(UserDto::new)
+            .collect(Collectors.toList());
     }
     public static  <S, T> Page<S> mapEntityPageIntoDtoPage(Page<T> entities, Class<S> dtoClass) {
         return entities.map(objectEntity -> modelMapper.map(objectEntity, dtoClass));
