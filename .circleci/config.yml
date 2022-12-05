@@ -1,6 +1,5 @@
 
 version: 2.1
-
 orbs:
   docker: circleci/docker@2.0.1
 
@@ -40,7 +39,7 @@ jobs:
             cat \<<EOF > docker-compose.yaml
             version: '3.8'
             services:
-              lab1-java-circleci-digitalocean:
+              goldenticketnew:
                 image: $DOCKER_USERNAME/$DOCKER_IMAGE:$DOCKER_TAG
                 ports:
                   - "8080:8080"
@@ -61,7 +60,6 @@ jobs:
             scp -oStrictHostKeyChecking=no deploy.sh $DEPLOY_USER@$DEPLOY_SERVER:~/
             scp docker-compose.yaml $DEPLOY_USER@$DEPLOY_SERVER:~/
       - run: ssh -v $DEPLOY_USER@$DEPLOY_SERVER './deploy.sh'
-
 
 # Invoke jobs via workflows
 workflows:
