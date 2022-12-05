@@ -1,14 +1,13 @@
 package com.example.goldenticketnew.dtos;
 
-import com.example.goldenticketnew.model.Role;
+
+import com.example.goldenticketnew.model.User;
 import com.example.goldenticketnew.model.audit.DateAudit;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDto extends DateAudit {
@@ -17,5 +16,15 @@ public class UserDto extends DateAudit {
     private String email;
     private String name;
     private String image;
-    private Set<Role> roles;
+    private String role;
+
+    public UserDto(User user) {
+        this.id = user.getId();
+        this.username = user.getUsername();
+        this.email = user.getEmail();
+        this.name = user.getName();
+        this.image = user.getImage();
+        this.role = user.getRoles().stream().findFirst().get().getName().toString();
+    }
+
 }
