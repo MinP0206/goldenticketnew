@@ -37,7 +37,7 @@ jobs:
           name: create docker-compose file
           command: |
             cat \<<EOF > docker-compose.yaml
-            version: '3.8'
+            version: '3'
             services:
               goldenticketnew:
                 image: $DOCKER_USERNAME/$DOCKER_IMAGE:$DOCKER_TAG
