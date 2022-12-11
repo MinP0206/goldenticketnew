@@ -1,5 +1,6 @@
 package com.example.goldenticketnew.model;
 
+import com.example.goldenticketnew.model.audit.UserDateAudit;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
@@ -13,7 +14,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "bill")
 @NoArgsConstructor
-public class Bill {
+public class Bill extends UserDateAudit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

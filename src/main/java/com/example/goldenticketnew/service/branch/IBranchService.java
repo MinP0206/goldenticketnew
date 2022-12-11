@@ -11,4 +11,5 @@ import java.util.List;
 public interface IBranchService {
     List<BranchDto> getBranchesThatShowTheMovie(Integer movieId);
     PageResponse<BranchDto> getAllBranch(GetAllBranchRequest request);
+    List<BranchDto> getListBranch(GetAllBranchRequest request);
 }

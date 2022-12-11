@@ -18,4 +18,8 @@ public interface IRoomRepository extends JpaRepository<Room, Integer> {
                                                   @Param("branchId") Integer branchId,
                                                   @Param("startDate") LocalDate startDate,
                                                   @Param("startTime") LocalTime startTime);
+
+    List<Room> findAllByBranchId(@Param("branchId") Integer branchId);
+
+
 }

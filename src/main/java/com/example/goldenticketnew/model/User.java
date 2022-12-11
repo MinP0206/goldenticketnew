@@ -2,6 +2,7 @@ package com.example.goldenticketnew.model;
 
 
 import com.example.goldenticketnew.model.audit.DateAudit;
+import com.example.goldenticketnew.model.audit.UserDateAudit;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,7 +25,7 @@ import java.util.Set;
             "email"
         })
 })
-public class User extends DateAudit {
+public class User extends UserDateAudit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

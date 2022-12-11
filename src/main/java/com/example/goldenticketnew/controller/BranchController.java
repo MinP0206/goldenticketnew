@@ -31,13 +31,21 @@ public class BranchController {
         return ResponseEntity.ok(new ResponseBase<>(branchService.getBranchesThatShowTheMovie(movieId)));
     }
     @Operation(
-        summary = "Get All Branch với filter ",
-        description = "- Get All Branch với filter"
+        summary = "Get All Branch với filter  paging ",
+        description = "- Get All Branch với filter paging"
     )
     @GetMapping("/getAll")
     public ResponseEntity<ResponseBase<PageResponse<BranchDto>>> getAllBranch(@ParameterObject Pageable pageable , @ParameterObject GetAllBranchRequest request) {
         request.setPageable(pageable);
-        return new ResponseEntity<>(new ResponseBase(branchService.getAllBranch(request)), HttpStatus.OK);
+        return new ResponseEntity<>(new ResponseBase<>(branchService.getAllBranch(request)), HttpStatus.OK);
+    }
+    @Operation(
+        summary = "Get All Branch với filter ",
+        description = "- Get All Branch với filter"
+    )
+    @GetMapping("/getList")
+    public ResponseEntity<ResponseBase<List<BranchDto>>> getAllBranch( @ParameterObject GetAllBranchRequest request) {
+        return new ResponseEntity<>(new ResponseBase<>(branchService.getListBranch(request)), HttpStatus.OK);
     }
 }
 

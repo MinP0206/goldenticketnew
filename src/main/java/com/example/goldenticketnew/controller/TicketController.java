@@ -2,12 +2,15 @@ package com.example.goldenticketnew.controller;
 
 
 import com.example.goldenticketnew.dtos.TicketDto;
+import com.example.goldenticketnew.payload.response.PageResponse;
 import com.example.goldenticketnew.payload.response.ResponseBase;
 import com.example.goldenticketnew.service.ticket.ITicketService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,5 +30,14 @@ public class TicketController {
     @GetMapping
     public ResponseEntity<ResponseBase<List<TicketDto>>> getTicketsByUserId(@RequestParam Long userId){
         return ResponseEntity.ok(new ResponseBase<>(ticketService.getTicketsByUserId(userId)));
+    }
+    @Operation(
+        summary = "Lấy all danh sách vé xem phim",
+        description = "- Lấy ra all danh sách vé xem phim "
+    )
+    @GetMapping("/getList")
+    public ResponseEntity<ResponseBase<PageResponse<TicketDto>>> getAllTicket(@ParameterObject Pageable pageable){
+
+        return ResponseEntity.ok(new ResponseBase<>(ticketService.getAllTicketFilter(pageable)));
     }
 }

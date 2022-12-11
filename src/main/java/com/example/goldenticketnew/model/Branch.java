@@ -1,5 +1,6 @@
 package com.example.goldenticketnew.model;
 
+import com.example.goldenticketnew.model.audit.DateAudit;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldNameConstants;
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @FieldNameConstants
-public class Branch {
+public class Branch extends DateAudit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

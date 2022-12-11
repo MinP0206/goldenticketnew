@@ -23,6 +23,9 @@ public enum ResponseCode {
     //Schedule
     ARTICLE_NOT_FOUND(401, " Article not found"),
 
+
+    //Branch
+    BRANCH_NOT_FOUND(402, " Branch not found"),
     ;
     private final int code;
     private final String message;

@@ -34,4 +34,10 @@ public class BranchService implements IBranchService {
         Page<Branch> branchPage = IBranchRepository.findAll(request.getSpecification(), request.getPageable());
         return new PageResponse<>(branchPage.map(BranchDto::new));
     }
+
+    @Override
+    public List<BranchDto> getListBranch(GetAllBranchRequest request) {
+        List<Branch> branches= IBranchRepository.findAll(request.getSpecification());
+        return ModelMapperUtils.mapList(branches, BranchDto.class);
+    }
 }

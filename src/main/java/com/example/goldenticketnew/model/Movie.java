@@ -41,4 +41,38 @@ public class Movie extends UserDateAudit {
     private String language;
     private String rated;
     private int isShowing;
+    public static Movie addNewMovie(
+        Integer id,
+        String name,
+        String smallImageURl,
+        String shortDescription,
+        String longDescription,
+        String largeImageURL,
+        String director,
+        String actors,
+        String categories,
+        LocalDate releaseDate,
+        int duration,
+        String trailerURL,
+        String language,
+        String rated,
+        int isShowing) {
+        Movie movie = new Movie();
+        movie.setId(id);
+        movie.setName(name);
+        movie.setSmallImageURl(smallImageURl);
+        movie.setShortDescription(shortDescription);
+        movie.setLongDescription(longDescription);
+        movie.setLargeImageURL(largeImageURL);
+        movie.setDirector(director);
+        movie.setActors(actors);
+        movie.setCategories(categories);
+        movie.setReleaseDate(releaseDate);
+        movie.setDuration(duration);
+        movie.setTrailerURL(trailerURL);
+        movie.setLanguage(language);
+        movie.setRated(rated);
+        movie.setIsShowing(isShowing);
+        return movie;
+    }
 }
