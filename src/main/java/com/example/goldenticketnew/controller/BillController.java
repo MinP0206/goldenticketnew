@@ -15,7 +15,7 @@ import javax.validation.Valid;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/api/bills")
+@RequestMapping("v1/api/bills")
 @Tag(name = "Bill Controller", description = "Thao tác với hóa đơn")
 public class BillController {
     @Autowired

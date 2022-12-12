@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("v1/api/auth")
 @Tag(name = "Auth Controller", description = "Thao tác với auth")
 public class AuthController {
 

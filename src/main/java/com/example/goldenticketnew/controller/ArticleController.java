@@ -25,7 +25,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/article")
+@RequestMapping("v1/api/article")
 
 @Tag(name = "Article Controller", description = "Thao tác với các bài đăng")
 public class ArticleController {

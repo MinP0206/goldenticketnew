@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping(value = "/api/schedule", produces = "application/json")
+@RequestMapping(value = "v1/api/schedule", produces = "application/json")
 @Tag(name = "Schedule Controller", description = "Thao tác với Schedule")
 public class ScheduleController {
     @Autowired
@@ -37,7 +37,7 @@ public class ScheduleController {
         summary = "Thêm mới lịch chiếu ",
         description = "- Thêm mới lịch chiếu phim"
     )
-    @PostMapping("v1/add")
+    @PostMapping("/add")
     public ResponseEntity<ResponseBase<ScheduleDto>> addNewSchedule(@Valid @ParameterObject AddNewScheduleRequest request) {
        List<String> listStartTime = scheduleService.getStartTimes(request.getMovieId(), request.getBranchId(), LocalDate.parse(request.getStartDate()));
        for(String timeElement : listStartTime){
@@ -47,7 +47,7 @@ public class ScheduleController {
         return ResponseEntity.ok(new ResponseBase<>(scheduleService.addNewSchedule(request)));
     }
 
-    @GetMapping("v1/start-times")
+    @GetMapping("/start-times")
     public List<String> getStartTimes(@RequestParam Integer movieId, @RequestParam Integer branchId,
                                          @RequestParam String startDate) {
         return scheduleService.getStartTimes(movieId,branchId,LocalDate.parse(startDate));

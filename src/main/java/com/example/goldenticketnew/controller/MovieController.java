@@ -22,7 +22,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping(value="/api/movies/v1", produces = "application/json")
+@RequestMapping(value="/api/movies", produces = "application/json")
 @Tag(name = "Movie Controller", description = "Thao tác với movie")
 public class MovieController {
 
