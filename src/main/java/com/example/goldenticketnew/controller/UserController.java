@@ -23,7 +23,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("v1/api/user")
+@RequestMapping("/api/user")
 @Tag(name = "User Controller", description = "Thao tác với User")
 public class UserController {
 
