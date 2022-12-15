@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping(value = "v1/api/schedule", produces = "application/json")
+@RequestMapping(value = "/api/schedule", produces = "application/json")
 @Tag(name = "Schedule Controller", description = "Thao tác với Schedule")
 public class ScheduleController {
     @Autowired

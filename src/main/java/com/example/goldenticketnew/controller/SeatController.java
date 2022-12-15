@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("v1/api/seats")
+@RequestMapping("/api/seats")
 @Tag(name = "Seat Controller", description = "Thao tác với Seat")
 public class SeatController {
     @Autowired

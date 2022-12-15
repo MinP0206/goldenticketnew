@@ -20,7 +20,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping(value="v1/api/branches", produces = "application/json")
+@RequestMapping(value="/api/branches", produces = "application/json")
 @Tag(name = "Branch Controller", description = "Thao tác với các chi nhánh")
 public class BranchController {
     @Autowired
