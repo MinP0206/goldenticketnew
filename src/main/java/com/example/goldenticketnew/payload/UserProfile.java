@@ -16,5 +16,4 @@ public class UserProfile {
     private String email;
     private String name;
     private String image;
-
 }

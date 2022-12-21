@@ -1,6 +1,7 @@
 package com.example.goldenticketnew.service.movie;
 
 
+import com.example.goldenticketnew.dtos.BillDto;
 import com.example.goldenticketnew.dtos.MovieDto;
 import com.example.goldenticketnew.enums.ResponseCode;
 import com.example.goldenticketnew.exception.InternalException;
@@ -113,5 +114,11 @@ public class MovieService implements IMovieService {
     public PageResponse<MovieDto> getAllMovie(GetAllMovieRequest request) {
         Page<Movie> moviePage = movieRepository.findAll(request.getSpecification(), request.getPageable());
         return new PageResponse<>(moviePage.map(MovieDto::new));
+    }
+
+    @Override
+    public List<MovieDto> findAllListMovies(GetAllMovieRequest request) {
+        List<Movie> movieList = movieRepository.findAll(request.getSpecification());
+        return movieList.stream().map(MovieDto::new).collect(Collectors.toList());
     }
 }

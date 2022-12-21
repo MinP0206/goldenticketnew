@@ -6,21 +6,21 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
-import java.util.List;
+
 
 @Data
-public class AddNewArticleRequest {
+public class AddNewReviewRequest {
     private String mainImage;
     @NotNull
     private String title;
     @NotNull
     private String brief;
-    @JsonIgnore
-    private ArticleType type;
     @NotNull
     private String description;
+    @JsonIgnore
+    private ArticleType type;
 
-    private String image1;
+
 
 
 }

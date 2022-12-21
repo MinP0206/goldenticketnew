@@ -64,8 +64,17 @@ public class MovieController {
         description = "- Get All Movie với filter và paging"
     )
     @GetMapping("/getAll")
-    public ResponseBase<PageResponse<MovieDto>> findAllShowingMovies(@ParameterObject Pageable pageable, @ParameterObject GetAllMovieRequest request){
+    public ResponseBase<PageResponse<MovieDto>> findAllMoviesPaging(@ParameterObject Pageable pageable, @ParameterObject GetAllMovieRequest request){
         request.setPageable(pageable);
         return new ResponseBase<>(movieService.getAllMovie(request));
+    }
+    @Operation(
+        summary = "Get All Movie với filter (List) ",
+        description = "- Get All Movie với filter (List) "
+    )
+    @GetMapping("/getList")
+    public ResponseBase<List<MovieDto>> findAllMovies(@ParameterObject Pageable pageable, @ParameterObject GetAllMovieRequest request){
+        request.setPageable(pageable);
+        return new ResponseBase<>(movieService.findAllListMovies(request));
     }
 }

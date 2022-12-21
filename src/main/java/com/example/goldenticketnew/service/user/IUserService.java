@@ -2,6 +2,7 @@ package com.example.goldenticketnew.service.user;
 
 
 import com.example.goldenticketnew.dtos.UserDto;
+import com.example.goldenticketnew.dtos.UserReportDto;
 import com.example.goldenticketnew.model.User;
 import com.example.goldenticketnew.payload.UserProfile;
 import com.example.goldenticketnew.payload.UserSummary;
@@ -21,4 +22,6 @@ public interface IUserService {
     boolean existsByEmail(String email);
     UserProfile updateInfoUser(UpdateUserRequest request);
     Boolean deleteUserById(Long Id);
+
+    List<UserReportDto> getUserReport();
 }

@@ -30,9 +30,12 @@ public class Article extends UserDateAudit {
     private String title;
     @Column(name = "brief")
     private String brief;
+    @Lob
+    @Column(name = "description")
+    private String description;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "article")
-    private List<Content> contents;
+    @Column(name = "image1")
+    private String image1;
     @Column(name = "status")
     private ArticleStatus status;
     @Column(name = "type")

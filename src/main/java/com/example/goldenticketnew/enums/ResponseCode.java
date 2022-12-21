@@ -26,6 +26,18 @@ public enum ResponseCode {
 
     //Branch
     BRANCH_NOT_FOUND(402, " Branch not found"),
+
+    //Bill
+    BILL_NOT_FOUND(501, " Bill not found"),
+
+    //Seat
+    SEAT_NOT_FOUND(601, " Seat not found"),
+
+    //vietnam message
+
+    BOOKING_SEAT_EXIST(901,"Đã có người nhanh tay hơn đặt ghế, mời bạn chọn lại!"),
+
+
     ;
     private final int code;
     private final String message;

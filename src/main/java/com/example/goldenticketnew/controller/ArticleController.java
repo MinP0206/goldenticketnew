@@ -2,17 +2,16 @@ package com.example.goldenticketnew.controller;
 
 import com.example.goldenticketnew.dtos.ArticleDto;
 import com.example.goldenticketnew.dtos.MovieDto;
+import com.example.goldenticketnew.dtos.ReviewDto;
 import com.example.goldenticketnew.enums.ArticleType;
-import com.example.goldenticketnew.payload.article.request.AddNewArticleRequest;
-import com.example.goldenticketnew.payload.article.request.ChangeArticleStatusRequest;
-import com.example.goldenticketnew.payload.article.request.GetAllArticleRequest;
-import com.example.goldenticketnew.payload.article.request.UpdateArticleRequest;
+import com.example.goldenticketnew.payload.article.request.*;
 import com.example.goldenticketnew.payload.response.ApiResponse;
 import com.example.goldenticketnew.payload.response.PageResponse;
 import com.example.goldenticketnew.payload.response.ResponseBase;
 import com.example.goldenticketnew.payload.resquest.GetAllMovieRequest;
 import com.example.goldenticketnew.service.article.IArticleService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 import org.springdoc.api.annotations.ParameterObject;
@@ -37,9 +36,9 @@ public class ArticleController {
         description = "- Thêm mới Review của User"
     )
     @PostMapping("/addNewReview")
-    public ResponseEntity<ResponseBase<ArticleDto>> addNewArticleReview(@Valid @RequestBody AddNewArticleRequest request) {
+    public ResponseEntity<ResponseBase<ReviewDto>> addNewArticleReview(@Valid @RequestBody AddNewReviewRequest request) {
         request.setType(ArticleType.REVIEWS);
-        return ResponseEntity.ok(new ResponseBase<>(articleService.addNewArticle(request)));
+        return ResponseEntity.ok(new ResponseBase<>(articleService.addNewArticleReview(request)));
     }
     @Operation(
         summary = "Thêm mới tin tức, sự kiện khuyến mãi của Staff",
@@ -63,10 +62,8 @@ public class ArticleController {
         description = "- Chỉnh sửa trạng thái của Article"
     )
     @PutMapping("/changeStatus")
-    public ResponseEntity<ApiResponse> changeStatusArticle(@Valid @RequestBody ChangeArticleStatusRequest request) {
-        if(articleService.changeStatusArticle(request))
-            return ResponseEntity.ok(new ApiResponse(true, "Change Status Article Successfully"));
-        return ResponseEntity.ok(new ApiResponse(false, "!Please try again"));
+    public ResponseEntity<ResponseBase<ArticleDto>> changeStatusArticle(@Valid @ParameterObject ChangeArticleStatusRequest request) {
+            return ResponseEntity.ok(new ResponseBase<>(articleService.changeStatusArticle(request)));
     }
     @Operation(
         summary = "Get All Article với filter ",
@@ -75,7 +72,15 @@ public class ArticleController {
     @GetMapping("/getAll")
     public ResponseEntity<ResponseBase<List<ArticleDto>>> findAllArticle(@ParameterObject GetAllArticleRequest request) {
         return ResponseEntity.ok(new ResponseBase<>(articleService.getAllArticle(request)));
+    }   @Operation(
+        summary = "Get Detail Article ",
+        description = "- Get Detail Article "
+    )
+    @GetMapping("/getDetail")
+    public ResponseEntity<ResponseBase<ArticleDto>> getDetail(@Parameter Long id ) {
+        return ResponseEntity.ok(new ResponseBase<>(articleService.getDetailArticle(id)));
     }
+
 
     @Operation(
         summary = "Get All Article với filter và paging ",

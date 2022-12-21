@@ -2,16 +2,14 @@ package com.example.goldenticketnew.service.article;
 
 import com.example.goldenticketnew.dtos.ArticleDto;
 
-import com.example.goldenticketnew.dtos.ContentDto;
+import com.example.goldenticketnew.dtos.ReviewDto;
 import com.example.goldenticketnew.enums.ArticleStatus;
 import com.example.goldenticketnew.enums.ResponseCode;
 import com.example.goldenticketnew.exception.InternalException;
 import com.example.goldenticketnew.model.Article;
-import com.example.goldenticketnew.model.Content;
 import com.example.goldenticketnew.payload.article.request.*;
 import com.example.goldenticketnew.payload.response.PageResponse;
 import com.example.goldenticketnew.repository.IArticleRepository;
-import com.example.goldenticketnew.repository.IContentRepository;
 import com.example.goldenticketnew.utils.ModelMapperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,8 +24,7 @@ import java.util.List;
 public class ArticleService implements IArticleService{
     @Autowired
     private IArticleRepository articleRepository;
-    @Autowired
-    private IContentRepository contentRepository;
+
     @Override
     public ArticleDto addNewArticle(AddNewArticleRequest request) {
         Article article = Article.builder()
@@ -38,13 +35,21 @@ public class ArticleService implements IArticleService{
             .type(request.getType())
             .build();
         article = articleRepository.save(article);
-        List<Content> contents = ModelMapperUtils.mapList(request.getContents(), Content.class);
-        for(Content content : contents){
-            content.setArticle(article);
-            contentRepository.save(content);
-        }
-        article.setContents(contents);
         return ModelMapperUtils.mapper(article, ArticleDto.class);
+    }
+
+    @Override
+    public ReviewDto addNewArticleReview(AddNewReviewRequest request) {
+        Article article = Article.builder()
+            .brief(request.getBrief())
+            .title(request.getTitle())
+            .status(ArticleStatus.CREATE)
+            .mainImage(request.getMainImage())
+            .type(request.getType())
+            .description(request.getDescription())
+            .build();
+        article = articleRepository.save(article);
+        return ModelMapperUtils.mapper(article, ReviewDto.class);
     }
 
     @Transactional
@@ -53,15 +58,7 @@ public class ArticleService implements IArticleService{
         Article article = articleRepository.findById(request.getId()).orElseThrow(() -> new InternalException(ResponseCode.ARTICLE_NOT_FOUND));
         if(!request.getBrief().isBlank()) article.setBrief(request.getBrief());
         if(!request.getTitle().isBlank()) article.setTitle(request.getTitle());
-        if(request.getContents() != null){
-            List<Content> contents = ModelMapperUtils.mapList(request.getContents(), Content.class);
-            contentRepository.deleteAllByArticleId(request.getId());
-            for(Content content : contents){
-                content.setArticle(article);
-                contentRepository.save(content);
-            }
-            article.setContents(contents);
-        }
+        if(!request.getDescription().isBlank()) article.setDescription(request.getDescription());
         return ModelMapperUtils.mapper(article, ArticleDto.class);
     }
 
@@ -72,10 +69,11 @@ public class ArticleService implements IArticleService{
     }
 
     @Override
-    public Boolean changeStatusArticle(ChangeArticleStatusRequest request) {
+    public ArticleDto changeStatusArticle(ChangeArticleStatusRequest request) {
         Article article = articleRepository.findById(request.getArticleId()).orElseThrow(()-> new InternalException(ResponseCode.ARTICLE_NOT_FOUND));
         article.setStatus(request.getStatus());
-        return true;
+        articleRepository.save(article);
+        return ModelMapperUtils.mapper(article, ArticleDto.class);
     }
 
     @Override
@@ -87,6 +85,12 @@ public class ArticleService implements IArticleService{
     public List<ArticleDto> getAllArticle(GetAllArticleRequest request) {
         List<Article> articles = articleRepository.findAll(request.getSpecification());
         return ModelMapperUtils.mapList(articles, ArticleDto.class);
+    }
+
+    @Override
+    public void deleteArticle(Long articleId) {
+        Article article = articleRepository.findById(articleId).orElseThrow(() -> new InternalException(ResponseCode.ARTICLE_NOT_FOUND));
+        articleRepository.deleteById(article.getId());
     }
 
 }

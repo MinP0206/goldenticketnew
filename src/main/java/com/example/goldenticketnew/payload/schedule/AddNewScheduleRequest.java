@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 @Getter
 @Setter
@@ -23,6 +24,6 @@ public class AddNewScheduleRequest {
     private String startDate;
     @NotBlank
     private String startTime;
-
+    @Positive
     private Double price;
 }

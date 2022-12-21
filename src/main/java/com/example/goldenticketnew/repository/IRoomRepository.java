@@ -22,4 +22,5 @@ public interface IRoomRepository extends JpaRepository<Room, Integer> {
     List<Room> findAllByBranchId(@Param("branchId") Integer branchId);
 
 
+
 }

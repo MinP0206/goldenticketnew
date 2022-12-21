@@ -2,6 +2,7 @@ package com.example.goldenticketnew.controller;
 
 
 import com.example.goldenticketnew.dtos.UserDto;
+import com.example.goldenticketnew.dtos.UserReportDto;
 import com.example.goldenticketnew.payload.UserIdentityAvailability;
 import com.example.goldenticketnew.payload.UserProfile;
 import com.example.goldenticketnew.payload.UserSummary;
@@ -96,5 +97,13 @@ public class UserController {
             return ResponseEntity.ok(new ApiResponse(true, "Delete User Successfully"));
         return ResponseEntity.ok(new ApiResponse(false, "Please check the id"));
     }
+//    @Operation(
+//        summary = "Get dashboard user",
+//        description = "- Get dashboard user"
+//    )
+//    @GetMapping("/dashBoard")
+//    public ResponseEntity<ResponseBase<List<UserReportDto>>> getUserReport() {
+//        return ResponseEntity.ok(new ResponseBase<>(use));
+//    }
 
 }

@@ -23,5 +23,6 @@ public class UpdateArticleRequest {
 
     private String brief;
 
-    private List<ContentDto> contents;
+    private String description;
+
 }
