@@ -1,5 +1,6 @@
 package com.example.goldenticketnew.dtos;
 
+import com.example.goldenticketnew.enums.BillStatus;
 import com.example.goldenticketnew.model.Bill;
 import com.example.goldenticketnew.model.User;
 import com.example.goldenticketnew.payload.UserProfile;
@@ -15,9 +16,15 @@ public class BillDto {
     private LocalDateTime createdTime;
     private UserProfile user;
 
+    private BillStatus status;
+
+    private Double price;
+
     public BillDto(Bill bill) {
         this.id = bill.getId();
         this.createdTime = bill.getCreatedTime();
         this.user = ModelMapperUtils.mapper(bill.getUser(), UserProfile.class);
+        this.status = bill.getStatus();
+        this.price = bill.getPrice();
     }
 }

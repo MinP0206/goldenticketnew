@@ -44,7 +44,7 @@ public class User extends UserDateAudit {
     @Email
     private String email;
 
-    @Size(max = 1000)
+    @Column(length = 2000)
     private String image;
 
     @JsonIgnore

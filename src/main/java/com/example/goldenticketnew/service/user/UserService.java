@@ -2,6 +2,7 @@ package com.example.goldenticketnew.service.user;
 
 
 import com.example.goldenticketnew.dtos.UserDto;
+import com.example.goldenticketnew.dtos.UserReportDto;
 import com.example.goldenticketnew.enums.ResponseCode;
 import com.example.goldenticketnew.exception.InternalException;
 import com.example.goldenticketnew.exception.ResourceNotFoundException;
@@ -53,7 +54,7 @@ public class UserService implements IUserService {
 
     @Override
     public UserSummary getCurrentUser(UserPrincipal currentUser) {
-        return new UserSummary(currentUser.getId(), currentUser.getUsername(), currentUser.getName(),currentUser.getEmail(),currentUser.getAuthorities().toString());
+        return new UserSummary(currentUser.getId(), currentUser.getUsername(), currentUser.getName(),currentUser.getEmail(), currentUser.getImage(), currentUser.getAuthorities().toString());
     }
 
     @Override
@@ -90,6 +91,12 @@ public class UserService implements IUserService {
         }
         return false;
 
+    }
+
+    @Override
+    public List<UserReportDto> getUserReport() {
+        userRepository.findAll();
+        return null;
     }
 
 }

@@ -67,7 +67,6 @@ public class ScheduleService implements IScheduleService {
         Branch branch = branchRepository.findById(request.getBranchId()).orElseThrow(() -> new InternalException(ResponseCode.BRANCH_NOT_FOUND));
         Movie movie = movieRepository.findById(request.getMovieId()).orElseThrow(() -> new InternalException(ResponseCode.MOVIE_NOT_FOUND));
         Room room = roomRepository.findById(request.getRoomId()).orElseThrow(() -> new InternalException(ResponseCode.MOVIE_NOT_FOUND));
-
         schedule.setBranch(branch);
         schedule.setMovie(movie);
         schedule.setRoom(room);
