@@ -93,7 +93,7 @@ public class CadenceWorkflowConfig {
         public String getBooking(BookingRequestDto request) {
             // This is a blocking call that returns only after the activity has completed.
             System.out.println("cho 30 phut");
-            Workflow.sleep(Duration.ofSeconds(30));
+            Workflow.sleep(Duration.ofSeconds(120));
             return activities.composeBooking(request);
         }
     }
