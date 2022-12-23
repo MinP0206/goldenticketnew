@@ -6,6 +6,7 @@ import com.example.goldenticketnew.model.audit.UserDateAudit;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.FieldNameConstants;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
@@ -16,6 +17,7 @@ import java.util.HashSet;
 import java.util.Set;
 @Getter
 @Setter
+@FieldNameConstants
 @Entity
 @Table(name = "user", uniqueConstraints = {
         @UniqueConstraint(columnNames = {
