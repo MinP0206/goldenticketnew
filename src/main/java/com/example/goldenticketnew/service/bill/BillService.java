@@ -15,6 +15,7 @@ import com.example.goldenticketnew.payload.dashboard.GetDashboardTransactionRequ
 import com.example.goldenticketnew.payload.dashboard.GetDashboardTransactionResponse;
 import com.example.goldenticketnew.repository.*;
 import com.example.goldenticketnew.utils.ModelMapperUtils;
+import com.example.goldenticketnew.utils.ValueComparator;
 import com.uber.cadence.client.WorkflowClient;
 import com.uber.cadence.client.WorkflowOptions;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -180,14 +182,15 @@ public class BillService implements IBillService {
 
     @Override
     public List<UserReportDto> getUserDashBoard(BillStatus status) {
-//        List<UserReportDto> reports = new ArrayList<>();
+        List<UserReportDto> reports = new ArrayList<>();
         if (status.equals(BillStatus.SUCCESS)) {
-           return  billRepository.findAllByStatusSuccessGroupByUser();
+            reports = billRepository.findAllByStatusSuccessGroupByUser();
         } else if (status.equals(BillStatus.EXPIRATION)) {
 
-           return ModelMapperUtils.mapList(billRepository.findAllByStatusExGroupByUser(),UserReportDto.class) ;
+            reports =  ModelMapperUtils.mapList(billRepository.findAllByStatusExGroupByUser(),UserReportDto.class) ;
         }
-        else return new ArrayList<>();
+        reports.sort(new ValueComparator());
+        return reports;
     }
 
     @Override
