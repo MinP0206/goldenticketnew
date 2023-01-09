@@ -1,7 +1,7 @@
 package com.example.goldenticketnew.service.bill;
 
 
-import com.example.goldenticketnew.config.cadance.CadenceWorkflowConfig;
+//import com.example.goldenticketnew.config.cadance.CadenceWorkflowConfig;
 import com.example.goldenticketnew.dtos.BillDto;
 import com.example.goldenticketnew.dtos.BookingRequestDto;
 import com.example.goldenticketnew.dtos.DayTransactionReport;
@@ -16,8 +16,8 @@ import com.example.goldenticketnew.payload.dashboard.GetDashboardTransactionResp
 import com.example.goldenticketnew.repository.*;
 import com.example.goldenticketnew.utils.ModelMapperUtils;
 import com.example.goldenticketnew.utils.ValueComparator;
-import com.uber.cadence.client.WorkflowClient;
-import com.uber.cadence.client.WorkflowOptions;
+//import com.uber.cadence.client.WorkflowClient;
+//import com.uber.cadence.client.WorkflowOptions;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -42,10 +42,10 @@ public class BillService implements IBillService {
     private final ISeatRepository seatRepository;
 
     private final IBillRepository billRepository;
-    private final WorkflowClient workflowClient;
+//    private final WorkflowClient workflowClient;
 
 
-    private final CadenceWorkflowConfig workflowConfig;
+//    private final CadenceWorkflowConfig workflowConfig;
 
     @Override
     @Transactional
@@ -132,13 +132,13 @@ public class BillService implements IBillService {
             // Get a workflow stub using the same task list the worker uses.
 //             CadenceWorkflowConfig.BookWorkflow workflow = workflowClient.newWorkflowStub(CadenceWorkflowConfig.BookWorkflow.class);
             // Execute a workflow waiting for it to complete.
-            workflowClient
-                .newUntypedWorkflowStub("BookWorkflow::getBooking",
-                    new WorkflowOptions.Builder()
-                        .setTaskList(CadenceWorkflowConfig.TASK_LIST)
-                        .setExecutionStartToCloseTimeout(Duration.ofMinutes(31))
-                        .build())
-                .start(bookingRequestDTO);
+//            workflowClient
+//                .newUntypedWorkflowStub("BookWorkflow::getBooking",
+//                    new WorkflowOptions.Builder()
+//                        .setTaskList(CadenceWorkflowConfig.TASK_LIST)
+//                        .setExecutionStartToCloseTimeout(Duration.ofMinutes(31))
+//                        .build())
+//                .start(bookingRequestDTO);
 
 //        String greeting
 //            = workflow.getBooking(bookingRequestDTO);
