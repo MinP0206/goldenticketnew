@@ -98,15 +98,26 @@ public class BillService implements IBillService {
         if (bill.getStatus().equals(BillStatus.SUCCESS)) {
             throw new RuntimeException("Bill đã được thanh toán thành công");
         }
-        bookingRequestDTO.getListSeatIds().forEach(seatId -> {
-            Ticket ticket = ticketRepository.findTicketByAndSchedule_IdAndSeat_Id(bookingRequestDTO.getScheduleId(), seatId);
-            if (ticket != null) {
-                ticketRepository.deleteById(ticket.getId());
-            }
+        List<Ticket> tickets = ticketRepository.findTicketsByBillId(bill.getId());
+        tickets.forEach(ticket -> {
+//            Ticket ticket = ticketRepository.findTicketByAndSchedule_IdAndSeat_Id(bookingRequestDTO.getScheduleId(), tickets);
+//            if (ticket != null) {
+//                ticketRepository.deleteById(ticket.getId());
+//            }
+            ticketRepository.deleteById(ticket.getId());
             System.out.println("xoa thanh cong");
             bill.setStatus(BillStatus.EXPIRATION);
             billRepository.save(bill);
         });
+//        bookingRequestDTO.getListSeatIds().forEach(seatId -> {
+//            Ticket ticket = ticketRepository.findTicketByAndSchedule_IdAndSeat_Id(bookingRequestDTO.getScheduleId(), seatId);
+//            if (ticket != null) {
+//                ticketRepository.deleteById(ticket.getId());
+//            }
+//            System.out.println("xoa thanh cong");
+//            bill.setStatus(BillStatus.EXPIRATION);
+//            billRepository.save(bill);
+//        });
     }
 
     @Override
