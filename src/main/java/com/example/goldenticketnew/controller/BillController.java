@@ -1,10 +1,7 @@
 package com.example.goldenticketnew.controller;
 
 
-import com.example.goldenticketnew.dtos.BillDto;
-import com.example.goldenticketnew.dtos.BookingRequestDto;
-import com.example.goldenticketnew.dtos.DayTransactionReport;
-import com.example.goldenticketnew.dtos.UserReportDto;
+import com.example.goldenticketnew.dtos.*;
 import com.example.goldenticketnew.enums.BillStatus;
 import com.example.goldenticketnew.payload.dashboard.GetDashboardTransactionRequest;
 import com.example.goldenticketnew.payload.dashboard.GetDashboardTransactionResponse;
@@ -47,9 +44,9 @@ public class BillController {
         description = "- Tạo hóa đơn"
     )
     @PostMapping("/delete")
-    public ResponseEntity<String> xoaNewBill(@Valid @RequestBody BookingRequestDto bookingRequestDTO) {
+    public ResponseEntity<String> xoaNewBill(@Valid @ParameterObject DeleteBillTicketRequest request ) {
         try {
-            billService.removeBill(bookingRequestDTO);
+            billService.removeBill(request);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.EXPECTATION_FAILED);
         }

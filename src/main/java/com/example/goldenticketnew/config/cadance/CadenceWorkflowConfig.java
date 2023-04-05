@@ -3,6 +3,7 @@ package com.example.goldenticketnew.config.cadance;
 
 
 import com.example.goldenticketnew.dtos.BookingRequestDto;
+import com.example.goldenticketnew.dtos.DeleteBillTicketRequest;
 import com.example.goldenticketnew.service.bill.IBillService;
 import com.example.goldenticketnew.utils.BeanUtils;
 import com.uber.cadence.activity.ActivityMethod;
@@ -92,7 +93,7 @@ public class CadenceWorkflowConfig {
         @Override
         public String getBooking(BookingRequestDto request) {
             // This is a blocking call that returns only after the activity has completed.
-            System.out.println("cho 30 phut");
+            System.out.println("cho 120 s");
             Workflow.sleep(Duration.ofSeconds(120));
             return activities.composeBooking(request);
         }
@@ -103,9 +104,10 @@ public class CadenceWorkflowConfig {
         public String composeBooking(BookingRequestDto request) {
             try {
                 IBillService billService = BeanUtils.getBean(IBillService.class);
-
-                billService.removeBill(request);
-                System.out.println("da xong 30 phut");
+                DeleteBillTicketRequest request1 = new DeleteBillTicketRequest();
+                request1.setBillId(request.getBillId());
+                billService.removeBill(request1);
+                System.out.println("cho 120 s");
                 return "dat ve thanh cong";
             }
             catch (Exception e){

@@ -1,11 +1,8 @@
 package com.example.goldenticketnew.service.bill;
 
 
-import com.example.goldenticketnew.config.cadance.CadenceWorkflowConfig;
-import com.example.goldenticketnew.dtos.BillDto;
-import com.example.goldenticketnew.dtos.BookingRequestDto;
-import com.example.goldenticketnew.dtos.DayTransactionReport;
-import com.example.goldenticketnew.dtos.UserReportDto;
+//import com.example.goldenticketnew.config.cadance.CadenceWorkflowConfig;
+import com.example.goldenticketnew.dtos.*;
 import com.example.goldenticketnew.enums.BillStatus;
 import com.example.goldenticketnew.enums.ResponseCode;
 import com.example.goldenticketnew.enums.SeatType;
@@ -16,8 +13,8 @@ import com.example.goldenticketnew.payload.dashboard.GetDashboardTransactionResp
 import com.example.goldenticketnew.repository.*;
 import com.example.goldenticketnew.utils.ModelMapperUtils;
 import com.example.goldenticketnew.utils.ValueComparator;
-import com.uber.cadence.client.WorkflowClient;
-import com.uber.cadence.client.WorkflowOptions;
+//import com.uber.cadence.client.WorkflowClient;
+//import com.uber.cadence.client.WorkflowOptions;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -42,10 +39,10 @@ public class BillService implements IBillService {
     private final ISeatRepository seatRepository;
 
     private final IBillRepository billRepository;
-    private final WorkflowClient workflowClient;
+//    private final WorkflowClient workflowClient;
 
 
-    private final CadenceWorkflowConfig workflowConfig;
+//    private final CadenceWorkflowConfig workflowConfig;
 
     @Override
     @Transactional
@@ -93,20 +90,31 @@ public class BillService implements IBillService {
     }
 
     @Override
-    public void removeBill(BookingRequestDto bookingRequestDTO) throws RuntimeException {
-        Bill bill = billRepository.findById(bookingRequestDTO.getBillId()).orElseThrow(() -> new InternalException(ResponseCode.BILL_NOT_FOUND));
+    public void removeBill(DeleteBillTicketRequest request) throws RuntimeException {
+        Bill bill = billRepository.findById(request.getBillId()).orElseThrow(() -> new InternalException(ResponseCode.BILL_NOT_FOUND));
         if (bill.getStatus().equals(BillStatus.SUCCESS)) {
             throw new RuntimeException("Bill đã được thanh toán thành công");
         }
-        bookingRequestDTO.getListSeatIds().forEach(seatId -> {
-            Ticket ticket = ticketRepository.findTicketByAndSchedule_IdAndSeat_Id(bookingRequestDTO.getScheduleId(), seatId);
-            if (ticket != null) {
-                ticketRepository.deleteById(ticket.getId());
-            }
+        List<Ticket> tickets = ticketRepository.findTicketsByBillId(bill.getId());
+        tickets.forEach(ticket -> {
+//            Ticket ticket = ticketRepository.findTicketByAndSchedule_IdAndSeat_Id(request.getScheduleId(), tickets);
+//            if (ticket != null) {
+//                ticketRepository.deleteById(ticket.getId());
+//            }
+            ticketRepository.deleteById(ticket.getId());
             System.out.println("xoa thanh cong");
             bill.setStatus(BillStatus.EXPIRATION);
             billRepository.save(bill);
         });
+//        request.getListSeatIds().forEach(seatId -> {
+//            Ticket ticket = ticketRepository.findTicketByAndSchedule_IdAndSeat_Id(request.getScheduleId(), seatId);
+//            if (ticket != null) {
+//                ticketRepository.deleteById(ticket.getId());
+//            }
+//            System.out.println("xoa thanh cong");
+//            bill.setStatus(BillStatus.EXPIRATION);
+//            billRepository.save(bill);
+//        });
     }
 
     @Override
@@ -132,13 +140,13 @@ public class BillService implements IBillService {
             // Get a workflow stub using the same task list the worker uses.
 //             CadenceWorkflowConfig.BookWorkflow workflow = workflowClient.newWorkflowStub(CadenceWorkflowConfig.BookWorkflow.class);
             // Execute a workflow waiting for it to complete.
-            workflowClient
-                .newUntypedWorkflowStub("BookWorkflow::getBooking",
-                    new WorkflowOptions.Builder()
-                        .setTaskList(CadenceWorkflowConfig.TASK_LIST)
-                        .setExecutionStartToCloseTimeout(Duration.ofMinutes(31))
-                        .build())
-                .start(bookingRequestDTO);
+//            workflowClient
+//                .newUntypedWorkflowStub("BookWorkflow::getBooking",
+//                    new WorkflowOptions.Builder()
+//                        .setTaskList(CadenceWorkflowConfig.TASK_LIST)
+//                        .setExecutionStartToCloseTimeout(Duration.ofMinutes(31))
+//                        .build())
+//                .start(bookingRequestDTO);
 
 //        String greeting
 //            = workflow.getBooking(bookingRequestDTO);

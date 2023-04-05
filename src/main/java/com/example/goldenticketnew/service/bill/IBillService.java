@@ -4,6 +4,7 @@ package com.example.goldenticketnew.service.bill;
 import com.example.goldenticketnew.dtos.BillDto;
 import com.example.goldenticketnew.dtos.BookingRequestDto;
 
+import com.example.goldenticketnew.dtos.DeleteBillTicketRequest;
 import com.example.goldenticketnew.dtos.UserReportDto;
 import com.example.goldenticketnew.enums.BillStatus;
 import com.example.goldenticketnew.payload.dashboard.GetDashboardTransactionRequest;
@@ -14,7 +15,7 @@ import java.util.List;
 public interface IBillService {
     BillDto createNewBill(BookingRequestDto bookingRequestDTO);
 
-    void removeBill(BookingRequestDto bookingRequestDTO);
+    void removeBill(DeleteBillTicketRequest request);
 
     BillDto payBill(Integer id);
 
