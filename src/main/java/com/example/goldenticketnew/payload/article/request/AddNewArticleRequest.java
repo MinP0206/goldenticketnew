@@ -2,6 +2,7 @@ package com.example.goldenticketnew.payload.article.request;
 
 import com.example.goldenticketnew.dtos.ContentDto;
 import com.example.goldenticketnew.enums.ArticleType;
+import com.example.goldenticketnew.model.Category;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
@@ -21,6 +22,8 @@ public class AddNewArticleRequest {
     private String description;
 
     private String image1;
+
+    private Category category;
 
 
 }

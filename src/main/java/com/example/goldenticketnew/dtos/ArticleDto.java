@@ -3,6 +3,7 @@ package com.example.goldenticketnew.dtos;
 import com.example.goldenticketnew.enums.ArticleStatus;
 import com.example.goldenticketnew.enums.ArticleType;
 import com.example.goldenticketnew.model.Article;
+import com.example.goldenticketnew.model.Category;
 import com.example.goldenticketnew.utils.ModelMapperUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,6 +24,7 @@ public class ArticleDto {
     private String description;
 
     private ArticleType type;
+    private Category category;
 
     public ArticleDto(Article article) {
         this.id = article.getId();
@@ -32,5 +34,6 @@ public class ArticleDto {
         if(article.getDescription()!=null) this.description = article.getDescription();
         if(article.getImage1()!=null)this.image1 = article.getImage1();
         this.status = article.getStatus();
+        if(article.getCategory() != null) this.category = article.getCategory();
     }
 }

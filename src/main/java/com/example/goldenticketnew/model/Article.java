@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldNameConstants;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Data
 @Entity
@@ -40,4 +39,11 @@ public class Article extends UserDateAudit {
     private ArticleStatus status;
     @Column(name = "type")
     private ArticleType type;
+
+    private String keyword;
+
+    @OneToOne( fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinColumn(referencedColumnName = "id")
+    private Category category;
+
 }

@@ -33,6 +33,7 @@ public class ArticleService implements IArticleService{
             .status(ArticleStatus.CREATE)
             .mainImage(request.getMainImage())
             .type(request.getType())
+            .category(request.getCategory())
             .build();
         article = articleRepository.save(article);
         return ModelMapperUtils.mapper(article, ArticleDto.class);
@@ -47,6 +48,7 @@ public class ArticleService implements IArticleService{
             .mainImage(request.getMainImage())
             .type(request.getType())
             .description(request.getDescription())
+            .category(request.getCategory())
             .build();
         article = articleRepository.save(article);
         return ModelMapperUtils.mapper(article, ReviewDto.class);

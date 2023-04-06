@@ -24,12 +24,17 @@ public class GetAllArticleRequest {
 
     private ArticleStatus status;
 
+    private String keyword;
+
 
     public Specification<Article> getSpecification(){
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
             if (title != null) {
                 predicates.add(cb.like(cb.lower(root.get(Article.Fields.title)), "%" + title.toLowerCase() + "%"));
+            }
+            if (keyword != null) {
+                predicates.add(cb.like(cb.lower(root.get(Article.Fields.keyword)), "%" + keyword.toLowerCase() + "%"));
             }
             if (status != null) {
                 predicates.add(cb.equal(root.get(Article.Fields.status),status));
