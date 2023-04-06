@@ -62,7 +62,7 @@ jobs:
       - run: ssh -v $DEPLOY_USER@$DEPLOY_SERVER './deploy.sh'
 
 
-# Invoke jobs via workflows
+# Invoke jobs via workflows s
 workflows:
   my-workflow:
     #  sample: # This is the name of the workflow, feel free to change it to better match your workflow.
@@ -79,4 +79,4 @@ workflows:
           filters:
             branches:
               only:
-                - main
+                - develop
