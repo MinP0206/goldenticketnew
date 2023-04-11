@@ -1,7 +1,6 @@
 package com.example.goldenticketnew.service.article;
 
 import com.example.goldenticketnew.dtos.ArticleDto;
-
 import com.example.goldenticketnew.dtos.ReviewDto;
 import com.example.goldenticketnew.enums.ArticleStatus;
 import com.example.goldenticketnew.enums.ResponseCode;
@@ -10,10 +9,10 @@ import com.example.goldenticketnew.model.Article;
 import com.example.goldenticketnew.payload.article.request.*;
 import com.example.goldenticketnew.payload.response.PageResponse;
 import com.example.goldenticketnew.repository.IArticleRepository;
+import com.example.goldenticketnew.repository.ICategoryRepository;
 import com.example.goldenticketnew.utils.ModelMapperUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,9 +20,12 @@ import java.util.List;
 
 
 @Service
+@RequiredArgsConstructor
 public class ArticleService implements IArticleService{
-    @Autowired
-    private IArticleRepository articleRepository;
+
+    private final IArticleRepository articleRepository;
+
+    private final ICategoryRepository categoryRepository;
 
     @Override
     public ArticleDto addNewArticle(AddNewArticleRequest request) {
@@ -33,7 +35,8 @@ public class ArticleService implements IArticleService{
             .status(ArticleStatus.CREATE)
             .mainImage(request.getMainImage())
             .type(request.getType())
-            .category(request.getCategory())
+            .category(categoryRepository.getById(request.getCategoryId()))
+            .keyword(request.getKeyword())
             .build();
         article = articleRepository.save(article);
         return ModelMapperUtils.mapper(article, ArticleDto.class);
@@ -48,7 +51,8 @@ public class ArticleService implements IArticleService{
             .mainImage(request.getMainImage())
             .type(request.getType())
             .description(request.getDescription())
-            .category(request.getCategory())
+            .category(categoryRepository.getById(request.getCategoryId()))
+            .keyword(request.getKeyword())
             .build();
         article = articleRepository.save(article);
         return ModelMapperUtils.mapper(article, ReviewDto.class);

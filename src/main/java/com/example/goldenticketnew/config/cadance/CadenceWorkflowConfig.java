@@ -2,55 +2,115 @@ package com.example.goldenticketnew.config.cadance;
 
 
 
-import com.example.goldenticketnew.dtos.BookingRequestDto;
-import com.example.goldenticketnew.dtos.DeleteBillTicketRequest;
-import com.example.goldenticketnew.service.bill.IBillService;
-import com.example.goldenticketnew.utils.BeanUtils;
-import com.uber.cadence.activity.ActivityMethod;
+import com.uber.cadence.WorkflowIdReusePolicy;
+import com.uber.cadence.activity.ActivityOptions;
 import com.uber.cadence.client.WorkflowClient;
 import com.uber.cadence.client.WorkflowClientOptions;
+import com.uber.cadence.client.WorkflowOptions;
+import com.uber.cadence.common.RetryOptions;
 import com.uber.cadence.serviceclient.ClientOptions;
 import com.uber.cadence.serviceclient.IWorkflowService;
 import com.uber.cadence.serviceclient.WorkflowServiceTChannel;
 import com.uber.cadence.worker.WorkerFactory;
-import com.uber.cadence.workflow.Workflow;
-import com.uber.cadence.workflow.WorkflowMethod;
+import com.uber.cadence.worker.WorkerFactoryOptions;
 import lombok.Data;
-import org.apache.catalina.Host;
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-/**
- * Hello World Cadence workflow that executes a single activity. Requires a local instance the
- * Cadence service to be running.
- */
-@Configuration
 @Data
-public class CadenceWorkflowConfig {
+@Configuration
+@Slf4j
+public class CadenceWorkflowConfig implements InitializingBean, Cloneable {
 
 
-    public static final String TASK_LIST = "BookActivity" ;
+    public static final String BOOKING_TASK = "BookingTask";
+
+    @Value("${cadence.host}")
+    private String cadenceHost;
+
+    @Value("${cadence.port}")
+    private int cadencePort;
 
     @Value("${cadence.domain}")
     private String domain;
-    @Value("${cadence.host}")
-    private String host;
-    @Value("${cadence.port}")
-    private int port;
+
+    @Value("${cadence.retry.workflow.execution-start-to-close-timeout}")
+    private Integer executionStartToCloseTimeout;
+
+    @Value("${cadence.retry.workflow.medium-execution-start-to-close-timeout}")
+    public Integer mediumExecutionStartToCloseTimeout;
+
+    @Value("${cadence.retry.workflow.activity.schedule-to-close-timeout}")
+    private Integer activityScheduleToCloseTimeout;
+
+    @Value("${cadence.retry.workflow.activity.initial-interval}")
+    private Integer activityInitialInterval;
+
+    @Value("${cadence.retry.workflow.activity.expiration}")
+    private Integer activityExpiration;
+
+    @Value("${cadence.retry.workflow.activity.maximum-attempts}")
+    private Integer activityMaximumAttempts;
+
+    @Value("${cadence.workerfactory.max-workflow-thread-count}")
+    private Integer maxWorkflowThreadCount;
+
+    @Value("${cadence.workerfactory.sticky-cache-size}")
+    private Integer stickyCacheSize;
+
+    @Value("${cadence.workerfactory.disable-sticky-execution}")
+    private Boolean disableStickyExecution;
+
+    @Value("${cadence.worker.max-concurrent-activity-execution-size}")
+    private Integer maxConcurrentActivityExecutionSize;
+
+    @Value("${cadence.worker.max-concurrent-workflow-execution-size}")
+    private Integer maxConcurrentWorkflowExecutionSize;
+
+    @Value("#{'${cadence.worker.disabled}'.split(',')}")
+    private List<Object> disabledWorkers = List.of();
+
+
+    final WorkflowOptionMap workflowOptionMap = new WorkflowOptionMap();
+
+    ActivityOptions activityOptions;
+
+    @Override
+    public void afterPropertiesSet() {
+        log.debug("Activity default options: {} {} {} {}", activityScheduleToCloseTimeout, activityInitialInterval, activityExpiration, activityMaximumAttempts);
+        activityOptions = new ActivityOptions.Builder()
+            .setScheduleToCloseTimeout(Duration.ofSeconds(activityScheduleToCloseTimeout))
+            .setRetryOptions(
+                new RetryOptions.Builder()
+                    .setInitialInterval(Duration.ofSeconds(activityInitialInterval))
+                    .setExpiration(Duration.ofSeconds(activityExpiration))
+                    .setMaximumAttempts(activityMaximumAttempts)
+                    .setBackoffCoefficient(1)
+//                                .setDoNotRetry(InternalException.class)
+                    .build()
+            ).build();
+
+
+    }
+
 
     @Bean
     public IWorkflowService workflowService() {
-
-        IWorkflowService ser = new WorkflowServiceTChannel(ClientOptions.newBuilder()
-            .setHost(host)
-            .setPort(port)
+        return new WorkflowServiceTChannel(ClientOptions.newBuilder()
+            .setHost(cadenceHost)
+            .setPort(cadencePort)
             .build());
-        System.out.println(ser);
-        return ser;
     }
+
     @Bean
     public WorkflowClient workflowClient(IWorkflowService workflowService) {
         return WorkflowClient.newInstance(
@@ -59,95 +119,75 @@ public class CadenceWorkflowConfig {
                 .setDomain(domain)
                 .build());
     }
+
     @Bean
     public WorkerFactory workerFactory(WorkflowClient workflowClient) {
         return WorkerFactory.newInstance(
-            workflowClient
-        );
-    }
-    /** Workflow interface has to have at least one method annotated with @WorkflowMethod. */
-    public interface BookWorkflow {
-        /** @return greeting string */
-        @WorkflowMethod(executionStartToCloseTimeoutSeconds = 300, taskList = TASK_LIST)
-        String getBooking(BookingRequestDto request);
+            workflowClient,
+            WorkerFactoryOptions.newBuilder()
+                .setMaxWorkflowThreadCount(maxWorkflowThreadCount)
+                .setStickyCacheSize(stickyCacheSize)
+                .setDisableStickyExecution(disableStickyExecution)
+                .build());
     }
 
-    /** Activity interface is just a POJI. */
-    public interface BookingActivities {
-        @ActivityMethod(scheduleToCloseTimeoutSeconds = 2)
-        String composeBooking(BookingRequestDto request);
-    }
 
-    /** GreetingWorkflow implementation that calls GreetingsActivities#composeGreeting. */
+    public class WorkflowOptionMap {
+        private final Map<String, WorkflowOptions> internalMap = new HashMap<>();
+        public WorkflowOptions get(String taskList, String workFlowId) {
+            return getOrDefault(taskList,workFlowId);
+        }
+        public WorkflowOptions get(String taskList) {
+            return getOrDefault(taskList);
+        }
 
-    public static class BookWorkflowImpl implements BookWorkflow {
+        private WorkflowOptions getOrDefault(String taskList) {
+            if (internalMap.get(taskList) == null) {
+                WorkflowOptions defaultOptions = new WorkflowOptions.Builder()
+                    .setTaskList(taskList)
+                    .setExecutionStartToCloseTimeout(Duration.ofSeconds(getExecutionStartToCloseTimeout())
+                    ).build();
+                internalMap.put(taskList, defaultOptions);
+            }
+            return internalMap.get(taskList);
+        }
+        private WorkflowOptions getOrDefault(String taskList, String workFlowId) {
+            if (internalMap.get(taskList) == null) {
+                WorkflowOptions defaultOptions = new WorkflowOptions.Builder()
+                    .setTaskList(taskList)
+                    .setWorkflowId(workFlowId)
+                    .setWorkflowIdReusePolicy(WorkflowIdReusePolicy.TerminateIfRunning)
+                    .setExecutionStartToCloseTimeout(Duration.ofSeconds(getExecutionStartToCloseTimeout())
+                    ).build();
+                internalMap.put(taskList, defaultOptions);
+            }
+            return internalMap.get(taskList);
+        }
 
-        /**
-         * Activity stub implements activity interface and proxies calls to it to Cadence activity
-         * invocations. Because activities are reentrant, only a single stub can be used for multiple
-         * activity invocations.
-         */
-        private final BookingActivities activities =
-            Workflow.newActivityStub(BookingActivities.class);
-
-        @Override
-        public String getBooking(BookingRequestDto request) {
-            // This is a blocking call that returns only after the activity has completed.
-            System.out.println("cho 120 s");
-            Workflow.sleep(Duration.ofSeconds(120));
-            return activities.composeBooking(request);
+        public void put(String taskList, WorkflowOptions options) {
+            internalMap.put(taskList, options);
         }
     }
 
-    public static class BookingActivitiesImpl implements BookingActivities {
-        @Override
-        public String composeBooking(BookingRequestDto request) {
-            try {
-                IBillService billService = BeanUtils.getBean(IBillService.class);
-                DeleteBillTicketRequest request1 = new DeleteBillTicketRequest();
-                request1.setBillId(request.getBillId());
-                billService.removeBill(request1);
-                System.out.println("cho 120 s");
-                return "dat ve thanh cong";
-            }
-            catch (Exception e){
-                System.out.println(e.getMessage());
-            }
-            return "fail";
-        }
+    @Override
+    @SneakyThrows
+    public CadenceWorkflowConfig clone() {
+        CadenceWorkflowConfig config = new CadenceWorkflowConfig();
+        config.activityOptions = activityOptions;
+        config.cadenceHost = cadenceHost;
+        config.cadencePort = cadencePort;
+        config.domain = domain;
+        config.executionStartToCloseTimeout = executionStartToCloseTimeout;
+        config.activityScheduleToCloseTimeout = activityScheduleToCloseTimeout;
+        config.activityInitialInterval = activityInitialInterval;
+        config.activityExpiration = activityExpiration;
+        config.activityMaximumAttempts = activityMaximumAttempts;
+        config.maxWorkflowThreadCount = maxWorkflowThreadCount;
+        config.stickyCacheSize = stickyCacheSize;
+        config.disableStickyExecution = disableStickyExecution;
+        config.maxConcurrentActivityExecutionSize = maxConcurrentActivityExecutionSize;
+        config.maxConcurrentWorkflowExecutionSize = maxConcurrentWorkflowExecutionSize;
+        config.disabledWorkers = disabledWorkers;
+        return config;
     }
-//    public static void main(String[] args) throws InterruptedException {
-//
-//        // Get a new client
-//        // NOTE: to set a different options, you can do like this:
-//        // ClientOptions.newBuilder().setRpcTimeout(5 * 1000).build();
-//        WorkflowClient workflowClient =
-//            WorkflowClient.newInstance(
-//                new Thrift2ProtoAdapter(IGrpcServiceStubs.newInstance()),
-//                WorkflowClientOptions.newBuilder().setDomain("golden-new").build());
-//        // Get worker to poll the task list.
-//        WorkerFactory factory = WorkerFactory.newInstance(workflowClient);
-//        Worker worker = factory.newWorker(TASK_LIST);
-//        // Workflows are stateful. So you need a type to create instances.
-//        worker.registerWorkflowImplementationTypes(BookWorkflowImpl.class);
-//        // Activities are stateless and thread safe. So a shared instance is used.
-//        worker.registerActivitiesImplementations(new BookingActivitiesImpl());
-//        // Start listening to the workflow and activity task lists.
-//        factory.start();
-//
-//        boolean test = true;
-//        // Get a workflow stub using the same task list the worker uses.
-//        BookWorkflow workflow = workflowClient.newWorkflowStub(BookWorkflow.class);
-//        // Execute a workflow waiting for it to complete.
-//        String greeting
-//        = workflow.getBooking("đặt vé");
-//        System.out.println(greeting);
-////        Workflow.sleep(1000);
-//
-//        System.exit(0);
-//    }
-//    public static void deleteTicket(){
-//        System.out.println("Do quá thời gian đợi nên hủy ghế");
-//    }
-
 }

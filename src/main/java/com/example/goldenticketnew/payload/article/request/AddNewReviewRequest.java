@@ -21,7 +21,10 @@ public class AddNewReviewRequest {
     @JsonIgnore
     private ArticleType type;
 
-    private Category category;
+
+    private Long categoryId;
+
+    private String keyword;
 
 
 

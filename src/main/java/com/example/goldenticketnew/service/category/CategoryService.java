@@ -2,7 +2,6 @@ package com.example.goldenticketnew.service.category;
 
 import com.example.goldenticketnew.model.Category;
 import com.example.goldenticketnew.repository.ICategoryRepository;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -33,8 +32,11 @@ public class CategoryService implements ICategoryService{
     }
 
     @Override
-    public Category createCategory() {
-        return null;
+    public Category createCategory(String name) {
+        Category category = new Category();
+        category.setName(name);
+        category = categoryRepository.save(category);
+        return category;
     }
 
     @Override

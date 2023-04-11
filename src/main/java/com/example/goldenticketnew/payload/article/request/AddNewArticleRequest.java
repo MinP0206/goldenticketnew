@@ -23,7 +23,9 @@ public class AddNewArticleRequest {
 
     private String image1;
 
-    private Category category;
+    private Long categoryId;
+
+    private String keyword;
 
 
 }

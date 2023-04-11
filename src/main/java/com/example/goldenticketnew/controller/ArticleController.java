@@ -1,19 +1,19 @@
 package com.example.goldenticketnew.controller;
 
 import com.example.goldenticketnew.dtos.ArticleDto;
-import com.example.goldenticketnew.dtos.MovieDto;
 import com.example.goldenticketnew.dtos.ReviewDto;
 import com.example.goldenticketnew.enums.ArticleType;
+import com.example.goldenticketnew.model.Category;
 import com.example.goldenticketnew.payload.article.request.*;
-import com.example.goldenticketnew.payload.response.ApiResponse;
 import com.example.goldenticketnew.payload.response.PageResponse;
 import com.example.goldenticketnew.payload.response.ResponseBase;
-import com.example.goldenticketnew.payload.resquest.GetAllMovieRequest;
 import com.example.goldenticketnew.service.article.IArticleService;
+import com.example.goldenticketnew.service.category.ICategoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
+import lombok.RequiredArgsConstructor;
 import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -25,12 +25,15 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/article")
-
+@RequiredArgsConstructor
 @Tag(name = "Article Controller", description = "Thao tác với các bài đăng")
 public class ArticleController {
 
-    @Autowired
-    private IArticleService articleService;
+
+    private final IArticleService articleService;
+
+    private final ICategoryService categoryService;
+
     @Operation(
         summary = "Thêm mới Review của User ",
         description = "- Thêm mới Review của User"
@@ -92,6 +95,20 @@ public class ArticleController {
         return new ResponseBase<>(articleService.getAllArticlePaging(request));
     }
 
-
-
+    @Operation(
+        summary = "Thêm mới Category",
+        description = "Thêm mới Category"
+    )
+    @PostMapping("/category/add")
+    public ResponseEntity<ResponseBase<Category>> addNewCategory(@Valid @Parameter String categoryName) {
+        return ResponseEntity.ok(new ResponseBase<>(categoryService.createCategory(categoryName)));
+    }
+    @Operation(
+        summary = "Get All Category",
+        description = "Get All Category"
+    )
+    @GetMapping("/category/getAll")
+    public ResponseEntity<ResponseBase<List<Category>>> getAllCate() {
+        return ResponseEntity.ok(new ResponseBase<>(categoryService.getAllCategory()));
+    }
 }

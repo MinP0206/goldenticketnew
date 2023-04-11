@@ -2,8 +2,7 @@ package com.example.goldenticketnew.payload.article.request;
 
 import com.example.goldenticketnew.enums.ArticleStatus;
 import com.example.goldenticketnew.model.Article;
-import com.example.goldenticketnew.model.Branch;
-import com.example.goldenticketnew.model.Movie;
+import com.example.goldenticketnew.model.Category;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,6 +25,8 @@ public class GetAllArticleRequest {
 
     private String keyword;
 
+    private String category;
+
 
     public Specification<Article> getSpecification(){
         return (root, query, cb) -> {
@@ -35,6 +36,9 @@ public class GetAllArticleRequest {
             }
             if (keyword != null) {
                 predicates.add(cb.like(cb.lower(root.get(Article.Fields.keyword)), "%" + keyword.toLowerCase() + "%"));
+            }
+            if(category != null){
+                predicates.add(cb.like(cb.lower(root.get(Article.Fields.category).get(Category.Fields.name)), "%" + keyword.toLowerCase() + "%"));
             }
             if (status != null) {
                 predicates.add(cb.equal(root.get(Article.Fields.status),status));

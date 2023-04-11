@@ -25,7 +25,14 @@ public class TicketService implements ITicketService {
     private ModelMapper modelMapper;
     @Override
     public List<TicketDto> getTicketsByUserId(Long userId) {
-        return ticketRepository.findTicketsByUserId(userId).stream().map(TicketDto::new).collect(Collectors.toList());
+        try{
+            return ticketRepository.findTicketsByUserId(userId).stream().map(TicketDto::new).collect(Collectors.toList());
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
+
     }
 
     @Override
