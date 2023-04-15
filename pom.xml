@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.example</groupId>
 	<artifactId>goldenticketnew</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2</version>
 	<name>Golden Ticket New</name>
 	<description>Movie Tickets Online Booking</description>
 
@@ -94,7 +94,7 @@
 		<dependency>
 			<groupId>com.uber.cadence</groupId>
 			<artifactId>cadence-client</artifactId>
-			<version>3.7.2</version>
+			<version>3.6.2</version>
 		</dependency>
 
 	</dependencies>
