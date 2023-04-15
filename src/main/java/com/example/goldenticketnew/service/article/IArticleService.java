@@ -2,8 +2,10 @@ package com.example.goldenticketnew.service.article;
 
 import com.example.goldenticketnew.dtos.ArticleDto;
 import com.example.goldenticketnew.dtos.ReviewDto;
+import com.example.goldenticketnew.model.Category;
 import com.example.goldenticketnew.payload.article.request.*;
 import com.example.goldenticketnew.payload.response.PageResponse;
+import com.example.goldenticketnew.security.UserPrincipal;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,4 +25,5 @@ public interface IArticleService {
     List<ArticleDto> getAllArticle(GetAllArticleRequest request);
 
     void deleteArticle(Long articleId);
+    List<ArticleDto> getAllByUser(UserPrincipal currentUser);
 }

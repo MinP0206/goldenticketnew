@@ -14,7 +14,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ArticleDto {
+public class ArticleDto extends Auditable  {
     private Long id;
     private String title;
     private String brief;
@@ -24,7 +24,7 @@ public class ArticleDto {
     private String description;
 
     private ArticleType type;
-    private Category category;
+    private String category;
 
     public ArticleDto(Article article) {
         this.id = article.getId();
@@ -34,6 +34,7 @@ public class ArticleDto {
         if(article.getDescription()!=null) this.description = article.getDescription();
         if(article.getImage1()!=null)this.image1 = article.getImage1();
         this.status = article.getStatus();
-        if(article.getCategory() != null) this.category = article.getCategory();
+        if(article.getCategory() != null) this.category = article.getCategory().getName();
+        if(article.getCreatedBy() != null) this.setCreatedBy(article.getCreatedBy());
     }
 }

@@ -43,8 +43,13 @@ public class TicketService implements ITicketService {
 
     @Override
     public PageResponse<TicketDto> getAllTicketFilter(Pageable pageable) {
-        Page<Ticket> page = ticketRepository.findAll(pageable);
-        return new PageResponse<>(page.map(TicketDto::new));
+        try {
+            Page<Ticket> page = ticketRepository.findAll(pageable);
+            return new PageResponse<>(page.map(TicketDto::new));
+        }catch (Exception e){
+            System.out.println(e.getMessage());;
+        }
+return new PageResponse<>();
 
     }
 }

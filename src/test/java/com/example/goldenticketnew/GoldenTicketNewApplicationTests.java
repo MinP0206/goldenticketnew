@@ -1,4 +1,8 @@
-//package com.example.goldenticketnew;
+package com.example.goldenticketnew;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+
 //
 //
 //import com.example.goldenticketnew.dtos.MovieDto;
@@ -29,13 +33,14 @@
 //import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 //import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 //
-//@SpringBootTest
-//class GoldenTicketNewApplicationTests {
-////	@Autowired
+@SpringBootTest
+class GoldenTicketNewApplicationTests {
+    ////	@Autowired
 ////	private MockMvc mvc;
-//	@Test
-//	void contextLoads() {
-//	}
+//    @Test
+//    void contextLoads() {
+//    }
+}
 //	@Autowired
 //	IMovieRepository movieRepository;
 ////	@Test

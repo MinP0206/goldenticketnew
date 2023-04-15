@@ -7,6 +7,8 @@ import com.example.goldenticketnew.model.Category;
 import com.example.goldenticketnew.payload.article.request.*;
 import com.example.goldenticketnew.payload.response.PageResponse;
 import com.example.goldenticketnew.payload.response.ResponseBase;
+import com.example.goldenticketnew.security.CurrentUser;
+import com.example.goldenticketnew.security.UserPrincipal;
 import com.example.goldenticketnew.service.article.IArticleService;
 import com.example.goldenticketnew.service.category.ICategoryService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -28,8 +30,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @Tag(name = "Article Controller", description = "Thao tác với các bài đăng")
 public class ArticleController {
-
-
     private final IArticleService articleService;
 
     private final ICategoryService categoryService;
@@ -110,5 +110,13 @@ public class ArticleController {
     @GetMapping("/category/getAll")
     public ResponseEntity<ResponseBase<List<Category>>> getAllCate() {
         return ResponseEntity.ok(new ResponseBase<>(categoryService.getAllCategory()));
+    }
+    @Operation(
+        summary = "Get All Category For User",
+        description = "Get All Category For User"
+    )
+    @GetMapping("/user/getAll")
+    public ResponseEntity<ResponseBase<List<ArticleDto>>> getAllCateByUser(@CurrentUser UserPrincipal currentUser) {
+        return ResponseEntity.ok(new ResponseBase<>(articleService.getAllByUser(currentUser)));
     }
 }

@@ -27,6 +27,8 @@ public class GetAllArticleRequest {
 
     private String category;
 
+    private String username;
+
 
     public Specification<Article> getSpecification(){
         return (root, query, cb) -> {
@@ -42,6 +44,9 @@ public class GetAllArticleRequest {
             }
             if (status != null) {
                 predicates.add(cb.equal(root.get(Article.Fields.status),status));
+            }
+            if(username != null){
+                predicates.add(cb.equal(root.get("createdBy"),username));
             }
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };
