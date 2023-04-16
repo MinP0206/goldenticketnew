@@ -23,7 +23,7 @@ public class BillDto {
     public BillDto(Bill bill) {
         this.id = bill.getId();
         this.createdTime = bill.getCreatedTime();
-        this.user = ModelMapperUtils.mapper(bill.getUser(), UserProfile.class);
+        this.user = new UserProfile(bill.getUser());
         this.status = bill.getStatus();
         this.price = bill.getPrice();
     }

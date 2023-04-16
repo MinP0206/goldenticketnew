@@ -16,7 +16,7 @@ public class TicketDto {
         this.id = ticket.getId();
         this.qrImageURL = ticket.getQrImageURL();
         if(ticket.getSchedule()!=null) this.schedule = new ScheduleDto(ticket.getSchedule());
-        if(ticket.getSeat()!=null )this.seat = ModelMapperUtils.mapper(ticket.getSeat(),SeatDto.class);
+        if(ticket.getSeat()!=null )this.seat = new SeatDto(ticket.getSeat());
         if(ticket.getBill() != null)this.bill = new BillDto(ticket.getBill());
     }
 }

@@ -26,14 +26,18 @@ public class ArticleDto extends Auditable  {
     private ArticleType type;
     private String category;
 
+    private String keyword;
+
     public ArticleDto(Article article) {
         this.id = article.getId();
         this.title = article.getTitle();
         this.brief = article.getBrief();
+        this.status = article.getStatus();
+        this.type = article.getType();
         this.mainImage = article.getMainImage();
+        if(article.getKeyword() != null) this.keyword = article.getKeyword();
         if(article.getDescription()!=null) this.description = article.getDescription();
         if(article.getImage1()!=null)this.image1 = article.getImage1();
-        this.status = article.getStatus();
         if(article.getCategory() != null) this.category = article.getCategory().getName();
         if(article.getCreatedBy() != null) this.setCreatedBy(article.getCreatedBy());
     }
