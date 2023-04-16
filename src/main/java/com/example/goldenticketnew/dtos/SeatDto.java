@@ -2,9 +2,13 @@ package com.example.goldenticketnew.dtos;
 
 import com.example.goldenticketnew.enums.SeatType;
 import com.example.goldenticketnew.model.Seat;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class SeatDto {
     private int id;
     private String name;
