@@ -39,7 +39,7 @@ public class ArticleController {
         description = "- Thêm mới Review của User"
     )
     @PostMapping("/addNewReview")
-    public ResponseEntity<ResponseBase<ReviewDto>> addNewArticleReview(@Valid @RequestBody AddNewReviewRequest request) {
+    public ResponseEntity<ResponseBase<ArticleDto>> addNewArticleReview(@Valid @RequestBody AddNewReviewRequest request) {
         request.setType(ArticleType.REVIEWS);
         return ResponseEntity.ok(new ResponseBase<>(articleService.addNewArticleReview(request)));
     }

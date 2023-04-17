@@ -43,11 +43,11 @@ public class ArticleService implements IArticleService{
             .keyword(request.getKeyword())
             .build();
         article = articleRepository.save(article);
-        return ModelMapperUtils.mapper(article, ArticleDto.class);
+        return new ArticleDto(article);
     }
 
     @Override
-    public ReviewDto addNewArticleReview(AddNewReviewRequest request) {
+    public ArticleDto addNewArticleReview(AddNewReviewRequest request) {
         Article article = Article.builder()
             .brief(request.getBrief())
             .title(request.getTitle())
@@ -59,7 +59,7 @@ public class ArticleService implements IArticleService{
             .keyword(request.getKeyword())
             .build();
         article = articleRepository.save(article);
-        return ModelMapperUtils.mapper(article, ReviewDto.class);
+        return new ArticleDto(article);
     }
 
     @Transactional
@@ -69,7 +69,9 @@ public class ArticleService implements IArticleService{
         if(!request.getBrief().isBlank()) article.setBrief(request.getBrief());
         if(!request.getTitle().isBlank()) article.setTitle(request.getTitle());
         if(!request.getDescription().isBlank()) article.setDescription(request.getDescription());
-        return ModelMapperUtils.mapper(article, ArticleDto.class);
+        if(!request.getMainImage().isBlank()) article.setMainImage(request.getMainImage());
+        article = articleRepository.saveAndFlush(article);
+        return new ArticleDto(article);
     }
 
     @Override
@@ -102,7 +104,8 @@ public class ArticleService implements IArticleService{
     @Override
     public void deleteArticle(Long articleId) {
         Article article = articleRepository.findById(articleId).orElseThrow(() -> new InternalException(ResponseCode.ARTICLE_NOT_FOUND));
-        articleRepository.deleteById(article.getId());
+        article.setStatus(ArticleStatus.DELETE);
+        articleRepository.save(article);
     }
 
     @Override
