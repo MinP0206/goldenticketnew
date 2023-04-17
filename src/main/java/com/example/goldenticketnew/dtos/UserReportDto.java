@@ -9,7 +9,6 @@ public interface UserReportDto {
     String getUsername();
     String getEmail();
     String getImage();
-    Double getPrice();
     Integer getTransactionCount();
     Long getTicketAmount();
     Long getIncomeAmount();
