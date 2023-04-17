@@ -40,7 +40,7 @@ public interface IBillRepository extends JpaRepository<Bill, Integer> , JpaSpeci
         "        group by user_id",nativeQuery = true)
     List<UserReportDto> findAllByStatusExGroupByUser();
 
-    @Query(value = "SELECT a.id , a.name ,a.username ,a.email , a.image ,a.transactionCount , a.incomeAmount FROM\n" +
+    @Query(value = "SELECT a.id , a.name ,a.username ,a.email , a.image ,a.transactionCount , a.incomeAmount, b.ticketAmount FROM\n" +
         "(SELECT  u.id id, u.name name,u.username username,u.email email, u.image image,count(b.id) transactionCount , sum(b.price) incomeAmount\n" +
         "               FROM bill b\n" +
         "                INNER JOIN user u ON b.user_id = u.id\n" +
@@ -54,6 +54,7 @@ public interface IBillRepository extends JpaRepository<Bill, Integer> , JpaSpeci
         "                INNER JOIN user u ON b.user_id = u.id\n" +
         "                where b.status = 1 \n" +
         "                group by user_id\n" +
-        "                )  b Where a.id = b.id",nativeQuery = true)
+        "                )  b Where a.id = b.id\n" +
+        "                ",nativeQuery = true)
     List<UserReportDto> findAllByStatusSuccessGroupByUser();
 }
