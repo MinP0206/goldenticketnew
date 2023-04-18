@@ -4,24 +4,24 @@ import com.example.goldenticketnew.model.audit.UserDateAudit;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.FieldNameConstants;
+
+
 import javax.persistence.*;
 
-
+@Getter
 @Entity
 @Setter
-@Getter
+
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "comment")
+@Table(name = "like")
 @FieldNameConstants
-public class Comment extends UserDateAudit {
+public class Like extends UserDateAudit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String description;
-
-    private Boolean isActive;
+    private int isLike;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
