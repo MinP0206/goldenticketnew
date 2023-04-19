@@ -3,14 +3,14 @@ package com.example.goldenticketnew.model;
 import com.example.goldenticketnew.enums.ArticleStatus;
 import com.example.goldenticketnew.enums.ArticleType;
 import com.example.goldenticketnew.model.audit.UserDateAudit;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldNameConstants;
 
 import javax.persistence.*;
 
 
+@Getter
+@Setter
 @Entity
 @Table(name = "article")
 @Builder
