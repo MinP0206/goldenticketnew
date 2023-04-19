@@ -15,6 +15,6 @@ public class LikeDto extends Auditable{
     public LikeDto(Like like){
         this.id = like.getId();
         this.isLike = like.getIsLike();
-        this.name = like.getUser().getName();
+//        this.name = like.getUser().getName();
     }
 }

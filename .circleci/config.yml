@@ -72,11 +72,11 @@ workflows:
           filters:
             branches:
               only:
-                - develop
+                - no_cadence_new
       - deploy:
           requires:
             - build-and-push
           filters:
             branches:
               only:
-                - develop
+                - main

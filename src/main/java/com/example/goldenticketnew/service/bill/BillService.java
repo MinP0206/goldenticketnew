@@ -3,7 +3,7 @@ package com.example.goldenticketnew.service.bill;
 
 //import com.example.goldenticketnew.config.cadance.CadenceWorkflowConfig;
 
-import com.example.goldenticketnew.config.cadance.CadenceWorkflowConfig;
+//import com.example.goldenticketnew.config.cadance.CadenceWorkflowConfig;
 import com.example.goldenticketnew.dtos.*;
 import com.example.goldenticketnew.enums.BillStatus;
 import com.example.goldenticketnew.enums.ResponseCode;
@@ -41,12 +41,12 @@ public class BillService implements IBillService {
     private final ISeatRepository seatRepository;
 
     private final IBillRepository billRepository;
-    private final WorkflowClient workflowClient;
-    private final CadenceWorkflowConfig cadenceWorkflowConfig;
+//    private final WorkflowClient workflowClient;
+//    private final CadenceWorkflowConfig cadenceWorkflowConfig;
 
     public static final String workFlowId = "BOOKING_TASK_ID";
 
-    private final CadenceWorkflowConfig workflowConfig;
+//    private final CadenceWorkflowConfig workflowConfig;
 
     @Override
     @Transactional
@@ -133,11 +133,11 @@ public class BillService implements IBillService {
             // Get a workflow stub using the same task list the worker uses.
 //             IBookingTicketWorkflow workflow = workflowClient.newWorkflowStub(BookingTicketWorkflow.class,
             try {
-                log.info("Start workflow Booking");
-                IBookingTicketWorkflow workflow = workflowClient.newWorkflowStub(IBookingTicketWorkflow.class,
-                    cadenceWorkflowConfig.getWorkflowOptionMap().get(CadenceWorkflowConfig.BOOKING_TASK)
-                );
-                WorkflowClient.start(workflow::getBooking,bookingRequestDTO, cadenceWorkflowConfig.clone());
+//                log.info("Start workflow Booking");
+//                IBookingTicketWorkflow workflow = workflowClient.newWorkflowStub(IBookingTicketWorkflow.class,
+//                    cadenceWorkflowConfig.getWorkflowOptionMap().get(CadenceWorkflowConfig.BOOKING_TASK)
+//                );
+//                WorkflowClient.start(workflow::getBooking,bookingRequestDTO, cadenceWorkflowConfig.clone());
             } catch (Exception e) {
                 log.info("Workflow already run");
                 log.error(e.getMessage());
