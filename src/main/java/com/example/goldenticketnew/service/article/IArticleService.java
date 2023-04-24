@@ -1,8 +1,7 @@
 package com.example.goldenticketnew.service.article;
 
 import com.example.goldenticketnew.dtos.ArticleDto;
-import com.example.goldenticketnew.dtos.ReviewDto;
-import com.example.goldenticketnew.model.Category;
+import com.example.goldenticketnew.model.Article;
 import com.example.goldenticketnew.payload.article.request.*;
 import com.example.goldenticketnew.payload.response.PageResponse;
 import com.example.goldenticketnew.security.UserPrincipal;
@@ -26,4 +25,8 @@ public interface IArticleService {
 
     void deleteArticle(Long articleId);
     List<ArticleDto> getAllByUser(UserPrincipal currentUser);
+
+    Article getArticle(Long id);
+
+
 }

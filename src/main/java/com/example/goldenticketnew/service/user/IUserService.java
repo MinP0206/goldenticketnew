@@ -15,6 +15,10 @@ import java.util.List;
 
 @Service
 public interface IUserService {
+
+    User getUser(Long id);
+
+    User saveUser(User user);
     List<UserDto> getAllUser();
     UserSummary getCurrentUser(UserPrincipal currentUser) ;
     UserProfile getUserProfile(String username);

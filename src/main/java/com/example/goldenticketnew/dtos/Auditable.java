@@ -12,4 +12,8 @@ public class Auditable {
     private String createdBy;
 
     private String modifiedBy;
+
+    private String createdDate;
+
+    private String lastModifyDate;
 }

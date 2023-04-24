@@ -27,8 +27,17 @@ public class UserService implements IUserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private IRoleRepository roleRepository;
+
+    @Override
+    public User getUser(Long id) {
+        return userRepository.findById(id).orElseThrow(() -> new InternalException(ResponseCode.USER_NOT_FOUND));
+    }
+
+    @Override
+    public User saveUser(User user) {
+        return userRepository.saveAndFlush(user);
+    }
+
 
     @Override
     public List<UserDto> getAllUser() {

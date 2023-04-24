@@ -1,24 +1,20 @@
 package com.example.goldenticketnew.service.article;
 
 import com.example.goldenticketnew.dtos.ArticleDto;
-import com.example.goldenticketnew.dtos.ReviewDto;
 import com.example.goldenticketnew.enums.ArticleStatus;
 import com.example.goldenticketnew.enums.ResponseCode;
 import com.example.goldenticketnew.exception.InternalException;
 import com.example.goldenticketnew.model.Article;
-import com.example.goldenticketnew.model.Category;
 import com.example.goldenticketnew.payload.article.request.*;
 import com.example.goldenticketnew.payload.response.PageResponse;
 import com.example.goldenticketnew.repository.IArticleRepository;
 import com.example.goldenticketnew.repository.ICategoryRepository;
 import com.example.goldenticketnew.security.UserPrincipal;
-import com.example.goldenticketnew.utils.ModelMapperUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,6 +26,8 @@ public class ArticleService implements IArticleService{
     private final IArticleRepository articleRepository;
 
     private final ICategoryRepository categoryRepository;
+
+
 
     @Override
     public ArticleDto addNewArticle(AddNewArticleRequest request) {
@@ -117,6 +115,11 @@ public class ArticleService implements IArticleService{
             return articles.stream().map(ArticleDto::new).collect(Collectors.toList());
 
 
+    }
+
+    @Override
+    public Article getArticle(Long id) {
+        return  articleRepository.findById(id).orElseThrow(() -> new InternalException(ResponseCode.ARTICLE_NOT_FOUND));
     }
 
 }
