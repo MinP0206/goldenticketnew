@@ -2,12 +2,12 @@ package com.example.goldenticketnew.controller;
 
 
 import com.example.goldenticketnew.dtos.UserDto;
-import com.example.goldenticketnew.dtos.UserReportDto;
 import com.example.goldenticketnew.payload.UserIdentityAvailability;
 import com.example.goldenticketnew.payload.UserProfile;
 import com.example.goldenticketnew.payload.UserSummary;
 import com.example.goldenticketnew.payload.response.ApiResponse;
 import com.example.goldenticketnew.payload.response.ResponseBase;
+import com.example.goldenticketnew.payload.resquest.UpdateCategoryRequest;
 import com.example.goldenticketnew.payload.resquest.UpdateUserRequest;
 import com.example.goldenticketnew.security.CurrentUser;
 import com.example.goldenticketnew.security.UserPrincipal;
@@ -72,7 +72,7 @@ public class UserController {
         description = "- Get chi tiết user by username"
     )
     @GetMapping("/{username}")
-    public ResponseEntity<ResponseBase<UserProfile>> getUserProfile(@PathVariable(value = "username") String username) {
+    public ResponseEntity<ResponseBase<UserDto>> getUserProfile(@PathVariable(value = "username") String username) {
         return ResponseEntity.ok(new ResponseBase<>(userService.getUserProfile(username)));
     }
 
@@ -97,6 +97,11 @@ public class UserController {
             return ResponseEntity.ok(new ApiResponse(true, "Delete User Successfully"));
         return ResponseEntity.ok(new ApiResponse(false, "Please check the id"));
     }
+    @PostMapping("/updateCategory")
+    public ResponseEntity<ResponseBase<UserDto>> updateCategory(@Valid @RequestBody UpdateCategoryRequest request){
+        return ResponseEntity.ok(new ResponseBase<>(userService.updateCate(request)));
+    }
+
 //    @Operation(
 //        summary = "Get dashboard user",
 //        description = "- Get dashboard user"

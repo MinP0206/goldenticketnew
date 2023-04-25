@@ -1,7 +1,6 @@
 package com.example.goldenticketnew.controller;
 
 import com.example.goldenticketnew.dtos.ArticleDto;
-import com.example.goldenticketnew.dtos.ReviewDto;
 import com.example.goldenticketnew.enums.ArticleType;
 import com.example.goldenticketnew.model.Category;
 import com.example.goldenticketnew.payload.article.request.*;
@@ -14,10 +13,8 @@ import com.example.goldenticketnew.service.category.ICategoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import lombok.RequiredArgsConstructor;
 import org.springdoc.api.annotations.ParameterObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +30,15 @@ public class ArticleController {
     private final IArticleService articleService;
 
     private final ICategoryService categoryService;
+    @Operation(
+        summary = "[NEWS WEBSITE]T hêm mới bai viet co cate của User ",
+        description = "- Thêm mới bai viet của User"
+    )
+    @PostMapping("/addNewArticle")
+    public ResponseEntity<ResponseBase<ArticleDto>> addNewArticleNEWS(@Valid @RequestBody AddNewArRequest request) {
+        request.setType(ArticleType.REVIEWS);
+        return ResponseEntity.ok(new ResponseBase<>(articleService.addNewArticleNews(request)));
+    }
 
     @Operation(
         summary = "Thêm mới Review của User ",

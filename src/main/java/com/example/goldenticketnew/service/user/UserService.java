@@ -6,12 +6,14 @@ import com.example.goldenticketnew.dtos.UserReportDto;
 import com.example.goldenticketnew.enums.ResponseCode;
 import com.example.goldenticketnew.exception.InternalException;
 import com.example.goldenticketnew.exception.ResourceNotFoundException;
+import com.example.goldenticketnew.model.Category;
 import com.example.goldenticketnew.model.Role;
 import com.example.goldenticketnew.model.User;
 import com.example.goldenticketnew.payload.UserProfile;
 import com.example.goldenticketnew.payload.UserSummary;
+import com.example.goldenticketnew.payload.resquest.UpdateCategoryRequest;
 import com.example.goldenticketnew.payload.resquest.UpdateUserRequest;
-import com.example.goldenticketnew.repository.IRoleRepository;
+import com.example.goldenticketnew.repository.ICategoryRepository;
 import com.example.goldenticketnew.repository.UserRepository;
 import com.example.goldenticketnew.security.UserPrincipal;
 import com.example.goldenticketnew.utils.ModelMapperUtils;
@@ -26,6 +28,9 @@ import java.util.List;
 public class UserService implements IUserService {
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ICategoryRepository categoryRepository;
 
 
     @Override
@@ -67,10 +72,10 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public UserProfile getUserProfile(String username) {
+    public UserDto getUserProfile(String username) {
         User user = userRepository.findByUsername(username)
             .orElseThrow(() -> new ResourceNotFoundException("User", "username", username));
-        return new UserProfile(user.getId(), user.getUsername(), user.getName(), user.getEmail(), user.getImage());
+        return new UserDto(user);
     }
 
     @Override
@@ -89,6 +94,7 @@ public class UserService implements IUserService {
         User user = userRepository.findById(request.getId()).orElseThrow(() -> new InternalException(ResponseCode.USER_NOT_FOUND));
         if(!request.getName().isBlank()) user.setName(request.getName());
         if(!request.getImage().isBlank())  user.setImage(request.getImage());
+        if(!request.getBio().isBlank()) user.setBio(request.getBio());
         return ModelMapperUtils.mapper(userRepository.save(user), UserProfile.class);
     }
 
@@ -106,6 +112,14 @@ public class UserService implements IUserService {
     public List<UserReportDto> getUserReport() {
         userRepository.findAll();
         return null;
+    }
+
+    @Override
+    public UserDto updateCate(UpdateCategoryRequest request) {
+        User user = userRepository.findById(request.getUserId()).orElseThrow(() -> new InternalException(ResponseCode.USER_NOT_FOUND));
+        List<Category> categories = categoryRepository.findAllById(request.getCategories());
+        user.setCategories(categories);
+        return new UserDto(userRepository.saveAndFlush(user));
     }
 
 }

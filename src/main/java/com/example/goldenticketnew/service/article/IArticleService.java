@@ -13,6 +13,7 @@ import java.util.List;
 public interface IArticleService {
     ArticleDto addNewArticle(AddNewArticleRequest request);
     ArticleDto addNewArticleReview(AddNewReviewRequest request);
+    ArticleDto addNewArticleNews(AddNewArRequest request);
     ArticleDto updateArticle(UpdateArticleRequest request);
 
     ArticleDto getDetailArticle(Long articleId);

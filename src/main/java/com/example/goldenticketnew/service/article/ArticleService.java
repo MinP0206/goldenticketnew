@@ -37,7 +37,6 @@ public class ArticleService implements IArticleService{
             .status(ArticleStatus.CREATE)
             .mainImage(request.getMainImage())
             .type(request.getType())
-            .category(categoryRepository.getById(request.getCategoryId()))
             .keyword(request.getKeyword())
             .build();
         article = articleRepository.save(article);
@@ -53,6 +52,20 @@ public class ArticleService implements IArticleService{
             .mainImage(request.getMainImage())
             .type(request.getType())
             .description(request.getDescription())
+            .keyword(request.getKeyword())
+            .build();
+        article = articleRepository.save(article);
+        return new ArticleDto(article);
+    }
+
+    @Override
+    public ArticleDto addNewArticleNews(AddNewArRequest request) {
+        Article article = Article.builder()
+            .brief(request.getBrief())
+            .title(request.getTitle())
+            .status(ArticleStatus.CREATE)
+            .mainImage(request.getMainImage())
+            .type(request.getType())
             .category(categoryRepository.getById(request.getCategoryId()))
             .keyword(request.getKeyword())
             .build();
