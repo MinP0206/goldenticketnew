@@ -90,12 +90,12 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public UserProfile updateInfoUser(UpdateUserRequest request) {
+    public UserDto updateInfoUser(UpdateUserRequest request) {
         User user = userRepository.findById(request.getId()).orElseThrow(() -> new InternalException(ResponseCode.USER_NOT_FOUND));
-        if(!request.getName().isBlank()) user.setName(request.getName());
-        if(!request.getImage().isBlank())  user.setImage(request.getImage());
-        if(!request.getBio().isBlank()) user.setBio(request.getBio());
-        return ModelMapperUtils.mapper(userRepository.save(user), UserProfile.class);
+        if(request.getBio() != null) user.setName(request.getName());
+        if(request.getBio() != null)  user.setImage(request.getImage());
+        if(request.getBio() != null) user.setBio(request.getBio());
+        return new UserDto(userRepository.save(user));
     }
 
     @Override
