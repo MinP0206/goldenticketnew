@@ -28,7 +28,7 @@ public class UserDto extends DateAudit {
 
     private List<String> categories;
 
-    private boolean isNew = false;
+    private boolean isNew = true;
 
     public UserDto(User user) {
         this.id = user.getId();
@@ -41,7 +41,7 @@ public class UserDto extends DateAudit {
         if(user.getFollowers() != null)  this.followers = user.getFollowers();
         if(user.getCategories()!=null)  {
             this.categories = user.getCategories().stream().map(Category::getName).collect(Collectors.toList());
-            this.isNew = true;
+            this.isNew = false;
         }
 
 
