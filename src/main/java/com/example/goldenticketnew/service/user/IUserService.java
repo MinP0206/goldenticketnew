@@ -24,7 +24,7 @@ public interface IUserService {
     UserDto getUserProfile(String username);
     boolean existsByUsername(String username);
     boolean existsByEmail(String email);
-    UserProfile updateInfoUser(UpdateUserRequest request);
+    UserDto updateInfoUser(UpdateUserRequest request);
     Boolean deleteUserById(Long Id);
 
     List<UserReportDto> getUserReport();

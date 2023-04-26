@@ -82,7 +82,7 @@ public class UserController {
         description = "- Chỉnh sửa thông tin User"
     )
     @PutMapping("/updateInfo")
-    public ResponseEntity<ResponseBase<UserProfile>>  updateInfoUser(@Valid @RequestBody UpdateUserRequest request) {
+    public ResponseEntity<ResponseBase<UserDto>>  updateInfoUser(@RequestBody UpdateUserRequest request) {
         return ResponseEntity.ok(new ResponseBase<>(userService.updateInfoUser(request)));
     }
 
