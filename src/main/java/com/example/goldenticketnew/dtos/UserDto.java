@@ -28,6 +28,8 @@ public class UserDto extends DateAudit {
 
     private List<String> categories;
 
+    private boolean isNew = false;
+
     public UserDto(User user) {
         this.id = user.getId();
         this.username = user.getUsername();
@@ -37,7 +39,12 @@ public class UserDto extends DateAudit {
         this.role = user.getRoles().stream().findFirst().get().getName().toString();
         if(user.getBio() !=null)  this.bio = user.getBio();
         if(user.getFollowers() != null)  this.followers = user.getFollowers();
-        if(user.getCategories()!=null)  this.categories = user.getCategories().stream().map(Category::getName).collect(Collectors.toList());
-    }
+        if(user.getCategories()!=null)  {
+            this.categories = user.getCategories().stream().map(Category::getName).collect(Collectors.toList());
+            this.isNew = true;
+        }
+
+
+        }
 
 }
