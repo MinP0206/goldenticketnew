@@ -1,6 +1,7 @@
 package com.example.goldenticketnew.controller;
 
 import com.example.goldenticketnew.dtos.ArticleDto;
+import com.example.goldenticketnew.enums.ArticleStatus;
 import com.example.goldenticketnew.enums.ArticleType;
 import com.example.goldenticketnew.model.Category;
 import com.example.goldenticketnew.payload.article.request.*;
@@ -31,13 +32,32 @@ public class ArticleController {
 
     private final ICategoryService categoryService;
     @Operation(
-        summary = "[NEWS WEBSITE]T hêm mới bai viet co cate của User ",
+        summary = "[NEWS WEBSITE] Thêm mới bai viet co cate của User ",
         description = "- Thêm mới bai viet của User"
     )
     @PostMapping("/addNewArticle")
     public ResponseEntity<ResponseBase<ArticleDto>> addNewArticleNEWS(@Valid @RequestBody AddNewArRequest request) {
-        request.setType(ArticleType.REVIEWS);
+        request.setType(ArticleType.NEWS);
         return ResponseEntity.ok(new ResponseBase<>(articleService.addNewArticleNews(request)));
+    }
+    @Operation(
+        summary = "Thêm mới Draft bản nháp co cate của User ",
+        description = "- Thêm mới bai viet của User"
+    )
+    @PostMapping("/addNewDraft")
+    public ResponseEntity<ResponseBase<ArticleDto>> addNewArticleDraft(@Valid @RequestBody AddNewArRequest request) {
+        request.setStatus(ArticleStatus.DRAFT);
+        request.setType(ArticleType.NEWS);
+        return ResponseEntity.ok(new ResponseBase<>(articleService.addNewArticleNews(request)));
+    }
+    @Operation(
+        summary = "Chuyển từ bản nháp sang bản chính thức bài viết ",
+        description = "- Chuyển từ bản nháp sang bản chính thức bài viết"
+    )
+    @PostMapping("/publicDraft")
+    public ResponseEntity<ResponseBase<ArticleDto>> addNewDraftPublic(@Valid @Parameter long draftId) {
+
+        return ResponseEntity.ok(new ResponseBase<>(articleService.publicDraft(draftId)));
     }
 
     @Operation(
@@ -122,7 +142,7 @@ public class ArticleController {
         description = "Get All Category For User"
     )
     @GetMapping("/user/getAll")
-    public ResponseEntity<ResponseBase<List<ArticleDto>>> getAllCateByUser(@CurrentUser UserPrincipal currentUser) {
-        return ResponseEntity.ok(new ResponseBase<>(articleService.getAllByUser(currentUser)));
+    public ResponseEntity<ResponseBase<List<ArticleDto>>> getAllCateByUser(@CurrentUser UserPrincipal currentUser, @Parameter ArticleStatus status) {
+        return ResponseEntity.ok(new ResponseBase<>(articleService.getAllByUser(currentUser, status)));
     }
 }

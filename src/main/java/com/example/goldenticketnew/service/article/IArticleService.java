@@ -1,6 +1,7 @@
 package com.example.goldenticketnew.service.article;
 
 import com.example.goldenticketnew.dtos.ArticleDto;
+import com.example.goldenticketnew.enums.ArticleStatus;
 import com.example.goldenticketnew.model.Article;
 import com.example.goldenticketnew.payload.article.request.*;
 import com.example.goldenticketnew.payload.response.PageResponse;
@@ -14,6 +15,8 @@ public interface IArticleService {
     ArticleDto addNewArticle(AddNewArticleRequest request);
     ArticleDto addNewArticleReview(AddNewReviewRequest request);
     ArticleDto addNewArticleNews(AddNewArRequest request);
+
+    ArticleDto publicDraft(Long id);
     ArticleDto updateArticle(UpdateArticleRequest request);
 
     ArticleDto getDetailArticle(Long articleId);
@@ -25,7 +28,7 @@ public interface IArticleService {
     List<ArticleDto> getAllArticle(GetAllArticleRequest request);
 
     void deleteArticle(Long articleId);
-    List<ArticleDto> getAllByUser(UserPrincipal currentUser);
+    List<ArticleDto> getAllByUser(UserPrincipal currentUser, ArticleStatus status);
 
     Article getArticle(Long id);
 

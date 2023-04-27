@@ -5,6 +5,7 @@ import com.example.goldenticketnew.enums.ArticleStatus;
 import com.example.goldenticketnew.enums.ResponseCode;
 import com.example.goldenticketnew.exception.InternalException;
 import com.example.goldenticketnew.model.Article;
+import com.example.goldenticketnew.model.Category;
 import com.example.goldenticketnew.payload.article.request.*;
 import com.example.goldenticketnew.payload.response.PageResponse;
 import com.example.goldenticketnew.repository.IArticleRepository;
@@ -60,15 +61,27 @@ public class ArticleService implements IArticleService{
 
     @Override
     public ArticleDto addNewArticleNews(AddNewArRequest request) {
+        Category category = null;
+        if(request.getCategoryId() !=null){
+            category = categoryRepository.getById(request.getCategoryId());
+        }
         Article article = Article.builder()
             .brief(request.getBrief())
             .title(request.getTitle())
-            .status(ArticleStatus.CREATE)
+            .status(request.getStatus()==null ? ArticleStatus.CREATE : request.getStatus())
             .mainImage(request.getMainImage())
             .type(request.getType())
-            .category(categoryRepository.getById(request.getCategoryId()))
+            .category(category)
             .keyword(request.getKeyword())
             .build();
+        article = articleRepository.save(article);
+        return new ArticleDto(article);
+    }
+
+    @Override
+    public ArticleDto publicDraft(Long id) {
+        Article article = articleRepository.findById(id).orElseThrow(()-> new InternalException(ResponseCode.ARTICLE_NOT_FOUND));
+        article.setStatus(ArticleStatus.CREATE);
         article = articleRepository.save(article);
         return new ArticleDto(article);
     }
@@ -120,10 +133,10 @@ public class ArticleService implements IArticleService{
     }
 
     @Override
-    public List<ArticleDto> getAllByUser(UserPrincipal currentUser) {
-
+    public List<ArticleDto> getAllByUser(UserPrincipal currentUser, ArticleStatus status) {
             GetAllArticleRequest request = new GetAllArticleRequest();
             request.setUsername(currentUser.getUsername());
+            request.setStatus(status);
             List<Article> articles = articleRepository.findAll(request.getSpecification());
             return articles.stream().map(ArticleDto::new).collect(Collectors.toList());
 
