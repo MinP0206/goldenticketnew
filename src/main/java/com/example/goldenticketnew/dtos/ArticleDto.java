@@ -40,5 +40,7 @@ public class ArticleDto extends Auditable  {
         if(article.getImage1()!=null)this.image1 = article.getImage1();
         if(article.getCategory() != null) this.category = article.getCategory().getName();
         if(article.getCreatedBy() != null) this.setCreatedBy(article.getCreatedBy());
+        if(article.getCreatedAt() != null) this.setCreatedAt(article.getCreatedAt().toString());
+        if(article.getUpdatedAt() != null) this.setUpdatedAt(article.getUpdatedAt().toString());
     }
 }
