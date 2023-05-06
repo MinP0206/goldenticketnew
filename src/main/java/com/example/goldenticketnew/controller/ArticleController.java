@@ -109,6 +109,14 @@ public class ArticleController {
     public ResponseEntity<ResponseBase<ArticleDto>> getDetail(@Parameter Long id ) {
         return ResponseEntity.ok(new ResponseBase<>(articleService.getDetailArticle(id)));
     }
+  @Operation(
+    summary = "Get Detail Article by ( slug) ",
+    description = "- Get Detail Article by (slug) "
+)
+@GetMapping("/getDetail/{slug}")
+public ResponseEntity<ResponseBase<ArticleDto>> getDetailByTitle(@PathVariable String slug ) {
+    return ResponseEntity.ok(new ResponseBase<>(articleService.getArticleBySLug(slug)));
+}
 
 
     @Operation(

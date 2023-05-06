@@ -20,6 +20,7 @@ public interface IArticleService {
     ArticleDto updateArticle(UpdateArticleRequest request);
 
     ArticleDto getDetailArticle(Long articleId);
+    ArticleDto getArticleBySLug(String slug);
 
     ArticleDto changeStatusArticle(ChangeArticleStatusRequest request);
 

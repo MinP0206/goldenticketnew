@@ -3,13 +3,10 @@ package com.example.goldenticketnew.dtos;
 import com.example.goldenticketnew.enums.ArticleStatus;
 import com.example.goldenticketnew.enums.ArticleType;
 import com.example.goldenticketnew.model.Article;
-import com.example.goldenticketnew.model.Category;
 import com.example.goldenticketnew.utils.ModelMapperUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -28,6 +25,8 @@ public class ArticleDto extends Auditable  {
 
     private String keyword;
 
+    private String slug;
+
     public ArticleDto(Article article) {
         this.id = article.getId();
         this.title = article.getTitle();
@@ -42,5 +41,7 @@ public class ArticleDto extends Auditable  {
         if(article.getCreatedBy() != null) this.setCreatedBy(article.getCreatedBy());
         if(article.getCreatedAt() != null) this.setCreatedAt(article.getCreatedAt().toString());
         if(article.getUpdatedAt() != null) this.setUpdatedAt(article.getUpdatedAt().toString());
+        this.slug = ModelMapperUtils.removeAccentsWithApacheCommons(article.getTitle()+"-p"+article.getId());
+
     }
 }

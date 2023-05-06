@@ -1,6 +1,7 @@
 package com.example.goldenticketnew.payload.article.request;
 
 import com.example.goldenticketnew.enums.ArticleStatus;
+import com.example.goldenticketnew.enums.ArticleType;
 import com.example.goldenticketnew.model.Article;
 import com.example.goldenticketnew.model.Category;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -24,10 +25,15 @@ public class GetAllArticleRequest {
     private ArticleStatus status;
 
     private String keyword;
-
+    private List<String> listCategory;
+    @JsonIgnore
     private String category;
 
+
     private String username;
+
+    private ArticleType articleType;
+
 
 
     public Specification<Article> getSpecification(){
@@ -40,7 +46,7 @@ public class GetAllArticleRequest {
                 predicates.add(cb.like(cb.lower(root.get(Article.Fields.keyword)), "%" + keyword.toLowerCase() + "%"));
             }
             if(category != null){
-                predicates.add(cb.like(cb.lower(root.get(Article.Fields.category).get(Category.Fields.name)), "%" + keyword.toLowerCase() + "%"));
+                predicates.add(cb.like(cb.lower(root.get(Article.Fields.category).get(Category.Fields.name)), "%" + category.toLowerCase() + "%"));
             }
             if (status != null) {
                 predicates.add(cb.equal(root.get(Article.Fields.status),status));
@@ -48,6 +54,10 @@ public class GetAllArticleRequest {
             if(username != null){
                 predicates.add(cb.equal(root.get("createdBy"),username));
             }
+            if(articleType != null){
+                predicates.add(cb.equal(root.get(Article.Fields.type),articleType));
+            }
+
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };
     }

@@ -16,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -105,6 +106,13 @@ public class ArticleService implements IArticleService{
     }
 
     @Override
+    public ArticleDto getArticleBySLug(String slug) {
+        Long value = Long.parseLong(slug.replaceAll("[^0-9]", ""));
+        Article article = articleRepository.findById(value).orElseThrow(() -> new InternalException(ResponseCode.ARTICLE_NOT_FOUND));
+        return new ArticleDto(article);
+    }
+
+    @Override
     public ArticleDto changeStatusArticle(ChangeArticleStatusRequest request) {
         Article article = articleRepository.findById(request.getArticleId()).orElseThrow(()-> new InternalException(ResponseCode.ARTICLE_NOT_FOUND));
         article.setStatus(request.getStatus());
@@ -119,7 +127,13 @@ public class ArticleService implements IArticleService{
     }
     @Override
     public List<ArticleDto> getAllArticle(GetAllArticleRequest request) {
-        List<Article> articles = articleRepository.findAll(request.getSpecification());
+        List<Article> articles = new ArrayList<>();
+        if(request.getListCategory()!=null) {
+            for (String cate : request.getListCategory()) {
+                request.setCategory(cate);
+                articles.addAll(articleRepository.findAll(request.getSpecification()));
+            }
+        } else articles = articleRepository.findAll(request.getSpecification());
         return articles.stream().map(ArticleDto::new).collect(Collectors.toList());
 
 
