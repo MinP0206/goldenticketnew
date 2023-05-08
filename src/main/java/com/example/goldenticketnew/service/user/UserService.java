@@ -122,4 +122,12 @@ public class UserService implements IUserService {
         return new UserDto(userRepository.saveAndFlush(user));
     }
 
+    @Override
+    public UserDto updateContentCreator(Long id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new InternalException(ResponseCode.USER_NOT_FOUND));
+        user.setIsContentCreator(1);
+        return new UserDto(userRepository.saveAndFlush(user));
+    }
+
+
 }

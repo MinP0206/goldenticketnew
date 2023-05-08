@@ -1,6 +1,7 @@
 package com.example.goldenticketnew.service.article;
 
 import com.example.goldenticketnew.dtos.ArticleDto;
+import com.example.goldenticketnew.dtos.ArticleReportDto;
 import com.example.goldenticketnew.enums.ArticleStatus;
 import com.example.goldenticketnew.enums.ResponseCode;
 import com.example.goldenticketnew.exception.InternalException;
@@ -10,12 +11,15 @@ import com.example.goldenticketnew.payload.article.request.*;
 import com.example.goldenticketnew.payload.response.PageResponse;
 import com.example.goldenticketnew.repository.IArticleRepository;
 import com.example.goldenticketnew.repository.ICategoryRepository;
+import com.example.goldenticketnew.repository.UserRepository;
 import com.example.goldenticketnew.security.UserPrincipal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,6 +32,8 @@ public class ArticleService implements IArticleService{
     private final IArticleRepository articleRepository;
 
     private final ICategoryRepository categoryRepository;
+
+    private final UserRepository userRepository;
 
 
 
@@ -160,6 +166,27 @@ public class ArticleService implements IArticleService{
     @Override
     public Article getArticle(Long id) {
         return  articleRepository.findById(id).orElseThrow(() -> new InternalException(ResponseCode.ARTICLE_NOT_FOUND));
+    }
+
+    @Override
+    public ArticleReportDto getReport(String dateTime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate dateTimeMY = LocalDate.parse(dateTime, formatter);
+        Long totalArticleInMonth = articleRepository.getTotalArticle(dateTimeMY.getYear(),dateTimeMY.getMonthValue());
+        Long totalUserInMonth = userRepository.getTotalUserInMonth(dateTimeMY.getYear(),dateTimeMY.getMonthValue());
+        dateTimeMY = dateTimeMY.minusMonths(1);
+        Long previousArticleMonth = articleRepository.getTotalArticle(dateTimeMY.getYear(),dateTimeMY.getMonthValue());
+        Long previousUserMonth = userRepository.getTotalUserInMonth(dateTimeMY.getYear(),dateTimeMY.getMonthValue());
+        
+        Double percentUser = null;
+        if(previousUserMonth!=0){
+            percentUser = (double) ((totalUserInMonth - previousUserMonth) /previousUserMonth)*100;
+        }
+        Double percentArticle = null;
+        if(previousArticleMonth!=0){
+            percentArticle  = (double) ((totalArticleInMonth - previousArticleMonth) /previousArticleMonth) *100;
+        }
+        return new ArticleReportDto(totalArticleInMonth,previousArticleMonth,percentArticle ,totalUserInMonth,previousUserMonth,percentUser) ;
     }
 
 }

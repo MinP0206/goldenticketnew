@@ -3,7 +3,6 @@ package com.example.goldenticketnew.controller;
 
 import com.example.goldenticketnew.dtos.UserDto;
 import com.example.goldenticketnew.payload.UserIdentityAvailability;
-import com.example.goldenticketnew.payload.UserProfile;
 import com.example.goldenticketnew.payload.UserSummary;
 import com.example.goldenticketnew.payload.response.ApiResponse;
 import com.example.goldenticketnew.payload.response.ResponseBase;
@@ -100,6 +99,14 @@ public class UserController {
     @PostMapping("/updateCategory")
     public ResponseEntity<ResponseBase<UserDto>> updateCategory(@Valid @RequestBody UpdateCategoryRequest request){
         return ResponseEntity.ok(new ResponseBase<>(userService.updateCate(request)));
+    }
+    @Operation(
+        summary = "Cấp quyền viết bài cho user",
+        description = "- Cấp quyền viết bài cho user"
+    )
+    @PostMapping("/contentAccess/{userId}")
+    public ResponseEntity<ResponseBase<UserDto>> updateContentCreator(@Valid @PathVariable Long userId){
+        return ResponseEntity.ok(new ResponseBase<>(userService.updateContentCreator(userId)));
     }
 
 //    @Operation(

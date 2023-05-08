@@ -4,7 +4,10 @@ package com.example.goldenticketnew.dtos;
 import com.example.goldenticketnew.model.Category;
 import com.example.goldenticketnew.model.User;
 import com.example.goldenticketnew.model.audit.DateAudit;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,11 +33,20 @@ public class UserDto extends DateAudit {
 
     private boolean isNew = true;
 
+    private boolean isContentCreator;
+
     public UserDto(User user) {
         this.id = user.getId();
         this.username = user.getUsername();
         this.email = user.getEmail();
         this.name = user.getName();
+        if(user.getIsContentCreator()!=null){
+            if(user.getIsContentCreator()==0){
+                this.isContentCreator = false;
+            }else {
+                this.isContentCreator = true;
+            }
+        }
         if(user.getImage() != null)  this.image = user.getImage();
         this.role = user.getRoles().stream().findFirst().get().getName().toString();
         if(user.getBio() !=null)  this.bio = user.getBio();
@@ -43,8 +55,6 @@ public class UserDto extends DateAudit {
             this.categories = user.getCategories().stream().map(Category::getName).collect(Collectors.toList());
             this.isNew = false;
         }
-
-
         }
 
 }

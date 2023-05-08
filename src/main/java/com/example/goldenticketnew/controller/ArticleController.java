@@ -1,6 +1,7 @@
 package com.example.goldenticketnew.controller;
 
 import com.example.goldenticketnew.dtos.ArticleDto;
+import com.example.goldenticketnew.dtos.ArticleReportDto;
 import com.example.goldenticketnew.enums.ArticleStatus;
 import com.example.goldenticketnew.enums.ArticleType;
 import com.example.goldenticketnew.model.Category;
@@ -152,5 +153,13 @@ public ResponseEntity<ResponseBase<ArticleDto>> getDetailByTitle(@PathVariable S
     @GetMapping("/user/getAll")
     public ResponseEntity<ResponseBase<List<ArticleDto>>> getAllCateByUser(@CurrentUser UserPrincipal currentUser, @Parameter ArticleStatus status) {
         return ResponseEntity.ok(new ResponseBase<>(articleService.getAllByUser(currentUser, status)));
+    }
+    @Operation(
+        summary = "Get Report user and article",
+        description = "Get Report user and article"
+    )
+    @GetMapping("/user/getAllReport")
+    public ResponseEntity<ResponseBase<ArticleReportDto>> getReportUser(@Parameter String dateTime) {
+        return ResponseEntity.ok(new ResponseBase<>(articleService.getReport(dateTime)));
     }
 }

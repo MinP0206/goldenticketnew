@@ -1,6 +1,7 @@
 package com.example.goldenticketnew.service.article;
 
 import com.example.goldenticketnew.dtos.ArticleDto;
+import com.example.goldenticketnew.dtos.ArticleReportDto;
 import com.example.goldenticketnew.enums.ArticleStatus;
 import com.example.goldenticketnew.model.Article;
 import com.example.goldenticketnew.payload.article.request.*;
@@ -32,6 +33,8 @@ public interface IArticleService {
     List<ArticleDto> getAllByUser(UserPrincipal currentUser, ArticleStatus status);
 
     Article getArticle(Long id);
+
+    ArticleReportDto getReport(String dateTime);
 
 
 }

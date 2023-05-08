@@ -1,10 +1,11 @@
 package com.example.goldenticketnew.model;
 
 
-import com.example.goldenticketnew.model.audit.DateAudit;
 import com.example.goldenticketnew.model.audit.UserDateAudit;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldNameConstants;
 import org.hibernate.annotations.NaturalId;
@@ -20,6 +21,8 @@ import java.util.Set;
 @Setter
 @FieldNameConstants
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "user", uniqueConstraints = {
         @UniqueConstraint(columnNames = {
             "username"
@@ -69,17 +72,8 @@ public class User extends UserDateAudit {
     @JoinColumn(name = "user_id")
     private List<Category> categories;
 
-    public User() {
+    private Integer isContentCreator = 0;
 
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
 
     public User(String name, String username, String email, String password) {
         this.name = name;
@@ -87,6 +81,8 @@ public class User extends UserDateAudit {
         this.email = email;
         this.password = password;
     }
+
+
 
 
 }

@@ -30,4 +30,6 @@ public interface IUserService {
     List<UserReportDto> getUserReport();
 
     UserDto updateCate(UpdateCategoryRequest request);
+
+    UserDto updateContentCreator(Long id);
 }
