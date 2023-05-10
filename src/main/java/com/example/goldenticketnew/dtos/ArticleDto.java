@@ -17,6 +17,7 @@ public class ArticleDto extends Auditable  {
     private Long id;
     private String title;
     private String brief;
+    private String shortDescription;
     private ArticleStatus status;
     private String mainImage;
     private String image1;
@@ -37,6 +38,7 @@ public class ArticleDto extends Auditable  {
         this.status = article.getStatus();
         this.type = article.getType();
         this.mainImage = article.getMainImage();
+        this.shortDescription = article.getBrief();
         if(article.getKeyword() != null) this.keyword = article.getKeyword();
         if(article.getDescription()!=null) this.description = article.getDescription();
         if(article.getImage1()!=null)this.image1 = article.getImage1();
