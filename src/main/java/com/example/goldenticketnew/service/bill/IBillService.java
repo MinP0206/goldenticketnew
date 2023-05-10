@@ -1,11 +1,8 @@
 package com.example.goldenticketnew.service.bill;
 
 
-import com.example.goldenticketnew.dtos.BillDto;
-import com.example.goldenticketnew.dtos.BookingRequestDto;
+import com.example.goldenticketnew.dtos.*;
 
-import com.example.goldenticketnew.dtos.DeleteBillTicketRequest;
-import com.example.goldenticketnew.dtos.UserReportDto;
 import com.example.goldenticketnew.enums.BillStatus;
 import com.example.goldenticketnew.payload.dashboard.GetDashboardTransactionRequest;
 import com.example.goldenticketnew.payload.dashboard.GetDashboardTransactionResponse;
@@ -22,6 +19,8 @@ public interface IBillService {
     BillDto bookingHandler(BookingRequestDto bookingRequestDTO);
 
     GetDashboardTransactionResponse getDashBoardTransaction(GetDashboardTransactionRequest request);
+
+    List<TransactionReportSuccess> getTranS(String dateTime);
 
     List<UserReportDto> getUserDashBoard(BillStatus status);
 

@@ -71,6 +71,14 @@ public class BillController {
         return new ResponseEntity<>(billService.getDashBoardTransaction(request), HttpStatus.OK);
     }
     @Operation(
+        summary = "Lấy thống kê giao dịch thành công ",
+        description = "- Lấy thống kê giao dịch thành công"
+    )
+    @GetMapping("/getBillSuccess")
+    public ResponseEntity<List<TransactionReportSuccess>> getBillDashBoard(@Valid @Parameter String dateTime) {
+        return new ResponseEntity<>(billService.getTranS(dateTime), HttpStatus.OK);
+    }
+    @Operation(
         summary = "Lấy DashBoard User ",
         description = "- Lấy DashBoard User"
     )

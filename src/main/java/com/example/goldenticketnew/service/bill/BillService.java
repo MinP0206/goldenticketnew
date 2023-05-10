@@ -23,8 +23,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -177,6 +180,19 @@ public class BillService implements IBillService {
             response.setTotalTicket(totalTicket);
         }
         return response;
+    }
+
+    @Override
+    public List<TransactionReportSuccess> getTranS(String dateTime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate dateTimeMY = LocalDate.parse(dateTime, formatter);
+        List<TransactionReportSuccess>transactionReportSuccesses = new ArrayList<>();
+        List<TranSuccess> tranSuccesses = billRepository.findAllByUserTransucess(dateTimeMY.getYear(),dateTimeMY.getMonthValue());
+        for(TranSuccess tranSuccess:tranSuccesses){
+            TransactionReportSuccess transactionReportSuccess = new TransactionReportSuccess(dateTime.substring(0,7),tranSuccess.getUserId(),tranSuccess.getAmountTran(),tranSuccess.getPrecentAmount());
+            transactionReportSuccesses.add(transactionReportSuccess);
+        }
+        return transactionReportSuccesses.stream().sorted(Comparator.comparing(TransactionReportSuccess::getPrecipitation).reversed()).collect(Collectors.toList());
     }
 
     @Override

@@ -2,6 +2,8 @@ package com.example.goldenticketnew.repository;
 
 
 import com.example.goldenticketnew.dtos.DayTransactionReport;
+import com.example.goldenticketnew.dtos.TranSuccess;
+import com.example.goldenticketnew.dtos.TransactionReportSuccess;
 import com.example.goldenticketnew.dtos.UserReportDto;
 import com.example.goldenticketnew.model.Bill;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -27,6 +29,7 @@ public interface IBillRepository extends JpaRepository<Bill, Integer> , JpaSpeci
         "        group by DATE_FORMAT(bill.created_time,'%Y-%m-%d')\n" +
         "        ) b  Where  a.dateTran = b.dateTran",nativeQuery = true)
     List<DayTransactionReport> findDashBoardBillByFromDateToDateAndStatusSuccess(@Param("fromDate") String fromDate , @Param("toDate") String toDate);
+
 
     @Query(value = "SELECT DATE_FORMAT(bill.created_time,'%Y-%m-%d') dateTran,count(bill.id) transactionCount , 0 ticketAmount, sum(bill.price) incomeAmount\n" +
         "FROM bill \n" +
@@ -57,4 +60,8 @@ public interface IBillRepository extends JpaRepository<Bill, Integer> , JpaSpeci
         "                )  b Where a.id = b.id\n" +
         "                ",nativeQuery = true)
     List<UserReportDto> findAllByStatusSuccessGroupByUser();
+    @Query(value = "select a.user_id as userId,a.amountTran, (a.amountTran/(a.amountTran + b.amountTran)) as precentAmount  from\n" +
+        "(Select count(id) as amountTran ,user_id  from bill  where year(created_at) = ?1 and month(created_at) = ?2 and status = 1 group by user_id) a ,\n" +
+        "(Select count(id) as amountTran  ,user_id  from bill  where year(created_at) = ?1 and month(created_at) = ?2 and status = 2 group by user_id) b ",nativeQuery = true)
+    List<TranSuccess> findAllByUserTransucess(Integer year,Integer month);
 }
