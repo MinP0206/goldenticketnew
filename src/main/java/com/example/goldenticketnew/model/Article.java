@@ -40,9 +40,12 @@ public class Article extends UserDateAudit {
     private ArticleType type;
 
     private String keyword;
-
+    private String shortDescription;
     @OneToOne( fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(referencedColumnName = "id")
     private Category category;
+
+
+    private String thumbnail;
 
 }

@@ -25,4 +25,8 @@ public class UpdateArticleRequest {
 
     private String description;
 
+    private String shortDescription;
+
+    private String thumbnail;
+
 }

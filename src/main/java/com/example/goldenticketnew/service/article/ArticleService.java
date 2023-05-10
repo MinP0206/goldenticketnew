@@ -80,6 +80,8 @@ public class ArticleService implements IArticleService{
             .type(request.getType())
             .category(category)
             .keyword(request.getKeyword())
+            .shortDescription(request.getShortDescription())
+            .thumbnail(request.getThumbnail())
             .build();
         article = articleRepository.save(article);
         return new ArticleDto(article);
@@ -101,6 +103,8 @@ public class ArticleService implements IArticleService{
         if(request.getTitle()!=null) article.setTitle(request.getTitle());
         if(request.getDescription()!=null) article.setDescription(request.getDescription());
         if(request.getMainImage()!=null) article.setMainImage(request.getMainImage());
+        if(request.getThumbnail()!=null) article.setThumbnail(request.getThumbnail());
+        if(request.getShortDescription()!=null) article.setShortDescription(request.getShortDescription());
         article = articleRepository.saveAndFlush(article);
         return new ArticleDto(article);
     }

@@ -29,7 +29,11 @@ public class ArticleDto extends Auditable  {
     private String keyword;
 
     private String slug;
+
+
+    private String thumbnail;
     private UserDto user;
+
 
     public ArticleDto(Article article) {
         this.id = article.getId();
@@ -38,7 +42,8 @@ public class ArticleDto extends Auditable  {
         this.status = article.getStatus();
         this.type = article.getType();
         this.mainImage = article.getMainImage();
-        this.shortDescription = article.getBrief();
+        if(article.getShortDescription()!=null) this.shortDescription = article.getShortDescription();
+        if(article.getThumbnail()!=null) this.thumbnail = article.getThumbnail();
         if(article.getKeyword() != null) this.keyword = article.getKeyword();
         if(article.getDescription()!=null) this.description = article.getDescription();
         if(article.getImage1()!=null)this.image1 = article.getImage1();

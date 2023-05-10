@@ -5,7 +5,7 @@ import com.example.goldenticketnew.enums.ArticleType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
+
 
 @Data
 public class AddNewArRequest {
@@ -25,5 +25,9 @@ public class AddNewArRequest {
     private Long categoryId;
 
     private String keyword;
+
+    private String shortDescription;
+
+    private String thumbnail;
 
 }
