@@ -97,10 +97,10 @@ public class ArticleService implements IArticleService{
     @Override
     public ArticleDto updateArticle(UpdateArticleRequest request) {
         Article article = articleRepository.findById(request.getId()).orElseThrow(() -> new InternalException(ResponseCode.ARTICLE_NOT_FOUND));
-        if(!request.getBrief().isBlank()) article.setBrief(request.getBrief());
-        if(!request.getTitle().isBlank()) article.setTitle(request.getTitle());
-        if(!request.getDescription().isBlank()) article.setDescription(request.getDescription());
-        if(!request.getMainImage().isBlank()) article.setMainImage(request.getMainImage());
+        if(request.getBrief() !=null) article.setBrief(request.getBrief());
+        if(request.getTitle()!=null) article.setTitle(request.getTitle());
+        if(request.getDescription()!=null) article.setDescription(request.getDescription());
+        if(request.getMainImage()!=null) article.setMainImage(request.getMainImage());
         article = articleRepository.saveAndFlush(article);
         return new ArticleDto(article);
     }
