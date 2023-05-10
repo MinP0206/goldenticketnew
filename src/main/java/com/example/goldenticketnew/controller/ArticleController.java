@@ -84,7 +84,7 @@ public class ArticleController {
         description = "- Chỉnh sửa Article"
     )
     @PutMapping("/update")
-    public ResponseEntity<ResponseBase<ArticleDto>> updateArticle(@Valid @RequestBody UpdateArticleRequest request) {
+    public ResponseEntity<ResponseBase<ArticleDto>> updateArticle( @RequestBody UpdateArticleRequest request) {
         return ResponseEntity.ok(new ResponseBase<>(articleService.updateArticle(request)));
     }
     @Operation(
