@@ -3,6 +3,7 @@ package com.example.goldenticketnew.dtos;
 import com.example.goldenticketnew.enums.ArticleStatus;
 import com.example.goldenticketnew.enums.ArticleType;
 import com.example.goldenticketnew.model.Article;
+import com.example.goldenticketnew.model.Category;
 import com.example.goldenticketnew.service.user.UserService;
 import com.example.goldenticketnew.utils.BeanUtils;
 import com.example.goldenticketnew.utils.ModelMapperUtils;
@@ -24,7 +25,7 @@ public class ArticleDto extends Auditable  {
     private String description;
 
     private ArticleType type;
-    private String category;
+    private Category category;
 
     private String keyword;
 
@@ -47,7 +48,7 @@ public class ArticleDto extends Auditable  {
         if(article.getKeyword() != null) this.keyword = article.getKeyword();
         if(article.getDescription()!=null) this.description = article.getDescription();
         if(article.getImage1()!=null)this.image1 = article.getImage1();
-        if(article.getCategory() != null) this.category = article.getCategory().getName();
+        if(article.getCategory() != null) this.category = article.getCategory();
         if(article.getCreatedBy() != null) {
             this.setCreatedBy(article.getCreatedBy());
             UserService userService = BeanUtils.getBean(UserService.class);
