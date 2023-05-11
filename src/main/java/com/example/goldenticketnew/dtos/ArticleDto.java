@@ -25,7 +25,7 @@ public class ArticleDto extends Auditable  {
     private String description;
 
     private ArticleType type;
-    private Category category;
+    private CategoryDto category;
 
     private String keyword;
 
@@ -48,7 +48,7 @@ public class ArticleDto extends Auditable  {
         if(article.getKeyword() != null) this.keyword = article.getKeyword();
         if(article.getDescription()!=null) this.description = article.getDescription();
         if(article.getImage1()!=null)this.image1 = article.getImage1();
-        if(article.getCategory() != null) this.category = article.getCategory();
+        if(article.getCategory() != null) this.category = new CategoryDto(article.getCategory());
         if(article.getCreatedBy() != null) {
             this.setCreatedBy(article.getCreatedBy());
             UserService userService = BeanUtils.getBean(UserService.class);
