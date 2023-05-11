@@ -105,6 +105,8 @@ public class ArticleService implements IArticleService{
         if(request.getMainImage()!=null) article.setMainImage(request.getMainImage());
         if(request.getThumbnail()!=null) article.setThumbnail(request.getThumbnail());
         if(request.getShortDescription()!=null) article.setShortDescription(request.getShortDescription());
+        if(request.getKeyword()!=null) article.setKeyword(request.getKeyword());
+        if(request.getCategoryId()!=null) article.setCategory(categoryRepository.getById(request.getCategoryId()));
         article = articleRepository.saveAndFlush(article);
         return new ArticleDto(article);
     }

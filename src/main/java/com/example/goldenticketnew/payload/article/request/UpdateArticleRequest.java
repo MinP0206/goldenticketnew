@@ -29,4 +29,8 @@ public class UpdateArticleRequest {
 
     private String thumbnail;
 
+    private Long categoryId;
+
+    private String keyword;
+
 }
