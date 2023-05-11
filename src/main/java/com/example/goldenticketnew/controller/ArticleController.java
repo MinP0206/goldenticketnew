@@ -2,6 +2,7 @@ package com.example.goldenticketnew.controller;
 
 import com.example.goldenticketnew.dtos.ArticleDto;
 import com.example.goldenticketnew.dtos.ArticleReportDto;
+import com.example.goldenticketnew.dtos.CategoryDto;
 import com.example.goldenticketnew.enums.ArticleStatus;
 import com.example.goldenticketnew.enums.ArticleType;
 import com.example.goldenticketnew.model.Category;
@@ -145,8 +146,8 @@ public ResponseEntity<ResponseBase<ArticleDto>> getDetailByTitle(@PathVariable S
         description = "Thêm mới Category"
     )
     @PostMapping("/category/add")
-    public ResponseEntity<ResponseBase<Category>> addNewCategory(@Valid @Parameter String categoryName) {
-        return ResponseEntity.ok(new ResponseBase<>(categoryService.createCategory(categoryName)));
+    public ResponseEntity<ResponseBase<CategoryDto>> addCategory(@Valid @ParameterObject AddNewCategory request) {
+        return ResponseEntity.ok(new ResponseBase<>(categoryService.createCategory(request.getCategoryName())));
     }
     @Operation(
         summary = "Get All Category",

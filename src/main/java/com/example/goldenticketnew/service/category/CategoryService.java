@@ -1,5 +1,6 @@
 package com.example.goldenticketnew.service.category;
 
+import com.example.goldenticketnew.dtos.CategoryDto;
 import com.example.goldenticketnew.model.Category;
 import com.example.goldenticketnew.repository.ICategoryRepository;
 import lombok.RequiredArgsConstructor;
@@ -32,11 +33,11 @@ public class CategoryService implements ICategoryService{
     }
 
     @Override
-    public Category createCategory(String name) {
+    public CategoryDto createCategory(String name) {
         Category category = new Category();
         category.setName(name);
         category = categoryRepository.save(category);
-        return category;
+        return new CategoryDto(category);
     }
 
     @Override
