@@ -13,9 +13,12 @@ import com.example.goldenticketnew.repository.IArticleRepository;
 import com.example.goldenticketnew.repository.ICategoryRepository;
 import com.example.goldenticketnew.repository.UserRepository;
 import com.example.goldenticketnew.security.UserPrincipal;
+import com.example.goldenticketnew.utils.PageUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -148,7 +151,8 @@ public class ArticleService implements IArticleService{
             }
         } else articles = articleRepository.findAll(request.getSpecification());
         List<ArticleDto> articleDtos =  articles.stream().map(ArticleDto::new).collect(Collectors.toList());
-        Page<ArticleDto> pages = new PageImpl<ArticleDto>(articleDtos, request.getPageable(), articleDtos.size());
+
+        Page<ArticleDto> pages = PageUtils.convertListToPage(articleDtos,request.getPageable());
         return new PageResponse<>(pages);
     }
     @Override
