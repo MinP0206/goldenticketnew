@@ -4,6 +4,8 @@ import com.example.goldenticketnew.dtos.CommentDto;
 import com.example.goldenticketnew.dtos.LikeDto;
 import com.example.goldenticketnew.payload.interaction.request.AddNewCommentRequest;
 import com.example.goldenticketnew.payload.interaction.request.AddNewLikeRequest;
+import com.example.goldenticketnew.payload.interaction.request.CheckUserLikeRequest;
+import com.example.goldenticketnew.payload.response.ApiResponse;
 import com.example.goldenticketnew.payload.response.PageResponse;
 import org.springframework.data.domain.Pageable;
 
@@ -18,4 +20,6 @@ public interface IInteractionService {
     CommentDto addNewComment(AddNewCommentRequest request);
 
     LikeDto addNewLike(AddNewLikeRequest request);
+
+    ApiResponse checkUserLike(CheckUserLikeRequest request);
 }

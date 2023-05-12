@@ -5,6 +5,8 @@ import com.example.goldenticketnew.dtos.LikeDto;
 import com.example.goldenticketnew.model.*;
 import com.example.goldenticketnew.payload.interaction.request.AddNewCommentRequest;
 import com.example.goldenticketnew.payload.interaction.request.AddNewLikeRequest;
+import com.example.goldenticketnew.payload.interaction.request.CheckUserLikeRequest;
+import com.example.goldenticketnew.payload.response.ApiResponse;
 import com.example.goldenticketnew.payload.response.PageResponse;
 import com.example.goldenticketnew.repository.ICommentRepository;
 import com.example.goldenticketnew.repository.ILikeRepository;
@@ -70,6 +72,18 @@ public class InteractionService implements IInteractionService{
             newLike.setUser(user);
             newLike.setArticle(article);
             return new LikeDto(likeRepository.save(newLike));
+        }
+    }
+
+    @Override
+    public ApiResponse checkUserLike(CheckUserLikeRequest request) {
+        User user = userService.getUser(request.getUserId());
+        Article article = articleService.getArticle(request.getArticleId());
+        Like like = likeRepository.findFirstByUserIdAndArticleId(request.getUserId(), request.getArticleId());
+        if(like != null){
+            return new ApiResponse(true, "User đã like bài viết");
+        }else {
+            return new ApiResponse(false, "User chưa like bài viết");
         }
     }
 }

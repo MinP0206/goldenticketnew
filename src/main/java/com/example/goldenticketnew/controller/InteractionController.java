@@ -4,6 +4,8 @@ import com.example.goldenticketnew.dtos.CommentDto;
 import com.example.goldenticketnew.dtos.LikeDto;
 import com.example.goldenticketnew.payload.interaction.request.AddNewCommentRequest;
 import com.example.goldenticketnew.payload.interaction.request.AddNewLikeRequest;
+import com.example.goldenticketnew.payload.interaction.request.CheckUserLikeRequest;
+import com.example.goldenticketnew.payload.response.ApiResponse;
 import com.example.goldenticketnew.payload.response.PageResponse;
 import com.example.goldenticketnew.payload.response.ResponseBase;
 import com.example.goldenticketnew.service.interaction.InteractionService;
@@ -26,6 +28,8 @@ import java.util.List;
 @Tag(name = "InteractionController", description = "Thao tác với tương tác của người dùng")
 public class InteractionController {
     private final InteractionService interactionService;
+
+
     @Operation(
         summary = "Like - unlike bài viết",
         description = "- Thích và hủy thích bài viết"
@@ -59,5 +63,14 @@ public class InteractionController {
     @GetMapping("/comment/getAll/{articleId}")
     public ResponseEntity<ResponseBase<PageResponse<CommentDto>>> getAllComment(@PathVariable Long articleId, @ParameterObject Pageable pageable) {
         return new ResponseEntity<>(new ResponseBase<>(interactionService.getAllComment(articleId, pageable)), HttpStatus.OK);
+    }
+
+    @Operation(
+        summary = "Kiểm tra xem user đã like bài viết đó chưa",
+        description = "Kiểm tra xem user đã like bài viết đó chưa"
+    )
+    @GetMapping("/like/checkUser")
+    public ResponseEntity<ApiResponse> checkLike(@Valid @RequestBody CheckUserLikeRequest request) {
+        return new ResponseEntity<>(interactionService.checkUserLike(request),HttpStatus.OK);
     }
 }
