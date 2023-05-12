@@ -11,4 +11,6 @@ import java.util.List;
 public interface ILikeRepository extends JpaRepository<Like,Long>, JpaSpecificationExecutor<Like> {
     Like findFirstByUserIdAndArticleId(Long userId, Long articleId);
     List<Like> findAllByArticleId(Long articleId, Sort sort);
+
+    Long countAllByArticleId(Long articleId);
 }

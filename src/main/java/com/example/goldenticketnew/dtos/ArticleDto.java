@@ -4,6 +4,7 @@ import com.example.goldenticketnew.enums.ArticleStatus;
 import com.example.goldenticketnew.enums.ArticleType;
 import com.example.goldenticketnew.model.Article;
 import com.example.goldenticketnew.model.Category;
+import com.example.goldenticketnew.repository.ILikeRepository;
 import com.example.goldenticketnew.service.user.UserService;
 import com.example.goldenticketnew.utils.BeanUtils;
 import com.example.goldenticketnew.utils.ModelMapperUtils;
@@ -34,6 +35,7 @@ public class ArticleDto extends Auditable  {
 
     private String thumbnail;
     private UserDto user;
+    private Long totalLike;
 
 
     public ArticleDto(Article article) {
@@ -57,6 +59,7 @@ public class ArticleDto extends Auditable  {
         if(article.getCreatedAt() != null) this.setCreatedAt(article.getCreatedAt().toString());
         if(article.getUpdatedAt() != null) this.setUpdatedAt(article.getUpdatedAt().toString());
         this.slug = ModelMapperUtils.removeAccentsWithApacheCommons(article.getTitle()+"-p"+article.getId());
-
+        ILikeRepository likeRepository = BeanUtils.getBean(ILikeRepository.class);
+        this.totalLike = likeRepository.countAllByArticleId(article.getId());
     }
 }
