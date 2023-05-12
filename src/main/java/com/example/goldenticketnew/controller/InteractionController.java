@@ -70,7 +70,7 @@ public class InteractionController {
         description = "Kiểm tra xem user đã like bài viết đó chưa"
     )
     @GetMapping("/like/checkUser")
-    public ResponseEntity<ApiResponse> checkLike(@Valid @RequestBody CheckUserLikeRequest request) {
+    public ResponseEntity<ApiResponse> checkLike(@Valid @ParameterObject CheckUserLikeRequest request) {
         return new ResponseEntity<>(interactionService.checkUserLike(request),HttpStatus.OK);
     }
 }
