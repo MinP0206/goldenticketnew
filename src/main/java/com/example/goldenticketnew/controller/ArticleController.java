@@ -138,7 +138,7 @@ public ResponseEntity<ResponseBase<ArticleDto>> getDetailByTitle(@PathVariable S
     @GetMapping("/v2/getAllPaging")
     public ResponseBase<PageResponse<ArticleDto>> findAllArticlePagingV2(@ParameterObject Pageable pageable, @ParameterObject GetAllArticleRequest request) {
         request.setPageable(pageable);
-        return new ResponseBase<>(articleService.getAllArticlePaging(request));
+        return new ResponseBase<>(articleService.getAllArticlePagingV2(request));
     }
 
     @Operation(

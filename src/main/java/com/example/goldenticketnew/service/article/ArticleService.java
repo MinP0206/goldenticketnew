@@ -15,6 +15,7 @@ import com.example.goldenticketnew.repository.UserRepository;
 import com.example.goldenticketnew.security.UserPrincipal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -134,6 +135,19 @@ public class ArticleService implements IArticleService{
     public PageResponse<ArticleDto> getAllArticlePaging(GetAllArticleRequest request) {
         Page<Article> articlePage = articleRepository.findAll(request.getSpecification(),request.getPageable());
         return new PageResponse<>(articlePage.map(ArticleDto::new));
+    }
+    @Override
+    public PageResponse<ArticleDto> getAllArticlePagingV2(GetAllArticleRequest request) {
+        List<Article> articles = new ArrayList<>();
+        if(request.getListCategory()!=null) {
+            for (String cate : request.getListCategory()) {
+                request.setCategory(cate);
+                articles.addAll(articleRepository.findAll(request.getSpecification()));
+            }
+        } else articles = articleRepository.findAll(request.getSpecification());
+        List<ArticleDto> articleDtos =  articles.stream().map(ArticleDto::new).collect(Collectors.toList());
+        Page<ArticleDto> pages = new PageImpl<ArticleDto>(articleDtos, request.getPageable(), articleDtos.size());
+        return new PageResponse<>(pages);
     }
     @Override
     public List<ArticleDto> getAllArticle(GetAllArticleRequest request) {

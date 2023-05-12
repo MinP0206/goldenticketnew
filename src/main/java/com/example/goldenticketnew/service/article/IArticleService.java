@@ -25,6 +25,7 @@ public interface IArticleService {
 
     ArticleDto changeStatusArticle(ChangeArticleStatusRequest request);
 
+    PageResponse<ArticleDto> getAllArticlePagingV2(GetAllArticleRequest request);
     PageResponse<ArticleDto> getAllArticlePaging(GetAllArticleRequest request);
 
     List<ArticleDto> getAllArticle(GetAllArticleRequest request);
