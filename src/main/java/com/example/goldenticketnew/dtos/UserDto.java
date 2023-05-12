@@ -29,7 +29,7 @@ public class UserDto extends DateAudit {
 
     private Integer followers;
 
-    private List<String> categories;
+    private List<CategoryDto> categories;
 
     private boolean isNew = true;
 
@@ -52,7 +52,7 @@ public class UserDto extends DateAudit {
         if(user.getBio() !=null)  this.bio = user.getBio();
         if(user.getFollowers() != null)  this.followers = user.getFollowers();
         if(user.getCategories()!=null)  {
-            this.categories = user.getCategories().stream().map(Category::getName).collect(Collectors.toList());
+            this.categories = user.getCategories().stream().map(CategoryDto::new).collect(Collectors.toList());
             this.isNew = false;
         }
         }
