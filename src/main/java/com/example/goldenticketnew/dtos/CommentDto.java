@@ -15,6 +15,8 @@ public class CommentDto {
     private String description;
     private String name;
     private String image;
+
+    private String username;
     private Long articleId;
     private Long userId;
     private String createdAt;
@@ -24,6 +26,7 @@ public class CommentDto {
     public CommentDto(Comment comment){
         this.id = comment.getId();
         this.description = comment.getDescription();
+        this.username = comment.getUser().getUsername();
         this.name = comment.getUser().getName();
         if(comment.getUser().getImage()!=null) this.image = comment.getUser().getImage();
         this.articleId = comment.getArticle().getId();
