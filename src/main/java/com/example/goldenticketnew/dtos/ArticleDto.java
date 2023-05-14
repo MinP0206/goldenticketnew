@@ -60,6 +60,6 @@ public class ArticleDto extends Auditable  {
         if(article.getUpdatedAt() != null) this.setUpdatedAt(article.getUpdatedAt().toString());
         this.slug = ModelMapperUtils.removeAccentsWithApacheCommons(article.getTitle()+"-p"+article.getId());
         ILikeRepository likeRepository = BeanUtils.getBean(ILikeRepository.class);
-        this.totalLike = likeRepository.countAllByArticleId(article.getId());
+        this.totalLike = likeRepository.countAllByArticleIdAndIsLike(article.getId());
     }
 }

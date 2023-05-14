@@ -7,6 +7,7 @@ import com.example.goldenticketnew.enums.ResponseCode;
 import com.example.goldenticketnew.exception.InternalException;
 import com.example.goldenticketnew.model.Article;
 import com.example.goldenticketnew.model.Category;
+import com.example.goldenticketnew.model.User;
 import com.example.goldenticketnew.payload.article.request.*;
 import com.example.goldenticketnew.payload.response.PageResponse;
 import com.example.goldenticketnew.repository.IArticleRepository;
@@ -211,6 +212,34 @@ public class ArticleService implements IArticleService{
             percentArticle  = (double) ((totalArticleInMonth - previousArticleMonth) /previousArticleMonth) *100;
         }
         return new ArticleReportDto(totalArticleInMonth,previousArticleMonth,percentArticle ,totalUserInMonth,previousUserMonth,percentUser) ;
+    }
+
+    @Override
+    public List<ArticleDto> addNewArticleInuser(Long userId, Long articleId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new InternalException(ResponseCode.USER_NOT_FOUND));
+        List<Article> articles = user.getSaveArticles();
+        Article article = articleRepository.findById(articleId).orElseThrow(() -> new InternalException(ResponseCode.ARTICLE_NOT_FOUND));
+        articles.add(article);
+        user.setSaveArticles(articles);
+        userRepository.save(user);
+        return articles.stream().map(ArticleDto::new).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ArticleDto> removeArticleInuser(Long userId, Long articleId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new InternalException(ResponseCode.USER_NOT_FOUND));
+        List<Article> articles = user.getSaveArticles();
+        Article article = articleRepository.findById(articleId).orElseThrow(() -> new InternalException(ResponseCode.ARTICLE_NOT_FOUND));
+        articles.remove(article);
+        user.setSaveArticles(articles);
+        return articles.stream().map(ArticleDto::new).collect(Collectors.toList());
+    }
+
+    @Override
+    public PageResponse<ArticleDto> getAllArticlePagingInUser(Long userId, Pageable pageable) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new InternalException(ResponseCode.USER_NOT_FOUND));
+        List<Article> articles = user.getSaveArticles();
+        return new PageResponse<>(PageUtils.convertListToPage(articles.stream().map(ArticleDto::new).collect(Collectors.toList()),pageable));
     }
 
 }

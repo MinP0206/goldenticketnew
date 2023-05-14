@@ -173,4 +173,30 @@ public ResponseEntity<ResponseBase<ArticleDto>> getDetailByTitle(@PathVariable S
     public ResponseEntity<ResponseBase<ArticleReportDto>> getReportUser(@Parameter String dateTime) {
         return ResponseEntity.ok(new ResponseBase<>(articleService.getReport(dateTime)));
     }
+
+    @Operation(
+        summary = "Thêm bài viết lưu trữ ( yêu thích) của user",
+        description = "- Thêm bài viết lưu trữ ( yêu thích) của user"
+    )
+    @PostMapping("/user/addSaveArticle")
+    public ResponseEntity<ResponseBase<List<ArticleDto>>> addNewArticleinUser(@Valid @Parameter Long userId, @Parameter Long articleId) {
+        return ResponseEntity.ok(new ResponseBase<>(articleService.addNewArticleInuser(userId,articleId)));
+    }
+    @Operation(
+        summary = "Gỡ bài viết lưu trữ ( yêu thích) của user",
+        description = "- Gỡ bài viết lưu trữ ( yêu thích) của user"
+    )
+    @PostMapping("/user/removeSaveArticle")
+    public ResponseEntity<ResponseBase<List<ArticleDto>>> removeArticleinUser(@Valid @Parameter Long userId, @Parameter Long articleId) {
+        return ResponseEntity.ok(new ResponseBase<>(articleService.removeArticleInuser(userId,articleId)));
+    }
+
+    @Operation(
+        summary = "Get All Category lưu trữ( yêu thích của user)",
+        description = "Get All Category lưu trữ( yêu thích của user)"
+    )
+    @GetMapping("/user/saveArticle/getAll")
+    public ResponseEntity<ResponseBase<PageResponse<ArticleDto>>> getAllCateByUser(@Parameter Long userId, @ParameterObject Pageable pageable) {
+        return ResponseEntity.ok(new ResponseBase<>(articleService.getAllArticlePagingInUser(userId,pageable)));
+    }
 }

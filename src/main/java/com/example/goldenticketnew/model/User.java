@@ -74,6 +74,10 @@ public class User extends UserDateAudit {
 
     private Integer isContentCreator = 0;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private List<Article> saveArticles;
+
 
     public User(String name, String username, String email, String password) {
         this.name = name;
