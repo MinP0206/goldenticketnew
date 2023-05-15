@@ -36,6 +36,7 @@ public class ArticleDto extends Auditable  {
     private String thumbnail;
     private UserDto user;
     private Long totalLike;
+    private Long view;
 
 
     public ArticleDto(Article article) {
@@ -61,5 +62,6 @@ public class ArticleDto extends Auditable  {
         this.slug = ModelMapperUtils.removeAccentsWithApacheCommons(article.getTitle()+"-p"+article.getId());
         ILikeRepository likeRepository = BeanUtils.getBean(ILikeRepository.class);
         this.totalLike = likeRepository.countAllByArticleIdAndIsLike(article.getId());
+        this.view = article.getView();
     }
 }

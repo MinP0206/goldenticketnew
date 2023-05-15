@@ -48,4 +48,6 @@ public class Article extends UserDateAudit {
 
     private String thumbnail;
 
+    private long view = 0;
+
 }

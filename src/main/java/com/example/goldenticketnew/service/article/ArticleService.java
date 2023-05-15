@@ -126,7 +126,8 @@ public class ArticleService implements IArticleService{
     public ArticleDto getArticleBySLug(String slug) {
         Long value = Long.parseLong(slug.replaceAll("[^0-9]", ""));
         Article article = articleRepository.findById(value).orElseThrow(() -> new InternalException(ResponseCode.ARTICLE_NOT_FOUND));
-        return new ArticleDto(article);
+        article.setView(article.getView()+1);
+        return new ArticleDto(articleRepository.save(article));
     }
 
     @Override
