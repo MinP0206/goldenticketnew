@@ -233,6 +233,7 @@ public class ArticleService implements IArticleService{
         Article article = articleRepository.findById(articleId).orElseThrow(() -> new InternalException(ResponseCode.ARTICLE_NOT_FOUND));
         articles.remove(article);
         user.setSaveArticles(articles);
+        userRepository.save(user);
         return articles.stream().map(ArticleDto::new).collect(Collectors.toList());
     }
 
