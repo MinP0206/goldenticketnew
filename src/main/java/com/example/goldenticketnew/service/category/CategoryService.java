@@ -1,5 +1,6 @@
 package com.example.goldenticketnew.service.category;
 
+import com.example.goldenticketnew.dtos.ArticleDto;
 import com.example.goldenticketnew.dtos.CategoryDto;
 import com.example.goldenticketnew.model.Category;
 import com.example.goldenticketnew.payload.response.ApiResponse;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -20,9 +22,9 @@ public class CategoryService implements ICategoryService{
 
 
     @Override
-    public List<Category> getAllCategory() {
+    public List<CategoryDto> getAllCategory() {
         try{
-            return categoryRepository.findAll();
+            return categoryRepository.findAll().stream().map(CategoryDto::new).collect(Collectors.toList());
         }catch(Exception ex){
             log.error(ex.getMessage());
         }
