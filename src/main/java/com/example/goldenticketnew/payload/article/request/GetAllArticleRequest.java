@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Predicate;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,7 @@ public class GetAllArticleRequest {
     private ArticleStatus status;
 
     private String keyword;
-    private List<String> listCategory;
+    private List<String> listCategory = new ArrayList<>();
     @JsonIgnore
     private String category;
 
@@ -45,9 +46,9 @@ public class GetAllArticleRequest {
             if (keyword != null) {
                 predicates.add(cb.like(cb.lower(root.get(Article.Fields.keyword)), "%" + keyword.toLowerCase() + "%"));
             }
-            if(category != null){
-                predicates.add(cb.equal(root.get(Article.Fields.category).get(Category.Fields.name),  category ));
-            }
+//            if(category != null){
+//                predicates.add(cb.equal(root.get(Article.Fields.category).get(Category.Fields.name),  category ));
+//            }
             if (status != null) {
                 predicates.add(cb.equal(root.get(Article.Fields.status),status));
             }
@@ -56,6 +57,14 @@ public class GetAllArticleRequest {
             }
             if(articleType != null){
                 predicates.add(cb.equal(root.get(Article.Fields.type),articleType));
+            }
+
+            if(!listCategory.isEmpty()) {
+                CriteriaBuilder.In<String> categoryIn = cb.in(root.get(Article.Fields.category).get(Category.Fields.name));
+                for (String categoryName: listCategory) {
+                    categoryIn.value(categoryName);
+                }
+                predicates.add(categoryIn);
             }
 
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
