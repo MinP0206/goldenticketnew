@@ -163,7 +163,7 @@ public ResponseEntity<ResponseBase<ArticleDto>> getDetailByTitle(@PathVariable S
         description = "Get All Category"
     )
     @GetMapping("/category/getAll")
-    public ResponseEntity<ResponseBase<List<Category>>> getAllCate() {
+    public ResponseEntity<ResponseBase<List<CategoryDto>>> getAllCate() {
         return ResponseEntity.ok(new ResponseBase<>(categoryService.getAllCategory()));
     }
     @Operation(

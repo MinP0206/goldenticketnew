@@ -8,7 +8,7 @@ import com.example.goldenticketnew.payload.response.ApiResponse;
 import java.util.List;
 
 public interface ICategoryService {
-    List<Category> getAllCategory() ;
+    List<CategoryDto> getAllCategory() ;
 
     Category getOneCategory(Long id);
     CategoryDto createCategory(String name) ;
