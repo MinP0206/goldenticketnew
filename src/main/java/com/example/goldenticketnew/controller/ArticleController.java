@@ -7,6 +7,7 @@ import com.example.goldenticketnew.enums.ArticleStatus;
 import com.example.goldenticketnew.enums.ArticleType;
 import com.example.goldenticketnew.model.Category;
 import com.example.goldenticketnew.payload.article.request.*;
+import com.example.goldenticketnew.payload.response.ApiResponse;
 import com.example.goldenticketnew.payload.response.PageResponse;
 import com.example.goldenticketnew.payload.response.ResponseBase;
 import com.example.goldenticketnew.security.CurrentUser;
@@ -148,6 +149,14 @@ public ResponseEntity<ResponseBase<ArticleDto>> getDetailByTitle(@PathVariable S
     @PostMapping("/category/add")
     public ResponseEntity<ResponseBase<CategoryDto>> addCategory(@Valid @ParameterObject AddNewCategory request) {
         return ResponseEntity.ok(new ResponseBase<>(categoryService.createCategory(request.getCategoryName())));
+    }
+    @Operation(
+        summary = "Xoá Category không được sử dụng",
+        description = "Xoá Category không được sử dụng(cate đang được sử dụng không được xóa)"
+    )
+    @DeleteMapping("/category/delete/{id}")
+    public ResponseEntity<ApiResponse> removeCategory(@PathVariable Long id) {
+        return ResponseEntity.ok(categoryService.deleteCategory(id));
     }
     @Operation(
         summary = "Get All Category",

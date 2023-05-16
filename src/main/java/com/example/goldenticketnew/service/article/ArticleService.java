@@ -154,6 +154,7 @@ public class ArticleService implements IArticleService{
         } else articles = articleRepository.findAll(request.getSpecification());
         List<ArticleDto> articleDtos =  articles.stream().map(ArticleDto::new).collect(Collectors.toList());
 
+
         Page<ArticleDto> pages = PageUtils.convertListToPage(articleDtos,request.getPageable());
         return new PageResponse<>(pages);
     }
