@@ -162,13 +162,11 @@ public class ArticleService implements IArticleService{
     }
     @Override
     public List<ArticleDto> getAllArticle(GetAllArticleRequest request) {
-        List<Article> articles = new ArrayList<>();
-        if(request.getListCategory()!=null) {
-            for (String cate : request.getListCategory()) {
-                request.setCategory(cate);
-                articles.addAll(articleRepository.findAll(request.getSpecification()));
-            }
-        } else articles = articleRepository.findAll(request.getSpecification());
+        List<Article> articles = articleRepository.findAll(request.getSpecification());
+//        List<ArticleDto> articleDtos =  articles.stream().map(ArticleDto::new).collect(Collectors.toList());
+
+
+//        Page<ArticleDto> pages = PageUtils.convertListToPage(articleDtos,request.getPageable());
         return articles.stream().map(ArticleDto::new).collect(Collectors.toList());
 
 

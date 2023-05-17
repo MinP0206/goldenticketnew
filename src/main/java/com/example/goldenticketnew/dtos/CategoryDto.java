@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Data
@@ -25,7 +27,9 @@ public class CategoryDto {
         this.name = category.getName();
         ArticleService articleService = BeanUtils.getBean(ArticleService.class);
         GetAllArticleRequest request = new GetAllArticleRequest();
-        request.setCategory(category.getName());
+        List<String> cateList = new ArrayList<>();
+        cateList.add(category.getName());
+        request.setListCategory(cateList);
         this.amountArticle = articleService.getAllArticle(request).size();
     }
 }

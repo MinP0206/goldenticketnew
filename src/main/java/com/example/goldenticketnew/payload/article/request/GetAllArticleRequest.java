@@ -46,9 +46,9 @@ public class GetAllArticleRequest {
             if (keyword != null) {
                 predicates.add(cb.like(cb.lower(root.get(Article.Fields.keyword)), "%" + keyword.toLowerCase() + "%"));
             }
-            if(category != null){
-                predicates.add(cb.equal(root.get(Article.Fields.category).get(Category.Fields.name),  category ));
-            }
+//            if(category != null){
+//                predicates.add(cb.equal(root.get(Article.Fields.category).get(Category.Fields.name),  category ));
+//            }
             if (status != null) {
                 predicates.add(cb.equal(root.get(Article.Fields.status),status));
             }
