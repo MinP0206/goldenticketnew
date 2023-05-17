@@ -27,8 +27,7 @@ public class GetAllArticleRequest {
 
     private String keyword;
     private List<String> listCategory = new ArrayList<>();
-    @JsonIgnore
-    private String category;
+
 
 
     private String username;

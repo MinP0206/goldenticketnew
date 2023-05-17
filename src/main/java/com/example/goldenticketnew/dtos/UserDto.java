@@ -1,9 +1,14 @@
 package com.example.goldenticketnew.dtos;
 
 
+import com.example.goldenticketnew.model.Article;
 import com.example.goldenticketnew.model.Category;
 import com.example.goldenticketnew.model.User;
 import com.example.goldenticketnew.model.audit.DateAudit;
+import com.example.goldenticketnew.payload.article.request.GetAllArticleRequest;
+import com.example.goldenticketnew.repository.IArticleRepository;
+import com.example.goldenticketnew.service.article.ArticleService;
+import com.example.goldenticketnew.utils.BeanUtils;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,6 +40,8 @@ public class UserDto extends DateAudit {
 
     private boolean isContentCreator;
 
+    private Long amountArticle ;
+
     public UserDto(User user) {
         this.id = user.getId();
         this.username = user.getUsername();
@@ -55,6 +62,11 @@ public class UserDto extends DateAudit {
             this.categories = user.getCategories().stream().map(CategoryDto::new).collect(Collectors.toList());
             this.isNew = false;
         }
+//        IArticleRepository articleRepository = BeanUtils.getBean(IArticleRepository.class);
+//        GetAllArticleRequest request = new GetAllArticleRequest();
+//        request.setUsername(user.getUsername());
+//        this.amountArticle = articleRepository.findAll(request.getSpecification()).size();
         }
+
 
 }

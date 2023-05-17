@@ -24,7 +24,8 @@ public class CategoryService implements ICategoryService{
     @Override
     public List<CategoryDto> getAllCategory() {
         try{
-            return categoryRepository.findAll().stream().map(CategoryDto::new).collect(Collectors.toList());
+            List<Category> categories = categoryRepository.findAll();
+            return categories.stream().map(CategoryDto::new).collect(Collectors.toList());
         }catch(Exception ex){
             log.error(ex.getMessage());
         }

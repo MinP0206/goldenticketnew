@@ -146,18 +146,8 @@ public class ArticleService implements IArticleService{
     @Override
     public PageResponse<ArticleDto> getAllArticlePagingV2(GetAllArticleRequest request) {
         List<Article> articles = new ArrayList<>();
-//        if(request.getListCategory()!=null) {
-//            for (String cate : request.getListCategory()) {
-//                request.setCategory(cate);
-//                articles.addAll(articleRepository.findAll(request.getSpecification()));
-//            }
-//        } else articles = articleRepository.findAll(request.getSpecification());
-
+//
         Page<Article> page = articleRepository.findAll(request.getSpecification(),request.getPageable());
-//        List<ArticleDto> articleDtos =  articles.stream().map(ArticleDto::new).collect(Collectors.toList());
-
-
-//        Page<ArticleDto> pages = PageUtils.convertListToPage(articleDtos,request.getPageable());
         return new PageResponse<>(page.map(ArticleDto::new));
     }
     @Override
@@ -186,8 +176,6 @@ public class ArticleService implements IArticleService{
             request.setStatus(status);
             List<Article> articles = articleRepository.findAll(request.getSpecification());
             return articles.stream().map(ArticleDto::new).collect(Collectors.toList());
-
-
     }
 
     @Override

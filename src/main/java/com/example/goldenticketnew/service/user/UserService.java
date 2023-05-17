@@ -13,6 +13,7 @@ import com.example.goldenticketnew.payload.UserProfile;
 import com.example.goldenticketnew.payload.UserSummary;
 import com.example.goldenticketnew.payload.resquest.UpdateCategoryRequest;
 import com.example.goldenticketnew.payload.resquest.UpdateUserRequest;
+import com.example.goldenticketnew.repository.IArticleRepository;
 import com.example.goldenticketnew.repository.ICategoryRepository;
 import com.example.goldenticketnew.repository.UserRepository;
 import com.example.goldenticketnew.security.UserPrincipal;
@@ -21,7 +22,11 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Log4j2
 @Service
@@ -31,6 +36,9 @@ public class UserService implements IUserService {
 
     @Autowired
     private ICategoryRepository categoryRepository;
+
+    @Autowired
+    private IArticleRepository articleRepository;
 
 
     @Override
@@ -109,9 +117,16 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public List<UserReportDto> getUserReport() {
-        userRepository.findAll();
-        return null;
+    public List<UserDto> getUserReport(String dateTime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate dateTimeMY = LocalDate.parse(dateTime, formatter);
+        List<User> users = userRepository.findAll();
+        List<UserDto> userDtos = users.stream().map(UserDto::new).collect(Collectors.toList());
+        for(UserDto userDto : userDtos){
+            userDto.setAmountArticle(articleRepository.getTotalArticleInUser(dateTimeMY.getYear(),dateTimeMY.getMonthValue(),userDto.getUsername()));
+
+        }
+        return userDtos.stream().sorted(Comparator.comparing(UserDto::getAmountArticle).reversed()).collect(Collectors.toList());
     }
 
     @Override

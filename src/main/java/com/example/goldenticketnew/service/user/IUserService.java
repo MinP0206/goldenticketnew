@@ -27,7 +27,7 @@ public interface IUserService {
     UserDto updateInfoUser(UpdateUserRequest request);
     Boolean deleteUserById(Long Id);
 
-    List<UserReportDto> getUserReport();
+    List<UserDto> getUserReport(String dataTime);
 
     UserDto updateCate(UpdateCategoryRequest request);
 

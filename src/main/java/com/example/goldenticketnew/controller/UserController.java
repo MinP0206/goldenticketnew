@@ -12,6 +12,7 @@ import com.example.goldenticketnew.security.CurrentUser;
 import com.example.goldenticketnew.security.UserPrincipal;
 import com.example.goldenticketnew.service.user.IUserService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -44,7 +45,7 @@ public class UserController {
         description = "- Get toàn bộ user"
     )
     @GetMapping("/getAll")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ResponseBase<List<UserDto>>> getAllUser() {
         return ResponseEntity.ok(new ResponseBase<>(userService.getAllUser()));
     }
@@ -89,7 +90,7 @@ public class UserController {
         summary = "Xóa một User",
         description = "- Xóa một User"
     )
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse> deleteUser(@Valid @PathVariable Long id) {
         if (userService.deleteUserById(id))
@@ -109,13 +110,13 @@ public class UserController {
         return ResponseEntity.ok(new ResponseBase<>(userService.updateContentCreator(userId)));
     }
 
-//    @Operation(
-//        summary = "Get dashboard user",
-//        description = "- Get dashboard user"
-//    )
-//    @GetMapping("/dashBoard")
-//    public ResponseEntity<ResponseBase<List<UserReportDto>>> getUserReport() {
-//        return ResponseEntity.ok(new ResponseBase<>(use));
-//    }
+    @Operation(
+        summary = "Get danh sach user xếp theo tổng số lượng bài viết của tháng",
+        description = "- Get dashboard user"
+    )
+    @GetMapping("/dashBoard")
+    public ResponseEntity<ResponseBase<List<UserDto>>> getUserReport(@Parameter String dateTime) {
+        return ResponseEntity.ok(new ResponseBase<>(userService.getUserReport(dateTime)));
+    }
 
 }
