@@ -5,10 +5,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SendContentCreatorRequest {
+public class DenyContentCreatorRequest {
     private String reason;
     @NotNull
     private Long userId;

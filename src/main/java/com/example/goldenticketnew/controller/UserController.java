@@ -8,6 +8,7 @@ import com.example.goldenticketnew.payload.UserSummary;
 import com.example.goldenticketnew.payload.response.ApiResponse;
 import com.example.goldenticketnew.payload.response.PageResponse;
 import com.example.goldenticketnew.payload.response.ResponseBase;
+import com.example.goldenticketnew.payload.resquest.DenyContentCreatorRequest;
 import com.example.goldenticketnew.payload.resquest.SendContentCreatorRequest;
 import com.example.goldenticketnew.payload.resquest.UpdateCategoryRequest;
 import com.example.goldenticketnew.payload.resquest.UpdateUserRequest;
@@ -124,6 +125,15 @@ public class UserController {
     @PostMapping("/contentAccess")
     public ResponseEntity<ApiResponse> updateContentCreator(@Valid @RequestBody SendContentCreatorRequest request){
         return ResponseEntity.ok(userService.sendContentCreator(request));
+    }
+
+    @Operation(
+        summary = "Từ chối cấp quyền viết bài ",
+        description = "- từ chốiCấp quyền viết"
+    )
+    @PostMapping("/contentAccess/deny")
+    public ResponseEntity<ApiResponse> denyContentCreator(@Valid @RequestBody DenyContentCreatorRequest request){
+        return ResponseEntity.ok(userService.denyContentCreator(request));
     }
     @Operation(
         summary = "Get toàn bộ user đang xin quyền viết bài ",

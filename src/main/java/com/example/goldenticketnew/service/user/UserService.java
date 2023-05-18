@@ -14,6 +14,7 @@ import com.example.goldenticketnew.payload.UserProfile;
 import com.example.goldenticketnew.payload.UserSummary;
 import com.example.goldenticketnew.payload.response.ApiResponse;
 import com.example.goldenticketnew.payload.response.PageResponse;
+import com.example.goldenticketnew.payload.resquest.DenyContentCreatorRequest;
 import com.example.goldenticketnew.payload.resquest.SendContentCreatorRequest;
 import com.example.goldenticketnew.payload.resquest.UpdateCategoryRequest;
 import com.example.goldenticketnew.payload.resquest.UpdateUserRequest;
@@ -158,7 +159,16 @@ public class UserService implements IUserService {
         userRepository.save(user);
         return new ApiResponse(true,"Xin cấp quyền viết bài thành công!");
     }
-
+    @Override
+    public ApiResponse denyContentCreator(DenyContentCreatorRequest request) {
+        User user = userRepository.findById(request.getUserId()).orElseThrow(() -> new InternalException(ResponseCode.USER_NOT_FOUND));
+        if(user.getIsContentCreator()==1) throw new InternalException(ResponseCode.USER_1);
+        if(user.getIsContentCreator()==2) throw new InternalException(ResponseCode.USER_2);
+        user.setIsContentCreator(0);
+        user.setReason(request.getReason());
+        userRepository.save(user);
+        return new ApiResponse(true,"Từ chối cấp quyền viết bài thành công!");
+    }
     @Override
     public PageResponse<UserDto> getListUserIsWaiting(GetAllUserRequest request) {
         request.setIsContent(2);
