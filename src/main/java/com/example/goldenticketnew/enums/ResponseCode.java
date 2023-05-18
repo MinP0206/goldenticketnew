@@ -37,6 +37,8 @@ public enum ResponseCode {
     //Seat
     SEAT_NOT_FOUND(601, " Seat not found"),
 
+    //Comment not fountd
+    COMMENT_NOT_FOUND(701, " Comment not found"),
     //vietnam message
 
     BOOKING_SEAT_EXIST(901,"Đã có người nhanh tay hơn đặt ghế, mời bạn chọn lại!"),

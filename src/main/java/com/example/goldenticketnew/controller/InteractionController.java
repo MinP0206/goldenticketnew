@@ -5,6 +5,7 @@ import com.example.goldenticketnew.dtos.LikeDto;
 import com.example.goldenticketnew.payload.interaction.request.AddNewCommentRequest;
 import com.example.goldenticketnew.payload.interaction.request.AddNewLikeRequest;
 import com.example.goldenticketnew.payload.interaction.request.CheckUserLikeRequest;
+import com.example.goldenticketnew.payload.interaction.request.UpdateCommentRequest;
 import com.example.goldenticketnew.payload.response.ApiResponse;
 import com.example.goldenticketnew.payload.response.PageResponse;
 import com.example.goldenticketnew.payload.response.ResponseBase;
@@ -45,6 +46,22 @@ public class InteractionController {
     @PostMapping("/comment/add")
     public ResponseEntity<ResponseBase<CommentDto>> createNewComment(@Valid @RequestBody AddNewCommentRequest request) {
         return new ResponseEntity<>(new ResponseBase<>(interactionService.addNewComment(request) ,903, "Thêm mới bình luận thành công"), HttpStatus.OK);
+    }
+    @Operation(
+        summary = "Chỉnh sửa bình luận",
+        description = "- Chỉnh sửa bình luận"
+    )
+    @PutMapping("/comment/update")
+    public ResponseEntity<ResponseBase<CommentDto>> updateComment(@Valid @RequestBody UpdateCommentRequest request) {
+        return new ResponseEntity<>(new ResponseBase<>(interactionService.updateComment(request) ), HttpStatus.OK);
+    }
+    @Operation(
+        summary = "Xoa bình luận",
+        description = "- Xoa bình luận"
+    )
+    @DeleteMapping("/comment/{id}")
+    public ResponseEntity<ApiResponse> DeleteComment(@PathVariable Long id) {
+        return new ResponseEntity<>(interactionService.deleteComment(id) , HttpStatus.OK);
     }
 
     @Operation(

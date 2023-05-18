@@ -2,10 +2,13 @@ package com.example.goldenticketnew.service.interaction;
 
 import com.example.goldenticketnew.dtos.CommentDto;
 import com.example.goldenticketnew.dtos.LikeDto;
+import com.example.goldenticketnew.enums.ResponseCode;
+import com.example.goldenticketnew.exception.InternalException;
 import com.example.goldenticketnew.model.*;
 import com.example.goldenticketnew.payload.interaction.request.AddNewCommentRequest;
 import com.example.goldenticketnew.payload.interaction.request.AddNewLikeRequest;
 import com.example.goldenticketnew.payload.interaction.request.CheckUserLikeRequest;
+import com.example.goldenticketnew.payload.interaction.request.UpdateCommentRequest;
 import com.example.goldenticketnew.payload.response.ApiResponse;
 import com.example.goldenticketnew.payload.response.PageResponse;
 import com.example.goldenticketnew.repository.ICommentRepository;
@@ -14,6 +17,7 @@ import com.example.goldenticketnew.service.article.ArticleService;
 import com.example.goldenticketnew.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.checkerframework.checker.units.qual.C;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -56,6 +60,24 @@ public class InteractionService implements IInteractionService{
         comment.setDescription(request.getDescription());
         return new CommentDto( commentRepository.save(comment));
 
+    }
+
+    @Override
+    public CommentDto updateComment(UpdateCommentRequest request) {
+        Comment comment = commentRepository.findById(request.getId()).orElseThrow(() -> new InternalException(ResponseCode.ARTICLE_NOT_FOUND));
+        comment.setDescription(request.getDescription());
+        return new CommentDto( commentRepository.saveAndFlush(comment));
+    }
+
+    @Override
+    public ApiResponse deleteComment(Long id) {
+        Comment comment = commentRepository.findById(id).orElseThrow(() -> new InternalException(ResponseCode.ARTICLE_NOT_FOUND));
+        try {
+            commentRepository.deleteById(id);
+            return new ApiResponse(true, "Xoa comment thanh cong");
+        }catch (Exception e){
+            return new ApiResponse(false, e.getMessage());
+        }
     }
 
     @Override
