@@ -78,7 +78,7 @@ public class User extends UserDateAudit {
     @JoinColumn(name = "user_id")
     private List<Article> saveArticles;
 
-
+    private String reason;
     public User(String name, String username, String email, String password) {
         this.name = name;
         this.username = username;

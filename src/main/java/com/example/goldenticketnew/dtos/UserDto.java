@@ -42,6 +42,8 @@ public class UserDto extends DateAudit {
 
     private Long amountArticle ;
 
+    private String reason;
+
     public UserDto(User user) {
         this.id = user.getId();
         this.username = user.getUsername();
@@ -50,8 +52,10 @@ public class UserDto extends DateAudit {
         if(user.getIsContentCreator()!=null){
             if(user.getIsContentCreator()==0){
                 this.isContentCreator = false;
-            }else {
+            }else if(user.getIsContentCreator()==1){
                 this.isContentCreator = true;
+            }else if(user.getIsContentCreator()==2) {
+                if(user.getReason()!=null) this.reason = user.getReason();
             }
         }
         if(user.getImage() != null)  this.image = user.getImage();

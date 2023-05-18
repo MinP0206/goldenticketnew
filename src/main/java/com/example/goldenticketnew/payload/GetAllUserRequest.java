@@ -26,6 +26,8 @@ public class GetAllUserRequest {
 
     private String email;
 
+    @JsonIgnore
+    private Integer isContent;
     public Specification<User> getSpecification(){
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
@@ -38,6 +40,11 @@ public class GetAllUserRequest {
             if(email != null){
                 predicates.add(cb.like(cb.lower(root.get(User.Fields.email)), "%" + email.toLowerCase() + "%"));
             }
+            if(isContent!=null)
+            {
+                predicates.add(cb.equal(root.get(User.Fields.isContentCreator),isContent));
+            }
+
 
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };

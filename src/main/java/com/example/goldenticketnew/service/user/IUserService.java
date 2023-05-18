@@ -7,7 +7,9 @@ import com.example.goldenticketnew.model.User;
 import com.example.goldenticketnew.payload.GetAllUserRequest;
 import com.example.goldenticketnew.payload.UserProfile;
 import com.example.goldenticketnew.payload.UserSummary;
+import com.example.goldenticketnew.payload.response.ApiResponse;
 import com.example.goldenticketnew.payload.response.PageResponse;
+import com.example.goldenticketnew.payload.resquest.SendContentCreatorRequest;
 import com.example.goldenticketnew.payload.resquest.UpdateCategoryRequest;
 import com.example.goldenticketnew.payload.resquest.UpdateUserRequest;
 import com.example.goldenticketnew.security.UserPrincipal;
@@ -35,4 +37,7 @@ public interface IUserService {
     UserDto updateCate(UpdateCategoryRequest request);
 
     UserDto updateContentCreator(Long id);
+
+    ApiResponse sendContentCreator(SendContentCreatorRequest request);
+    PageResponse<UserDto> getListUserIsWaiting(GetAllUserRequest request);
 }

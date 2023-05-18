@@ -11,6 +11,10 @@ public enum ResponseCode {
 
     //User
     USER_NOT_FOUND(101, " User not found"),
+    USER_1(102,"User đã có quyền viết bài!"),
+    USER_2(103,"User đã gửi yêu cầu rồi!"),
+    USER_3(104,"User chưa gửi yêu cầu!"),
+
 
     //Movie
     MOVIE_NOT_FOUND(201, " Movie not found"),
