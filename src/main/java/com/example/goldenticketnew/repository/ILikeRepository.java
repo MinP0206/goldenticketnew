@@ -12,7 +12,7 @@ import java.util.List;
 public interface ILikeRepository extends JpaRepository<Like,Long>, JpaSpecificationExecutor<Like> {
     Like findFirstByUserIdAndArticleId(Long userId, Long articleId);
     @Query(value = "select * from like_user where article_id = ?1 and is_like = 1",nativeQuery = true)
-    List<Like> findAllByArticleId(Long articleId, Sort sort);
+    List<Like> findAllByArticleId(Long articleId);
     @Query(value = "select count(id) from like_user where article_id = ?1 and is_like = 1",nativeQuery = true)
     Long countAllByArticleIdAndIsLike(Long articleId);
 }

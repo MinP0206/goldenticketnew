@@ -48,7 +48,7 @@ public class InteractionService implements IInteractionService{
     }
     @Override
     public List<LikeDto> getAllLikeByArticle(Long articleId) {
-        return likeRepository.findAllByArticleId(articleId,Sort.by("updatedAt").descending()).stream().map(LikeDto::new).collect(Collectors.toList());
+        return likeRepository.findAllByArticleId(articleId).stream().map(LikeDto::new).collect(Collectors.toList());
     }
     @Override
     public CommentDto addNewComment(AddNewCommentRequest request) {
