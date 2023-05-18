@@ -21,6 +21,7 @@ import org.checkerframework.checker.units.qual.C;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -64,20 +65,22 @@ public class InteractionService implements IInteractionService{
 
     @Override
     public CommentDto updateComment(UpdateCommentRequest request) {
-        Comment comment = commentRepository.findById(request.getId()).orElseThrow(() -> new InternalException(ResponseCode.ARTICLE_NOT_FOUND));
+        Comment comment = commentRepository.findById(request.getId()).orElseThrow(() -> new InternalException(ResponseCode.COMMENT_NOT_FOUND));
         comment.setDescription(request.getDescription());
         return new CommentDto( commentRepository.saveAndFlush(comment));
     }
 
     @Override
+    @Transactional
     public ApiResponse deleteComment(Long id) {
-        Comment comment = commentRepository.findById(id).orElseThrow(() -> new InternalException(ResponseCode.ARTICLE_NOT_FOUND));
+        Comment comment = commentRepository.findById(id).orElseThrow(() -> new InternalException(ResponseCode.COMMENT_NOT_FOUND));
         try {
-            commentRepository.deleteById(id);
+            commentRepository.deleteByCommentId(id);
             return new ApiResponse(true, "Xoa comment thanh cong");
         }catch (Exception e){
             return new ApiResponse(false, e.getMessage());
         }
+
     }
 
     @Override

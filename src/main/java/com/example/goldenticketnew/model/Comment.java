@@ -29,7 +29,7 @@ public class Comment extends UserDateAudit {
     private User user;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "article_id", referencedColumnName = "id")
     private Article article;
 }
