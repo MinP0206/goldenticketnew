@@ -21,7 +21,7 @@ public class CommentDto {
     private Long userId;
     private String createdAt;
 
-    private String lastModifyDate;
+    private String modifiedBy;
 
     public CommentDto(Comment comment){
         this.id = comment.getId();
@@ -32,6 +32,6 @@ public class CommentDto {
         this.articleId = comment.getArticle().getId();
         this.userId = comment.getUser().getId();
         this.createdAt = comment.getCreatedAt().toString();
-        this.lastModifyDate = comment.getUpdatedAt().toString();
+        this.modifiedBy = comment.getUpdatedAt().toString();
     }
 }
