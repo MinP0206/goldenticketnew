@@ -3,6 +3,7 @@ package com.example.goldenticketnew.service.category;
 import com.example.goldenticketnew.dtos.ArticleDto;
 import com.example.goldenticketnew.dtos.CategoryDto;
 import com.example.goldenticketnew.model.Category;
+import com.example.goldenticketnew.payload.GetAllCateRequest;
 import com.example.goldenticketnew.payload.response.ApiResponse;
 import com.example.goldenticketnew.repository.ICategoryRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,9 +23,9 @@ public class CategoryService implements ICategoryService{
 
 
     @Override
-    public List<CategoryDto> getAllCategory() {
+    public List<CategoryDto> getAllCategory(GetAllCateRequest request) {
         try{
-            List<Category> categories = categoryRepository.findAll();
+            List<Category> categories = categoryRepository.findAll(request.getSpecification());
             return categories.stream().map(CategoryDto::new).collect(Collectors.toList());
         }catch(Exception ex){
             log.error(ex.getMessage());

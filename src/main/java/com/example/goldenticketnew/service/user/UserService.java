@@ -9,8 +9,10 @@ import com.example.goldenticketnew.exception.ResourceNotFoundException;
 import com.example.goldenticketnew.model.Category;
 import com.example.goldenticketnew.model.Role;
 import com.example.goldenticketnew.model.User;
+import com.example.goldenticketnew.payload.GetAllUserRequest;
 import com.example.goldenticketnew.payload.UserProfile;
 import com.example.goldenticketnew.payload.UserSummary;
+import com.example.goldenticketnew.payload.response.PageResponse;
 import com.example.goldenticketnew.payload.resquest.UpdateCategoryRequest;
 import com.example.goldenticketnew.payload.resquest.UpdateUserRequest;
 import com.example.goldenticketnew.repository.IArticleRepository;
@@ -20,6 +22,7 @@ import com.example.goldenticketnew.security.UserPrincipal;
 import com.example.goldenticketnew.utils.ModelMapperUtils;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -53,9 +56,10 @@ public class UserService implements IUserService {
 
 
     @Override
-    public List<UserDto> getAllUser() {
+    public List<UserDto> getAllUser(GetAllUserRequest request) {
         int check = 0;
-        List<User> notAdmin = userRepository.findAll();
+        List<User> notAdmin = userRepository.findAll(request.getSpecification());
+
         for (int i = notAdmin.size() - 1; i >= 0; i--) {
             for (Role element : notAdmin.get(i).getRoles()) {
                 if (element.getId() == 2) {
@@ -68,12 +72,8 @@ public class UserService implements IUserService {
             }
 
         }
-
-//        return ModelMapperUtils.mapList(notAdmin, UserDto.class);
-        return ModelMapperUtils.mapListUser(notAdmin);
-
+        return notAdmin.stream().map(UserDto::new).collect(Collectors.toList());
     }
-
     @Override
     public UserSummary getCurrentUser(UserPrincipal currentUser) {
         return new UserSummary(currentUser.getId(), currentUser.getUsername(), currentUser.getName(),currentUser.getEmail(), currentUser.getImage(), currentUser.getAuthorities().toString());

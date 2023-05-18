@@ -6,6 +6,7 @@ import com.example.goldenticketnew.dtos.CategoryDto;
 import com.example.goldenticketnew.enums.ArticleStatus;
 import com.example.goldenticketnew.enums.ArticleType;
 import com.example.goldenticketnew.model.Category;
+import com.example.goldenticketnew.payload.GetAllCateRequest;
 import com.example.goldenticketnew.payload.article.request.*;
 import com.example.goldenticketnew.payload.response.ApiResponse;
 import com.example.goldenticketnew.payload.response.PageResponse;
@@ -163,8 +164,8 @@ public ResponseEntity<ResponseBase<ArticleDto>> getDetailByTitle(@PathVariable S
         description = "Get All Category"
     )
     @GetMapping("/category/getAll")
-    public ResponseEntity<ResponseBase<List<CategoryDto>>> getAllCate() {
-        return ResponseEntity.ok(new ResponseBase<>(categoryService.getAllCategory()));
+    public ResponseEntity<ResponseBase<List<CategoryDto>>> getAllCate( @ParameterObject GetAllCateRequest request) {
+        return ResponseEntity.ok(new ResponseBase<>(categoryService.getAllCategory(request)));
     }
     @Operation(
         summary = "Get All Category For User",
