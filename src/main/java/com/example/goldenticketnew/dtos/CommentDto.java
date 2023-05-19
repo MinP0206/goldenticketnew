@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.LastModifiedDate;
+
+import java.time.Instant;
 
 @Getter
 @Setter
@@ -21,6 +24,9 @@ public class CommentDto {
     private Long userId;
     private String createdAt;
 
+    private String updatedAt;
+
+    private String createdBy;
     private String modifiedBy;
 
     public CommentDto(Comment comment){
@@ -31,7 +37,9 @@ public class CommentDto {
         if(comment.getUser().getImage()!=null) this.image = comment.getUser().getImage();
         this.articleId = comment.getArticle().getId();
         this.userId = comment.getUser().getId();
-        this.createdAt = comment.getCreatedAt().toString();
-        this.modifiedBy = comment.getUpdatedAt().toString();
+        if(comment.getCreatedAt()!=null) this.createdAt = comment.getCreatedAt().toString();
+        if(comment.getModifiedBy()!=null) this.modifiedBy = comment.getModifiedBy();
+        if(comment.getCreatedBy()!=null) this.createdBy = comment.getCreatedBy();
+        if(comment.getUpdatedAt()!=null) this.updatedAt = comment.getUpdatedAt().toString();
     }
 }
