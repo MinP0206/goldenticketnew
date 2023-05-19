@@ -230,7 +230,7 @@ public class ArticleService implements IArticleService{
     public PageResponse<ArticleDto> getAllArticlePagingInUser(Long userId, Pageable pageable) {
         User user = userRepository.findById(userId).orElseThrow(() -> new InternalException(ResponseCode.USER_NOT_FOUND));
         List<Article> articles = user.getSaveArticles();
-        return new PageResponse<>(PageUtils.convertListToPage(articles.stream().map(ArticleDto::new).collect(Collectors.toList()),pageable));
+        return new PageResponse<>(PageUtils.convertListToPage(articles.stream().map(ArticleDto::new).filter(x->x.getStatus().equals(ArticleStatus.APPROVE)).collect(Collectors.toList()),pageable));
     }
 
 }

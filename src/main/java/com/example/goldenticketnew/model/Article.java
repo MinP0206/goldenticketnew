@@ -3,6 +3,7 @@ package com.example.goldenticketnew.model;
 import com.example.goldenticketnew.enums.ArticleStatus;
 import com.example.goldenticketnew.enums.ArticleType;
 import com.example.goldenticketnew.model.audit.UserDateAudit;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.FieldNameConstants;
 
@@ -49,5 +50,7 @@ public class Article extends UserDateAudit {
     private String thumbnail;
 
     private long view = 0;
+
+
 
 }
