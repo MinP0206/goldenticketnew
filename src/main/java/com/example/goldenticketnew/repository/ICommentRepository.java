@@ -12,6 +12,8 @@ public interface ICommentRepository extends JpaRepository<Comment,Long>, JpaSpec
    Comment findFirstByUserIdAndArticleId(Long userId, Long articleId);
     Page<Comment> findAllByArticleId(Long articleId, Pageable pageable);
 
+    Long countAllByArticleId(Long articleId);
+
     @Modifying
     @Query(value = "delete from comment where id = ?1",nativeQuery = true)
     void deleteByCommentId(Long id);
