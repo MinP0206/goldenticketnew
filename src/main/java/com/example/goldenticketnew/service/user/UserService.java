@@ -163,7 +163,6 @@ public class UserService implements IUserService {
     public ApiResponse denyContentCreator(DenyContentCreatorRequest request) {
         User user = userRepository.findById(request.getUserId()).orElseThrow(() -> new InternalException(ResponseCode.USER_NOT_FOUND));
         if(user.getIsContentCreator()==1) throw new InternalException(ResponseCode.USER_1);
-        if(user.getIsContentCreator()==2) throw new InternalException(ResponseCode.USER_2);
         user.setIsContentCreator(0);
         user.setReason(request.getReason());
         userRepository.save(user);
