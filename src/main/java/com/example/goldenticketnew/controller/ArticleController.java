@@ -14,7 +14,6 @@ import com.example.goldenticketnew.payload.response.ResponseBase;
 import com.example.goldenticketnew.security.CurrentUser;
 import com.example.goldenticketnew.security.UserPrincipal;
 import com.example.goldenticketnew.service.article.IArticleService;
-import com.example.goldenticketnew.service.category.ICategoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -33,36 +32,6 @@ import java.util.List;
 @Tag(name = "Article Controller", description = "Thao tác với các bài đăng")
 public class ArticleController {
     private final IArticleService articleService;
-
-    private final ICategoryService categoryService;
-    @Operation(
-        summary = "[NEWS WEBSITE] Thêm mới bai viet co cate của User ",
-        description = "- Thêm mới bai viet của User"
-    )
-    @PostMapping("/addNewArticle")
-    public ResponseEntity<ResponseBase<ArticleDto>> addNewArticleNEWS(@Valid @RequestBody AddNewArRequest request) {
-        request.setType(ArticleType.NEWS);
-        return ResponseEntity.ok(new ResponseBase<>(articleService.addNewArticleNews(request)));
-    }
-    @Operation(
-        summary = "Thêm mới Draft bản nháp co cate của User ",
-        description = "- Thêm mới bai viet của User"
-    )
-    @PostMapping("/addNewDraft")
-    public ResponseEntity<ResponseBase<ArticleDto>> addNewArticleDraft(@Valid @RequestBody AddNewArRequest request) {
-        request.setStatus(ArticleStatus.DRAFT);
-        request.setType(ArticleType.NEWS);
-        return ResponseEntity.ok(new ResponseBase<>(articleService.addNewArticleNews(request)));
-    }
-    @Operation(
-        summary = "Chuyển từ bản nháp sang bản chính thức bài viết ",
-        description = "- Chuyển từ bản nháp sang bản chính thức bài viết"
-    )
-    @PostMapping("/publicDraft")
-    public ResponseEntity<ResponseBase<ArticleDto>> addNewDraftPublic(@Valid @Parameter long draftId) {
-
-        return ResponseEntity.ok(new ResponseBase<>(articleService.publicDraft(draftId)));
-    }
 
     @Operation(
         summary = "Thêm mới Review của User ",
@@ -141,31 +110,7 @@ public ResponseEntity<ResponseBase<ArticleDto>> getDetailByTitle(@PathVariable S
     public ResponseBase<PageResponse<ArticleDto>> findAllArticlePagingV2(@ParameterObject Pageable pageable, @ParameterObject GetAllArticleRequest request) {
         request.setPageable(pageable);
         return new ResponseBase<>(articleService.getAllArticlePagingV2(request));
-    }
 
-    @Operation(
-        summary = "Thêm mới Category",
-        description = "Thêm mới Category"
-    )
-    @PostMapping("/category/add")
-    public ResponseEntity<ResponseBase<CategoryDto>> addCategory(@Valid @ParameterObject AddNewCategory request) {
-        return ResponseEntity.ok(new ResponseBase<>(categoryService.createCategory(request.getCategoryName())));
-    }
-    @Operation(
-        summary = "Xoá Category không được sử dụng",
-        description = "Xoá Category không được sử dụng(cate đang được sử dụng không được xóa)"
-    )
-    @DeleteMapping("/category/delete/{id}")
-    public ResponseEntity<ApiResponse> removeCategory(@PathVariable Long id) {
-        return ResponseEntity.ok(categoryService.deleteCategory(id));
-    }
-    @Operation(
-        summary = "Get All Category",
-        description = "Get All Category"
-    )
-    @GetMapping("/category/getAll")
-    public ResponseEntity<ResponseBase<List<CategoryDto>>> getAllCate( @ParameterObject GetAllCateRequest request) {
-        return ResponseEntity.ok(new ResponseBase<>(categoryService.getAllCategory(request)));
     }
     @Operation(
         summary = "Get All Category For User",

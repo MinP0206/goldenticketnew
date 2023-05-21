@@ -33,9 +33,6 @@ public class UserDto extends DateAudit {
     private String bio;
 
     private Integer followers;
-
-    private List<CategoryDto> categories;
-
     private boolean isNew = true;
 
     private boolean isContentCreator;
@@ -62,10 +59,6 @@ public class UserDto extends DateAudit {
         this.role = user.getRoles().stream().findFirst().get().getName().toString();
         if(user.getBio() !=null)  this.bio = user.getBio();
         if(user.getFollowers() != null)  this.followers = user.getFollowers();
-        if(user.getCategories()!=null)  {
-            this.categories = user.getCategories().stream().map(CategoryDto::new).collect(Collectors.toList());
-            this.isNew = false;
-        }
 //        IArticleRepository articleRepository = BeanUtils.getBean(IArticleRepository.class);
 //        GetAllArticleRequest request = new GetAllArticleRequest();
 //        request.setUsername(user.getUsername());

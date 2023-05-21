@@ -32,7 +32,6 @@ public class CategoryDto {
         GetAllArticleRequest request = new GetAllArticleRequest();
         List<String> cateList = new ArrayList<>();
         cateList.add(category.getName());
-        request.setListCategory(cateList);
         List<Article> articles = articleRepository.findAll(request.getSpecification());
         if(!articles.isEmpty()) this.amountArticle = articles.size();
     }

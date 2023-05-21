@@ -105,10 +105,7 @@ public class UserController {
             return ResponseEntity.ok(new ApiResponse(true, "Delete User Successfully"));
         return ResponseEntity.ok(new ApiResponse(false, "Please check the id"));
     }
-    @PostMapping("/updateCategory")
-    public ResponseEntity<ResponseBase<UserDto>> updateCategory(@Valid @RequestBody UpdateCategoryRequest request){
-        return ResponseEntity.ok(new ResponseBase<>(userService.updateCate(request)));
-    }
+
     @Operation(
         summary = "Cấp quyền viết bài cho user",
         description = "- Cấp quyền viết bài cho user"

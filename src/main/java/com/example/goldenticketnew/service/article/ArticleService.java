@@ -11,21 +11,17 @@ import com.example.goldenticketnew.model.User;
 import com.example.goldenticketnew.payload.article.request.*;
 import com.example.goldenticketnew.payload.response.PageResponse;
 import com.example.goldenticketnew.repository.IArticleRepository;
-import com.example.goldenticketnew.repository.ICategoryRepository;
 import com.example.goldenticketnew.repository.UserRepository;
 import com.example.goldenticketnew.security.UserPrincipal;
 import com.example.goldenticketnew.utils.PageUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,7 +32,6 @@ public class ArticleService implements IArticleService{
 
     private final IArticleRepository articleRepository;
 
-    private final ICategoryRepository categoryRepository;
 
     private final UserRepository userRepository;
 
@@ -74,16 +69,13 @@ public class ArticleService implements IArticleService{
     @Override
     public ArticleDto addNewArticleNews(AddNewArRequest request) {
         Category category = null;
-        if(request.getCategoryId() !=null){
-            category = categoryRepository.getById(request.getCategoryId());
-        }
+
         Article article = Article.builder()
             .brief(request.getBrief())
             .title(request.getTitle())
             .status(request.getStatus()==null ? ArticleStatus.CREATE : request.getStatus())
             .mainImage(request.getMainImage())
             .type(request.getType())
-            .category(category)
             .keyword(request.getKeyword())
             .shortDescription(request.getShortDescription())
             .thumbnail(request.getThumbnail())
@@ -111,7 +103,7 @@ public class ArticleService implements IArticleService{
         if(request.getThumbnail()!=null) article.setThumbnail(request.getThumbnail());
         if(request.getShortDescription()!=null) article.setShortDescription(request.getShortDescription());
         if(request.getKeyword()!=null) article.setKeyword(request.getKeyword());
-        if(request.getCategoryId()!=null) article.setCategory(categoryRepository.getById(request.getCategoryId()));
+
         article = articleRepository.saveAndFlush(article);
         return new ArticleDto(article);
     }
@@ -145,18 +137,12 @@ public class ArticleService implements IArticleService{
     }
     @Override
     public PageResponse<ArticleDto> getAllArticlePagingV2(GetAllArticleRequest request) {
-        List<Article> articles = new ArrayList<>();
-//
         Page<Article> page = articleRepository.findAll(request.getSpecification(),request.getPageable());
         return new PageResponse<>(page.map(ArticleDto::new));
     }
     @Override
     public List<ArticleDto> getAllArticle(GetAllArticleRequest request) {
         List<Article> articles = articleRepository.findAll(request.getSpecification());
-//        List<ArticleDto> articleDtos =  articles.stream().map(ArticleDto::new).collect(Collectors.toList());
-
-
-//        Page<ArticleDto> pages = PageUtils.convertListToPage(articleDtos,request.getPageable());
         return articles.stream().map(ArticleDto::new).collect(Collectors.toList());
 
 

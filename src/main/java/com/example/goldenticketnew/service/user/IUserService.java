@@ -35,7 +35,6 @@ public interface IUserService {
 
     List<UserDto> getUserReport(String dataTime);
 
-    UserDto updateCate(UpdateCategoryRequest request);
 
     UserDto updateContentCreator(Long id);
 

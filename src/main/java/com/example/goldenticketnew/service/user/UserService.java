@@ -2,7 +2,6 @@ package com.example.goldenticketnew.service.user;
 
 
 import com.example.goldenticketnew.dtos.UserDto;
-import com.example.goldenticketnew.dtos.UserReportDto;
 import com.example.goldenticketnew.enums.ResponseCode;
 import com.example.goldenticketnew.exception.InternalException;
 import com.example.goldenticketnew.exception.ResourceNotFoundException;
@@ -10,7 +9,6 @@ import com.example.goldenticketnew.model.Category;
 import com.example.goldenticketnew.model.Role;
 import com.example.goldenticketnew.model.User;
 import com.example.goldenticketnew.payload.GetAllUserRequest;
-import com.example.goldenticketnew.payload.UserProfile;
 import com.example.goldenticketnew.payload.UserSummary;
 import com.example.goldenticketnew.payload.response.ApiResponse;
 import com.example.goldenticketnew.payload.response.PageResponse;
@@ -19,10 +17,8 @@ import com.example.goldenticketnew.payload.resquest.SendContentCreatorRequest;
 import com.example.goldenticketnew.payload.resquest.UpdateCategoryRequest;
 import com.example.goldenticketnew.payload.resquest.UpdateUserRequest;
 import com.example.goldenticketnew.repository.IArticleRepository;
-import com.example.goldenticketnew.repository.ICategoryRepository;
 import com.example.goldenticketnew.repository.UserRepository;
 import com.example.goldenticketnew.security.UserPrincipal;
-import com.example.goldenticketnew.utils.ModelMapperUtils;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -40,8 +36,6 @@ public class UserService implements IUserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private ICategoryRepository categoryRepository;
 
     @Autowired
     private IArticleRepository articleRepository;
@@ -132,13 +126,6 @@ public class UserService implements IUserService {
         return userDtos.stream().sorted(Comparator.comparing(UserDto::getAmountArticle).reversed()).collect(Collectors.toList());
     }
 
-    @Override
-    public UserDto updateCate(UpdateCategoryRequest request) {
-        User user = userRepository.findById(request.getUserId()).orElseThrow(() -> new InternalException(ResponseCode.USER_NOT_FOUND));
-        List<Category> categories = categoryRepository.findAllById(request.getCategories());
-        user.setCategories(categories);
-        return new UserDto(userRepository.saveAndFlush(user));
-    }
 
     @Override
     public UserDto updateContentCreator(Long id) {

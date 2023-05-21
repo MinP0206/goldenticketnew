@@ -26,9 +26,6 @@ public class GetAllArticleRequest {
     private ArticleStatus status;
 
     private String keyword;
-    private List<String> listCategory = new ArrayList<>();
-
-
 
     private String username;
 
@@ -45,9 +42,6 @@ public class GetAllArticleRequest {
             if (keyword != null) {
                 predicates.add(cb.like(cb.lower(root.get(Article.Fields.keyword)), "%" + keyword.toLowerCase() + "%"));
             }
-//            if(category != null){
-//                predicates.add(cb.equal(root.get(Article.Fields.category).get(Category.Fields.name),  category ));
-//            }
             if (status != null) {
                 predicates.add(cb.equal(root.get(Article.Fields.status),status));
             }
@@ -56,14 +50,6 @@ public class GetAllArticleRequest {
             }
             if(articleType != null){
                 predicates.add(cb.equal(root.get(Article.Fields.type),articleType));
-            }
-
-            if(!listCategory.isEmpty()) {
-                CriteriaBuilder.In<String> categoryIn = cb.in(root.get(Article.Fields.category).get(Category.Fields.name));
-                for (String categoryName: listCategory) {
-                    categoryIn.value(categoryName);
-                }
-                predicates.add(categoryIn);
             }
 
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));

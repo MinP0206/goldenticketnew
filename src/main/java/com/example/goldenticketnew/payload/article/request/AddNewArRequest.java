@@ -22,8 +22,6 @@ public class AddNewArRequest {
     private ArticleStatus status;
 
 
-    private Long categoryId;
-
     private String keyword;
 
     private String shortDescription;
