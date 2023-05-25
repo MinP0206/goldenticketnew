@@ -17,7 +17,6 @@ import com.example.goldenticketnew.service.article.ArticleService;
 import com.example.goldenticketnew.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.checkerframework.checker.units.qual.C;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -104,7 +103,7 @@ public class InteractionService implements IInteractionService{
     public ApiResponse checkUserLike(CheckUserLikeRequest request) {
         User user = userService.getUser(request.getUserId());
         Article article = articleService.getArticle(request.getArticleId());
-        Like like = likeRepository.findFirstByUserIdAndArticleId(request.getUserId(), request.getArticleId());
+        Like like = likeRepository.findByUserIdAndArticleIdAndIsLike(request.getUserId(), request.getArticleId());
         if(like != null){
             return new ApiResponse(true, "User đã like bài viết");
         }else {
