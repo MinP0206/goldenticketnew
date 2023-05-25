@@ -66,31 +66,8 @@ public class ArticleService implements IArticleService{
         return new ArticleDto(article);
     }
 
-    @Override
-    public ArticleDto addNewArticleNews(AddNewArRequest request) {
-        Category category = null;
 
-        Article article = Article.builder()
-            .brief(request.getBrief())
-            .title(request.getTitle())
-            .status(request.getStatus()==null ? ArticleStatus.CREATE : request.getStatus())
-            .mainImage(request.getMainImage())
-            .type(request.getType())
-            .keyword(request.getKeyword())
-            .shortDescription(request.getShortDescription())
-            .thumbnail(request.getThumbnail())
-            .build();
-        article = articleRepository.save(article);
-        return new ArticleDto(article);
-    }
 
-    @Override
-    public ArticleDto publicDraft(Long id) {
-        Article article = articleRepository.findById(id).orElseThrow(()-> new InternalException(ResponseCode.ARTICLE_NOT_FOUND));
-        article.setStatus(ArticleStatus.CREATE);
-        article = articleRepository.save(article);
-        return new ArticleDto(article);
-    }
 
     @Transactional
     @Override
@@ -135,11 +112,7 @@ public class ArticleService implements IArticleService{
         Page<Article> articlePage = articleRepository.findAll(request.getSpecification(),request.getPageable());
         return new PageResponse<>(articlePage.map(ArticleDto::new));
     }
-    @Override
-    public PageResponse<ArticleDto> getAllArticlePagingV2(GetAllArticleRequest request) {
-        Page<Article> page = articleRepository.findAll(request.getSpecification(),request.getPageable());
-        return new PageResponse<>(page.map(ArticleDto::new));
-    }
+
     @Override
     public List<ArticleDto> getAllArticle(GetAllArticleRequest request) {
         List<Article> articles = articleRepository.findAll(request.getSpecification());

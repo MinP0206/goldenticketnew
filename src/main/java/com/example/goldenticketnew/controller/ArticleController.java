@@ -103,16 +103,6 @@ public ResponseEntity<ResponseBase<ArticleDto>> getDetailByTitle(@PathVariable S
     }
 
     @Operation(
-        summary = "Get All Article với filter và paging ",
-        description = "- Get All Article với filter và paging"
-    )
-    @GetMapping("/v2/getAllPaging")
-    public ResponseBase<PageResponse<ArticleDto>> findAllArticlePagingV2(@ParameterObject Pageable pageable, @ParameterObject GetAllArticleRequest request) {
-        request.setPageable(pageable);
-        return new ResponseBase<>(articleService.getAllArticlePagingV2(request));
-
-    }
-    @Operation(
         summary = "Get All Category For User",
         description = "Get All Category For User"
     )

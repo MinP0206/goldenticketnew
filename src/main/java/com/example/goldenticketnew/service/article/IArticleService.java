@@ -16,9 +16,7 @@ import java.util.List;
 public interface IArticleService {
     ArticleDto addNewArticle(AddNewArticleRequest request);
     ArticleDto addNewArticleReview(AddNewReviewRequest request);
-    ArticleDto addNewArticleNews(AddNewArRequest request);
 
-    ArticleDto publicDraft(Long id);
     ArticleDto updateArticle(UpdateArticleRequest request);
 
     ArticleDto getDetailArticle(Long articleId);
@@ -26,7 +24,6 @@ public interface IArticleService {
 
     ArticleDto changeStatusArticle(ChangeArticleStatusRequest request);
 
-    PageResponse<ArticleDto> getAllArticlePagingV2(GetAllArticleRequest request);
     PageResponse<ArticleDto> getAllArticlePaging(GetAllArticleRequest request);
 
     List<ArticleDto> getAllArticle(GetAllArticleRequest request);

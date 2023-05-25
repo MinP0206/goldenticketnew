@@ -34,7 +34,7 @@ public class ArticleDto extends Auditable  {
 
 
     private String thumbnail;
-    private UserDto user;
+//    private UserDto user;
     private Long totalLike;
 
     private Long totalComment;
@@ -53,11 +53,10 @@ public class ArticleDto extends Auditable  {
         if(article.getKeyword() != null) this.keyword = article.getKeyword();
         if(article.getDescription()!=null) this.description = article.getDescription();
         if(article.getImage1()!=null)this.image1 = article.getImage1();
-//        if(article.getCategory() != null) this.category = new CategoryDto(article.getCategory());
         if(article.getCreatedBy() != null) {
             this.setCreatedBy(article.getCreatedBy());
-            UserService userService = BeanUtils.getBean(UserService.class);
-            this.user = userService.getUserProfile(article.getCreatedBy());
+//            UserService userService = BeanUtils.getBean(UserService.class);
+//            this.user = userService.getUserProfile(article.getCreatedBy());
         }
         if(article.getCreatedAt() != null) this.setCreatedAt(article.getCreatedAt().toString());
         if(article.getUpdatedAt() != null) this.setUpdatedAt(article.getUpdatedAt().toString());
