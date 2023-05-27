@@ -106,32 +106,8 @@ public class UserController {
         return ResponseEntity.ok(new ApiResponse(false, "Please check the id"));
     }
 
-    @Operation(
-        summary = "Cấp quyền viết bài cho user",
-        description = "- Cấp quyền viết bài cho user"
-    )
-    @PostMapping("/contentAccess/{userId}")
-    public ResponseEntity<ResponseBase<UserDto>> updateContentCreator(@Valid @PathVariable Long userId){
-        return ResponseEntity.ok(new ResponseBase<>(userService.updateContentCreator(userId)));
-    }
 
-    @Operation(
-        summary = "Xin Cấp quyền viết bài ",
-        description = "- Xin Cấp quyền viết"
-    )
-    @PostMapping("/contentAccess")
-    public ResponseEntity<ApiResponse> updateContentCreator(@Valid @RequestBody SendContentCreatorRequest request){
-        return ResponseEntity.ok(userService.sendContentCreator(request));
-    }
 
-    @Operation(
-        summary = "Từ chối cấp quyền viết bài ",
-        description = "- từ chốiCấp quyền viết"
-    )
-    @PostMapping("/contentAccess/deny")
-    public ResponseEntity<ApiResponse> denyContentCreator(@Valid @RequestBody DenyContentCreatorRequest request){
-        return ResponseEntity.ok(userService.denyContentCreator(request));
-    }
     @Operation(
         summary = "Get toàn bộ user đang xin quyền viết bài ",
         description = "- Get toàn bộ user đang xin quyền viết bài"

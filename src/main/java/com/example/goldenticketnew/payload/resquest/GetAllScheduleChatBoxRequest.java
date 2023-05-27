@@ -17,14 +17,16 @@ import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetAllScheduleRequest {
+public class GetAllScheduleChatBoxRequest {
     @JsonIgnore
     private Pageable pageable;
 
@@ -52,7 +54,7 @@ public class GetAllScheduleRequest {
                 predicates.add(cb.equal(join.get(Room.Fields.id), roomId));
             }
             if(startDate!= null){
-                predicates.add(cb.greaterThanOrEqualTo(root.get(Schedule.Fields.startDate), LocalDate.parse(startDate)));
+                predicates.add(cb.greaterThanOrEqualTo(root.get(Schedule.Fields.startDate), LocalDate.parse(startDate, DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
             }
             if(startTime!= null){
                 predicates.add(cb.greaterThanOrEqualTo(root.get(Schedule.Fields.startTime), LocalTime.parse(startTime)));

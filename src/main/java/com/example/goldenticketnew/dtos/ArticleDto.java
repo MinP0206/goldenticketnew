@@ -3,10 +3,8 @@ package com.example.goldenticketnew.dtos;
 import com.example.goldenticketnew.enums.ArticleStatus;
 import com.example.goldenticketnew.enums.ArticleType;
 import com.example.goldenticketnew.model.Article;
-import com.example.goldenticketnew.model.Category;
 import com.example.goldenticketnew.repository.ICommentRepository;
 import com.example.goldenticketnew.repository.ILikeRepository;
-import com.example.goldenticketnew.service.user.UserService;
 import com.example.goldenticketnew.utils.BeanUtils;
 import com.example.goldenticketnew.utils.ModelMapperUtils;
 import lombok.AllArgsConstructor;
@@ -20,10 +18,10 @@ public class ArticleDto extends Auditable  {
     private Long id;
     private String title;
     private String brief;
-    private String shortDescription;
+
     private ArticleStatus status;
     private String mainImage;
-    private String image1;
+
     private String description;
 
     private ArticleType type;
@@ -34,7 +32,7 @@ public class ArticleDto extends Auditable  {
 
 
     private String thumbnail;
-//    private UserDto user;
+
     private Long totalLike;
 
     private Long totalComment;
@@ -48,11 +46,9 @@ public class ArticleDto extends Auditable  {
         this.status = article.getStatus();
         this.type = article.getType();
         this.mainImage = article.getMainImage();
-        if(article.getShortDescription()!=null) this.shortDescription = article.getShortDescription();
         if(article.getThumbnail()!=null) this.thumbnail = article.getThumbnail();
         if(article.getKeyword() != null) this.keyword = article.getKeyword();
         if(article.getDescription()!=null) this.description = article.getDescription();
-        if(article.getImage1()!=null)this.image1 = article.getImage1();
         if(article.getCreatedBy() != null) {
             this.setCreatedBy(article.getCreatedBy());
 //            UserService userService = BeanUtils.getBean(UserService.class);

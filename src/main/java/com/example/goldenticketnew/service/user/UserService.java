@@ -5,7 +5,6 @@ import com.example.goldenticketnew.dtos.UserDto;
 import com.example.goldenticketnew.enums.ResponseCode;
 import com.example.goldenticketnew.exception.InternalException;
 import com.example.goldenticketnew.exception.ResourceNotFoundException;
-import com.example.goldenticketnew.model.Category;
 import com.example.goldenticketnew.model.Role;
 import com.example.goldenticketnew.model.User;
 import com.example.goldenticketnew.payload.GetAllUserRequest;
@@ -14,7 +13,6 @@ import com.example.goldenticketnew.payload.response.ApiResponse;
 import com.example.goldenticketnew.payload.response.PageResponse;
 import com.example.goldenticketnew.payload.resquest.DenyContentCreatorRequest;
 import com.example.goldenticketnew.payload.resquest.SendContentCreatorRequest;
-import com.example.goldenticketnew.payload.resquest.UpdateCategoryRequest;
 import com.example.goldenticketnew.payload.resquest.UpdateUserRequest;
 import com.example.goldenticketnew.repository.IArticleRepository;
 import com.example.goldenticketnew.repository.UserRepository;
@@ -127,34 +125,6 @@ public class UserService implements IUserService {
     }
 
 
-    @Override
-    public UserDto updateContentCreator(Long id) {
-        User user = userRepository.findById(id).orElseThrow(() -> new InternalException(ResponseCode.USER_NOT_FOUND));
-        if(user.getIsContentCreator()==1) throw new InternalException(ResponseCode.USER_1);
-        if(user.getIsContentCreator()==0) throw new InternalException(ResponseCode.USER_3);
-        user.setIsContentCreator(1);
-        return new UserDto(userRepository.saveAndFlush(user));
-    }
-
-    @Override
-    public ApiResponse sendContentCreator(SendContentCreatorRequest request) {
-        User user = userRepository.findById(request.getUserId()).orElseThrow(() -> new InternalException(ResponseCode.USER_NOT_FOUND));
-        if(user.getIsContentCreator()==1) throw new InternalException(ResponseCode.USER_1);
-        if(user.getIsContentCreator()==2) throw new InternalException(ResponseCode.USER_2);
-        user.setIsContentCreator(2);
-        user.setReason(request.getReason());
-        userRepository.save(user);
-        return new ApiResponse(true,"Xin cấp quyền viết bài thành công!");
-    }
-    @Override
-    public ApiResponse denyContentCreator(DenyContentCreatorRequest request) {
-        User user = userRepository.findById(request.getUserId()).orElseThrow(() -> new InternalException(ResponseCode.USER_NOT_FOUND));
-        if(user.getIsContentCreator()==1) throw new InternalException(ResponseCode.USER_1);
-        user.setIsContentCreator(0);
-        user.setReason(request.getReason());
-        userRepository.save(user);
-        return new ApiResponse(true,"Từ chối cấp quyền viết bài thành công!");
-    }
     @Override
     public PageResponse<UserDto> getListUserIsWaiting(GetAllUserRequest request) {
         request.setIsContent(2);

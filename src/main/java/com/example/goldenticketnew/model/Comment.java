@@ -21,8 +21,6 @@ public class Comment extends UserDateAudit {
 
     private String description;
 
-    private Boolean isActive;
-
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")

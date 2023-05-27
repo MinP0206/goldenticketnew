@@ -66,13 +66,6 @@ public class User extends UserDateAudit {
 
     private String bio;
 
-    private Integer followers;
-
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Category> categories;
-
-    private Integer isContentCreator = 0;
-
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Article> saveArticles;
 

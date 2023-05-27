@@ -36,9 +36,8 @@ public interface IUserService {
     List<UserDto> getUserReport(String dataTime);
 
 
-    UserDto updateContentCreator(Long id);
 
-    ApiResponse sendContentCreator(SendContentCreatorRequest request);
-    ApiResponse denyContentCreator(DenyContentCreatorRequest request);
+
+
     PageResponse<UserDto> getListUserIsWaiting(GetAllUserRequest request);
 }

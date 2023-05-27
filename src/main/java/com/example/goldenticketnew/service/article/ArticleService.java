@@ -6,7 +6,6 @@ import com.example.goldenticketnew.enums.ArticleStatus;
 import com.example.goldenticketnew.enums.ResponseCode;
 import com.example.goldenticketnew.exception.InternalException;
 import com.example.goldenticketnew.model.Article;
-import com.example.goldenticketnew.model.Category;
 import com.example.goldenticketnew.model.User;
 import com.example.goldenticketnew.payload.article.request.*;
 import com.example.goldenticketnew.payload.response.PageResponse;
@@ -78,7 +77,6 @@ public class ArticleService implements IArticleService{
         if(request.getDescription()!=null) article.setDescription(request.getDescription());
         if(request.getMainImage()!=null) article.setMainImage(request.getMainImage());
         if(request.getThumbnail()!=null) article.setThumbnail(request.getThumbnail());
-        if(request.getShortDescription()!=null) article.setShortDescription(request.getShortDescription());
         if(request.getKeyword()!=null) article.setKeyword(request.getKeyword());
 
         article = articleRepository.saveAndFlush(article);

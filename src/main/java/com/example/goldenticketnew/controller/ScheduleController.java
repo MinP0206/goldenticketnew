@@ -8,6 +8,7 @@ import com.example.goldenticketnew.exception.InternalException;
 import com.example.goldenticketnew.payload.article.request.AddNewArticleRequest;
 import com.example.goldenticketnew.payload.response.PageResponse;
 import com.example.goldenticketnew.payload.response.ResponseBase;
+import com.example.goldenticketnew.payload.resquest.GetAllScheduleChatBoxRequest;
 import com.example.goldenticketnew.payload.resquest.GetAllScheduleRequest;
 import com.example.goldenticketnew.payload.schedule.AddNewScheduleRequest;
 import com.example.goldenticketnew.service.schedule.IScheduleService;
@@ -59,6 +60,15 @@ public class ScheduleController {
     @GetMapping
     public ResponseEntity<ResponseBase<List<ScheduleDto>>> getSchedules(@ParameterObject GetAllScheduleRequest request){
         return new ResponseEntity<>(new ResponseBase<>(scheduleService.getSchedules(request)), HttpStatus.OK);
+    }
+
+    @Operation(
+        summary = "Get All Schedule với filter (List) Chat Box",
+        description = "- Get All Schedule với filter Chat Box"
+    )
+    @GetMapping("/chatbox")
+    public ResponseEntity<ResponseBase<List<ScheduleDto>>> getSchedulesChatBox(@ParameterObject GetAllScheduleChatBoxRequest request){
+        return new ResponseEntity<>(new ResponseBase<>(scheduleService.getSchedulesChatBox(request)), HttpStatus.OK);
     }
     @Operation(
         summary = "Get All Schedule với filter và paging ",

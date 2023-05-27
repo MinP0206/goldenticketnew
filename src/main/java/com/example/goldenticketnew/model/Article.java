@@ -33,16 +33,12 @@ public class Article extends UserDateAudit {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "image1")
-    private String image1;
     @Column(name = "status")
     private ArticleStatus status;
     @Column(name = "type")
     private ArticleType type;
 
     private String keyword;
-    private String shortDescription;
-
 
 
     private String thumbnail;

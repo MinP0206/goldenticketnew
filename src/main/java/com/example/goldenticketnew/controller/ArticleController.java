@@ -2,13 +2,9 @@ package com.example.goldenticketnew.controller;
 
 import com.example.goldenticketnew.dtos.ArticleDto;
 import com.example.goldenticketnew.dtos.ArticleReportDto;
-import com.example.goldenticketnew.dtos.CategoryDto;
 import com.example.goldenticketnew.enums.ArticleStatus;
 import com.example.goldenticketnew.enums.ArticleType;
-import com.example.goldenticketnew.model.Category;
-import com.example.goldenticketnew.payload.GetAllCateRequest;
 import com.example.goldenticketnew.payload.article.request.*;
-import com.example.goldenticketnew.payload.response.ApiResponse;
 import com.example.goldenticketnew.payload.response.PageResponse;
 import com.example.goldenticketnew.payload.response.ResponseBase;
 import com.example.goldenticketnew.security.CurrentUser;

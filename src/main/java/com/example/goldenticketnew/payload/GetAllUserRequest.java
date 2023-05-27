@@ -1,9 +1,5 @@
 package com.example.goldenticketnew.payload;
 
-import com.example.goldenticketnew.enums.ArticleStatus;
-import com.example.goldenticketnew.enums.ArticleType;
-import com.example.goldenticketnew.model.Article;
-import com.example.goldenticketnew.model.Category;
 import com.example.goldenticketnew.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
@@ -40,10 +36,7 @@ public class GetAllUserRequest {
             if(email != null){
                 predicates.add(cb.like(cb.lower(root.get(User.Fields.email)), "%" + email.toLowerCase() + "%"));
             }
-            if(isContent!=null)
-            {
-                predicates.add(cb.equal(root.get(User.Fields.isContentCreator),isContent));
-            }
+
 
 
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));

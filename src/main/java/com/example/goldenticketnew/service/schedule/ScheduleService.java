@@ -8,6 +8,7 @@ import com.example.goldenticketnew.model.Movie;
 import com.example.goldenticketnew.model.Room;
 import com.example.goldenticketnew.model.Schedule;
 import com.example.goldenticketnew.payload.response.PageResponse;
+import com.example.goldenticketnew.payload.resquest.GetAllScheduleChatBoxRequest;
 import com.example.goldenticketnew.payload.resquest.GetAllScheduleRequest;
 import com.example.goldenticketnew.payload.schedule.AddNewScheduleRequest;
 import com.example.goldenticketnew.repository.IBranchRepository;
@@ -50,6 +51,12 @@ public class ScheduleService implements IScheduleService {
 
     @Override
     public List<ScheduleDto> getSchedules(GetAllScheduleRequest request) {
+        return scheduleRepository.findAll(request.getSpecification())
+            .stream().map(schedule -> new ScheduleDto(schedule))
+            .collect(Collectors.toList());
+    }
+    @Override
+    public List<ScheduleDto> getSchedulesChatBox(GetAllScheduleChatBoxRequest request) {
         return scheduleRepository.findAll(request.getSpecification())
             .stream().map(schedule -> new ScheduleDto(schedule))
             .collect(Collectors.toList());
