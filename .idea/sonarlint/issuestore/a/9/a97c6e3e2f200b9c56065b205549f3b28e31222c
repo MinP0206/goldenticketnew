@@ -1,6 +1,0 @@
-
-k	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(êêø¼ÿÿÿÿÿ
-^
-java:S1128"CRemove this unused import 'com.example.goldenticketnew.model.User'.(éÄ§±øÿÿÿÿ
-?
-java:S1128")Remove this unused import 'java.net.URI'.(Ö¦¨°

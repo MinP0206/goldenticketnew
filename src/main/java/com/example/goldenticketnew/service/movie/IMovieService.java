@@ -17,6 +17,6 @@ public interface IMovieService {
     List<MovieDto> findAllShowingMoviesByName(String name);
     Boolean deleteMovieById(Integer movieId);
     PageResponse<MovieDto> getAllMovie(GetAllMovieRequest request);
-
+    List<MovieDto> findAllListMovies(GetAllMovieRequest request);
 
 }

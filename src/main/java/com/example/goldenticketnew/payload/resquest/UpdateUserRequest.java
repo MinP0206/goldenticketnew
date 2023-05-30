@@ -17,4 +17,6 @@ public class UpdateUserRequest {
 
     private String image;
 
+    private String bio;
+
 }

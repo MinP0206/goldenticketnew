@@ -22,7 +22,6 @@ public class Room {
     private int capacity;
     private double totalArea;
 
-    @Column(length = 1000)
     private String imgURL;
 
     @JsonIgnore

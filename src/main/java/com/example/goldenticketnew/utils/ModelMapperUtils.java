@@ -4,6 +4,7 @@ import com.example.goldenticketnew.dtos.UserDto;
 import com.example.goldenticketnew.model.User;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.NameTokenizers;
 import org.springframework.data.domain.Page;
@@ -49,6 +50,10 @@ public class ModelMapperUtils {
         }
 
         return modelMapper;
+    }
+
+    public static String removeAccentsWithApacheCommons(String input) {
+        return StringUtils.stripAccents(input).replaceAll("\\s+", "-").toLowerCase();
     }
 
 }

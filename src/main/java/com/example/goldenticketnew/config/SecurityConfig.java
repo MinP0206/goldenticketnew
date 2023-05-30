@@ -72,6 +72,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authorizeRequests()
+                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
             .antMatchers("/",
                 "/*",
                 "/webjars/**",
@@ -85,7 +86,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .permitAll()
 //            .antMatchers(HttpMethod.GET, "/api/article/**", "/api/movies/**", "/api/tickets/**", "/api/schedule/**", "/api/bills/**", "/api/rooms/**", "/api/seats/**", "/api/branches/**", "/api/movies/**", "/api/user/**")
 //            .permitAll()
-            .antMatchers("/api/article/**", "/api/movies/**", "/api/tickets/**", "/api/schedule/**", "/api/bills/**", "/api/rooms/**", "/api/seats/**", "/api/branches/**", "/api/movies/**", "/api/user/**")
+            .antMatchers("/api/article/**","/api/interaction/**", "/api/movies/**", "/api/tickets/**", "/api/schedule/**", "/api/bills/**", "/api/rooms/**", "/api/seats/**", "/api/branches/**", "/api/movies/**", "/api/user/**")
             .permitAll()
             .anyRequest()
             .authenticated();

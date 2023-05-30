@@ -23,5 +23,14 @@ public class UpdateArticleRequest {
 
     private String brief;
 
-    private List<ContentDto> contents;
+    private String description;
+
+    private String shortDescription;
+
+    private String thumbnail;
+
+    private Long categoryId;
+
+    private String keyword;
+
 }

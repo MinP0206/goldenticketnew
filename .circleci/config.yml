@@ -1,6 +1,5 @@
 
 version: 2.1
-
 orbs:
   docker: circleci/docker@2.0.1
 
@@ -38,9 +37,9 @@ jobs:
           name: create docker-compose file
           command: |
             cat \<<EOF > docker-compose.yaml
-            version: '3.8'
+            version: '3'
             services:
-              lab1-java-circleci-digitalocean:
+              goldenticketnew:
                 image: $DOCKER_USERNAME/$DOCKER_IMAGE:$DOCKER_TAG
                 ports:
                   - "8080:8080"
@@ -62,7 +61,8 @@ jobs:
             scp docker-compose.yaml $DEPLOY_USER@$DEPLOY_SERVER:~/
       - run: ssh -v $DEPLOY_USER@$DEPLOY_SERVER './deploy.sh'
 
-# Invoke jobs via workflows
+
+# Invoke jobs via workflows s
 workflows:
   my-workflow:
     #  sample: # This is the name of the workflow, feel free to change it to better match your workflow.
@@ -79,4 +79,4 @@ workflows:
           filters:
             branches:
               only:
-                - main
+                - develop

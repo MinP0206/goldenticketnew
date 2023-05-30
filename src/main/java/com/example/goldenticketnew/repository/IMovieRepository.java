@@ -10,6 +10,6 @@ import java.util.Optional;
 public interface IMovieRepository extends JpaRepository<Movie, Integer> , JpaSpecificationExecutor<Movie> {
     List<Movie> findMoviesByIsShowingOrderByIdDesc(Integer isShowing);
     List<Movie> findMoviesByIsShowingAndNameContaining(Integer isShowing,String name);
-
+    Movie findMovieById(Integer id);
     Optional<Movie> findMovieByName(String name);
 }

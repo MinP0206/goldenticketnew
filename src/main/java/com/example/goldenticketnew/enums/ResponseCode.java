@@ -11,6 +11,10 @@ public enum ResponseCode {
 
     //User
     USER_NOT_FOUND(101, " User not found"),
+    USER_1(102,"User đã có quyền viết bài!"),
+    USER_2(103,"User đã gửi yêu cầu rồi!"),
+    USER_3(104,"User chưa gửi yêu cầu!"),
+
 
     //Movie
     MOVIE_NOT_FOUND(201, " Movie not found"),
@@ -22,6 +26,23 @@ public enum ResponseCode {
 
     //Schedule
     ARTICLE_NOT_FOUND(401, " Article not found"),
+
+
+    //Branch
+    BRANCH_NOT_FOUND(402, " Branch not found"),
+
+    //Bill
+    BILL_NOT_FOUND(501, " Bill not found"),
+
+    //Seat
+    SEAT_NOT_FOUND(601, " Seat not found"),
+
+    //Comment not fountd
+    COMMENT_NOT_FOUND(701, " Comment not found"),
+    //vietnam message
+
+    BOOKING_SEAT_EXIST(901,"Đã có người nhanh tay hơn đặt ghế, mời bạn chọn lại!"),
+
 
     ;
     private final int code;

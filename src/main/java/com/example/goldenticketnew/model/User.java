@@ -1,10 +1,13 @@
 package com.example.goldenticketnew.model;
 
 
-import com.example.goldenticketnew.model.audit.DateAudit;
+import com.example.goldenticketnew.model.audit.UserDateAudit;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.FieldNameConstants;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
@@ -12,10 +15,14 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 @Getter
 @Setter
+@FieldNameConstants
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "user", uniqueConstraints = {
         @UniqueConstraint(columnNames = {
             "username"
@@ -24,7 +31,7 @@ import java.util.Set;
             "email"
         })
 })
-public class User extends DateAudit {
+public class User extends UserDateAudit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -43,7 +50,7 @@ public class User extends DateAudit {
     @Email
     private String email;
 
-    @Size(max = 1000)
+    @Column(length = 2000)
     private String image;
 
     @JsonIgnore
@@ -57,24 +64,20 @@ public class User extends DateAudit {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    public User() {
+    private String bio;
 
-    }
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Article> saveArticles;
 
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
+    private String reason;
     public User(String name, String username, String email, String password) {
         this.name = name;
         this.username = username;
         this.email = email;
         this.password = password;
     }
+
+
 
 
 }
