@@ -17,4 +17,5 @@ public interface IArticleRepository extends JpaRepository<Article,Long> , JpaSpe
     @Query(value = " Select count(id) from article  where year(created_at) = ?1 and month(created_at) = ?2 and created_by = ?3",nativeQuery = true)
     Long getTotalArticleInUser(int year,int month,String username);
 
+    boolean existsByTitle(String title);
 }
