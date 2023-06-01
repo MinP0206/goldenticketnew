@@ -5,6 +5,7 @@ import com.example.goldenticketnew.dtos.ArticleReportDto;
 import com.example.goldenticketnew.enums.ArticleStatus;
 import com.example.goldenticketnew.model.Article;
 import com.example.goldenticketnew.payload.article.request.*;
+import com.example.goldenticketnew.payload.response.ApiResponse;
 import com.example.goldenticketnew.payload.response.PageResponse;
 import com.example.goldenticketnew.security.UserPrincipal;
 import org.springframework.data.domain.Pageable;
@@ -35,9 +36,9 @@ public interface IArticleService {
 
     ArticleReportDto getReport(String dateTime);
 
-    List<ArticleDto> addNewArticleInuser(Long userId, Long articleId);
+    ApiResponse addNewArticleInuser(Long userId, Long articleId);
 
-    List<ArticleDto> removeArticleInuser(Long userId, Long articleId);
+    ApiResponse checkArticleinUser(Long userId, Long articleId);
 
     PageResponse<ArticleDto> getAllArticlePagingInUser(Long userId, Pageable pageable);
 

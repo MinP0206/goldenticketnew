@@ -8,6 +8,7 @@ import com.example.goldenticketnew.exception.InternalException;
 import com.example.goldenticketnew.model.Article;
 import com.example.goldenticketnew.model.User;
 import com.example.goldenticketnew.payload.article.request.*;
+import com.example.goldenticketnew.payload.response.ApiResponse;
 import com.example.goldenticketnew.payload.response.PageResponse;
 import com.example.goldenticketnew.repository.IArticleRepository;
 import com.example.goldenticketnew.repository.UserRepository;
@@ -162,25 +163,39 @@ public class ArticleService implements IArticleService{
     }
 
     @Override
-    public List<ArticleDto> addNewArticleInuser(Long userId, Long articleId) {
+    public ApiResponse addNewArticleInuser(Long userId, Long articleId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new InternalException(ResponseCode.USER_NOT_FOUND));
         List<Article> articles = user.getSaveArticles();
         Article article = articleRepository.findById(articleId).orElseThrow(() -> new InternalException(ResponseCode.ARTICLE_NOT_FOUND));
-        articles.add(article);
-        user.setSaveArticles(articles);
-        userRepository.save(user);
-        return articles.stream().map(ArticleDto::new).collect(Collectors.toList());
+        if(articles.contains(article)){
+            System.out.println("ban da luu phim nay roi");
+            articles.remove(article);
+            user.setSaveArticles(articles);
+            userRepository.save(user);
+            return new ApiResponse(true,"Thêm vào danh sách yêu thích thành công");
+        }else{
+            System.out.println("ban chua luu phim");
+            articles.add(article);
+            user.setSaveArticles(articles);
+            userRepository.save(user);
+            return new ApiResponse(true,"Thêm vào danh sách yêu thích thành công");
+        }
+
+
     }
 
     @Override
-    public List<ArticleDto> removeArticleInuser(Long userId, Long articleId) {
+    public ApiResponse checkArticleinUser(Long userId, Long articleId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new InternalException(ResponseCode.USER_NOT_FOUND));
         List<Article> articles = user.getSaveArticles();
         Article article = articleRepository.findById(articleId).orElseThrow(() -> new InternalException(ResponseCode.ARTICLE_NOT_FOUND));
-        articles.remove(article);
-        user.setSaveArticles(articles);
-        userRepository.save(user);
-        return articles.stream().map(ArticleDto::new).collect(Collectors.toList());
+        if(articles.contains(article)){
+            System.out.println("ban da luu phim nay roi");
+            return new ApiResponse(true,"Bạn đã lưu bài viết rồi");
+        }else{
+            System.out.println("ban chua luu phim");
+            return new ApiResponse(false,"Bạn chưa lưu bài viết");
+        }
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.example.goldenticketnew.dtos.ArticleReportDto;
 import com.example.goldenticketnew.enums.ArticleStatus;
 import com.example.goldenticketnew.enums.ArticleType;
 import com.example.goldenticketnew.payload.article.request.*;
+import com.example.goldenticketnew.payload.response.ApiResponse;
 import com.example.goldenticketnew.payload.response.PageResponse;
 import com.example.goldenticketnew.payload.response.ResponseBase;
 import com.example.goldenticketnew.security.CurrentUser;
@@ -99,11 +100,11 @@ public ResponseEntity<ResponseBase<ArticleDto>> getDetailByTitle(@PathVariable S
     }
 
     @Operation(
-        summary = "Get All Category For User",
-        description = "Get All Category For User"
+        summary = "Get All Article  For User",
+        description = "Get All Article For User"
     )
     @GetMapping("/user/getAll")
-    public ResponseEntity<ResponseBase<List<ArticleDto>>> getAllCateByUser(@CurrentUser UserPrincipal currentUser, @Parameter ArticleStatus status) {
+    public ResponseEntity<ResponseBase<List<ArticleDto>>> getAllArticleByUser(@CurrentUser UserPrincipal currentUser, @Parameter ArticleStatus status) {
         return ResponseEntity.ok(new ResponseBase<>(articleService.getAllByUser(currentUser, status)));
     }
     @Operation(
@@ -120,21 +121,21 @@ public ResponseEntity<ResponseBase<ArticleDto>> getDetailByTitle(@PathVariable S
         description = "- Thêm bài viết lưu trữ ( yêu thích) của user"
     )
     @PostMapping("/user/addSaveArticle")
-    public ResponseEntity<ResponseBase<List<ArticleDto>>> addNewArticleinUser(@Valid @Parameter Long userId, @Parameter Long articleId) {
+    public ResponseEntity<ResponseBase<ApiResponse>> addNewArticleinUser(@Valid @Parameter Long userId, @Parameter Long articleId) {
         return ResponseEntity.ok(new ResponseBase<>(articleService.addNewArticleInuser(userId,articleId)));
     }
     @Operation(
-        summary = "Gỡ bài viết lưu trữ ( yêu thích) của user",
-        description = "- Gỡ bài viết lưu trữ ( yêu thích) của user"
+        summary = "Kiểm tra bài viết lưu trữ ( yêu thích) của user đã được thêm chưa",
+        description = "-Kiểm tra bài viết lưu trữ ( yêu thích) của user đã được thêm chưa"
     )
-    @PostMapping("/user/removeSaveArticle")
-    public ResponseEntity<ResponseBase<List<ArticleDto>>> removeArticleinUser(@Valid @Parameter Long userId, @Parameter Long articleId) {
-        return ResponseEntity.ok(new ResponseBase<>(articleService.removeArticleInuser(userId,articleId)));
+    @PostMapping("/user/checkSaveArticle")
+    public ResponseEntity<ResponseBase<ApiResponse>> removeArticleinUser(@Valid @Parameter Long userId, @Parameter Long articleId) {
+        return ResponseEntity.ok(new ResponseBase<>(articleService.checkArticleinUser(userId,articleId)));
     }
 
     @Operation(
-        summary = "Get All Category lưu trữ( yêu thích của user)",
-        description = "Get All Category lưu trữ( yêu thích của user)"
+        summary = "Get All Article lưu trữ( yêu thích của user)",
+        description = "Get All Article lưu trữ( yêu thích của user)"
     )
     @GetMapping("/user/saveArticle/getAll")
     public ResponseEntity<ResponseBase<PageResponse<ArticleDto>>> getAllCateByUser(@Parameter Long userId, @ParameterObject Pageable pageable) {

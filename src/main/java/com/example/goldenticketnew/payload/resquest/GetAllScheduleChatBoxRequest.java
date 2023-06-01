@@ -17,7 +17,6 @@ import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,11 +52,13 @@ public class GetAllScheduleChatBoxRequest {
                 Join<Room, Schedule> join = root.join("room", JoinType.INNER);
                 predicates.add(cb.equal(join.get(Room.Fields.id), roomId));
             }
-            if(startDate!= null){
-                predicates.add(cb.greaterThanOrEqualTo(root.get(Schedule.Fields.startDate), LocalDate.parse(startDate, DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
+            if(startDate == null){
+                predicates.add(cb.greaterThanOrEqualTo(root.get(Schedule.Fields.startDate), LocalDate.now()));
+            }else{
+                predicates.add(cb.equal(root.get(Schedule.Fields.startDate), LocalDate.now()));
             }
             if(startTime!= null){
-                predicates.add(cb.greaterThanOrEqualTo(root.get(Schedule.Fields.startTime), LocalTime.parse(startTime)));
+                predicates.add(cb.equal(root.get(Schedule.Fields.startTime), LocalTime.parse(startTime)));
             }
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };
