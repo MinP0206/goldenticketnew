@@ -43,6 +43,8 @@ public enum ResponseCode {
 
     BOOKING_SEAT_EXIST(901,"Đã có người nhanh tay hơn đặt ghế, mời bạn chọn lại!"),
 
+    TITLE_IS_DUPLICATE(1001, "Tên bài viết đã được sử dụng"),
+
 
     ;
     private final int code;

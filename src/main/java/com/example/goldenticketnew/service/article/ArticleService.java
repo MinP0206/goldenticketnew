@@ -39,6 +39,9 @@ public class ArticleService implements IArticleService{
 
     @Override
     public ArticleDto addNewArticle(AddNewArticleRequest request) {
+        if(articleRepository.existsByTitle(request.getTitle())){
+            throw new InternalException(ResponseCode.TITLE_IS_DUPLICATE);
+        }
         Article article = Article.builder()
             .brief(request.getBrief())
             .title(request.getTitle())
@@ -53,6 +56,9 @@ public class ArticleService implements IArticleService{
 
     @Override
     public ArticleDto addNewArticleReview(AddNewReviewRequest request) {
+        if(articleRepository.existsByTitle(request.getTitle())){
+            throw new InternalException(ResponseCode.TITLE_IS_DUPLICATE);
+        }
         Article article = Article.builder()
             .brief(request.getBrief())
             .title(request.getTitle())
@@ -72,6 +78,9 @@ public class ArticleService implements IArticleService{
     @Transactional
     @Override
     public ArticleDto updateArticle(UpdateArticleRequest request) {
+        if(articleRepository.existsByTitle(request.getTitle())){
+            throw new InternalException(ResponseCode.TITLE_IS_DUPLICATE);
+        }
         Article article = articleRepository.findById(request.getId()).orElseThrow(() -> new InternalException(ResponseCode.ARTICLE_NOT_FOUND));
         if(request.getBrief() !=null) article.setBrief(request.getBrief());
         if(request.getTitle()!=null) article.setTitle(request.getTitle());
