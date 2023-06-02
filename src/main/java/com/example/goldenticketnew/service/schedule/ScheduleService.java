@@ -80,6 +80,7 @@ public class ScheduleService implements IScheduleService {
         schedule.setPrice(request.getPrice());
         schedule.setStartDate(LocalDate.parse(request.getStartDate()));
         schedule.setStartTime(LocalTime.parse(request.getStartTime()));
+        schedule.setDateTime(schedule.getStartDate().atTime(schedule.getStartTime()));
         schedule = scheduleRepository.save(schedule);
         return new ScheduleDto(schedule);
     }

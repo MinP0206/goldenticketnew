@@ -5,6 +5,7 @@ import com.example.goldenticketnew.model.Bill;
 import com.example.goldenticketnew.model.User;
 import com.example.goldenticketnew.payload.UserProfile;
 import com.example.goldenticketnew.utils.ModelMapperUtils;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -19,6 +20,9 @@ public class BillDto {
     private BillStatus status;
 
     private Double price;
+
+    @JsonIgnore
+    private int checkTime;
 
     public BillDto(Bill bill) {
         this.id = bill.getId();

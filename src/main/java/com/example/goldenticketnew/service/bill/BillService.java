@@ -51,13 +51,15 @@ public class BillService implements IBillService {
     public static final String workFlowId = "BOOKING_TASK_ID";
 
     private final CadenceWorkflowConfig workflowConfig;
-
+    private int checkTime = 0;
     @Override
     @Transactional
     public BillDto createNewBill(BookingRequestDto bookingRequestDTO) {
-
         //Lấy ra lịch
         Schedule schedule = scheduleRepository.getById(bookingRequestDTO.getScheduleId());
+        if(LocalDateTime.now().plusHours(1).isAfter(schedule.getDateTime())){
+            checkTime = 1;
+        }
         //Lấy ra người dùng
         User user = userRepository.getById(bookingRequestDTO.getUserId());
         final double[] total = {0};
@@ -135,6 +137,7 @@ public class BillService implements IBillService {
         try {
             BillDto bill = createNewBill(bookingRequestDTO);
             System.out.println("create bill");
+
             // Get a workflow stub using the same task list the worker uses.
 //             IBookingTicketWorkflow workflow = workflowClient.newWorkflowStub(BookingTicketWorkflow.class,
             try {

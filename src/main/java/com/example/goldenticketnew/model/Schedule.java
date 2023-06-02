@@ -11,6 +11,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Getter
@@ -24,7 +25,9 @@ public class Schedule extends UserDateAudit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private LocalDate startDate;
+
     private LocalTime startTime;
+    private LocalDateTime dateTime;
     private double price;
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
