@@ -217,9 +217,9 @@ public class BillService implements IBillService {
     }
 
     @Override
-    public BillDto getBill(Integer id) {
+    public BillResponse getBill(Integer id) {
         Optional<Bill> bill = billRepository.findById(id);
         if(bill.isEmpty()) throw new InternalException(ResponseCode.BILL_NOT_FOUND);
-        return new BillDto(bill.get());
+        return new BillResponse(bill.get());
     }
 }

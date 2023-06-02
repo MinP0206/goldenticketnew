@@ -98,7 +98,7 @@ public class BillController {
         description = "- Lấy thông tin chi tiết 1 Bill"
     )
     @GetMapping("/{id}}")
-    public ResponseEntity<BillDto> getBill(@Valid @PathVariable Integer id) {
+    public ResponseEntity<BillResponse> getBill(@Valid @PathVariable Integer id) {
         return new ResponseEntity<>(billService.getBill(id), HttpStatus.OK);
     }
 }

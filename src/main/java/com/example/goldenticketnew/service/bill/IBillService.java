@@ -26,6 +26,6 @@ public interface IBillService {
 
     List<BillDto> getList(GetDashboardTransactionRequest request);
 
-    BillDto getBill(Integer id);
+    BillResponse getBill(Integer id);
 
 }
