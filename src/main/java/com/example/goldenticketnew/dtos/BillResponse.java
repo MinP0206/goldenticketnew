@@ -43,6 +43,6 @@ public class BillResponse {
             seatDtos.add(new SeatDto(ticket.getSeat()));
         }
         this.seats = seatDtos;
-        this.schedule = new ScheduleDto(tickets.get(0).getSchedule());
+        if(!tickets.isEmpty()) this.schedule = new ScheduleDto(tickets.get(0).getSchedule());
     }
 }

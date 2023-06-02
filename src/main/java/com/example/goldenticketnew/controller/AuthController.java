@@ -35,7 +35,11 @@ public class AuthController {
 
         return ResponseEntity.ok(new JwtAuthenticationResponse(authService.authenticateUser(loginRequest)));
     }
+    @PostMapping("/admin/signin")
+    public ResponseEntity<?> authenticateAdmin(@Valid @RequestBody LoginRequest loginRequest) {
 
+        return ResponseEntity.ok(new JwtAuthenticationResponse(authService.authenticateUser(loginRequest)));
+    }
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
         if (userService.existsByUsername(signUpRequest.getUsername())) {

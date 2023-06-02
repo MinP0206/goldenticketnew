@@ -36,6 +36,10 @@ public class GetAllScheduleRequest {
 
     private String startTime;
     private Integer roomId;
+
+    private Integer isAdmin;
+
+
     public Specification<Schedule> getSpecification(){
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
@@ -51,8 +55,13 @@ public class GetAllScheduleRequest {
                 Join<Room, Schedule> join = root.join("room", JoinType.INNER);
                 predicates.add(cb.equal(join.get(Room.Fields.id), roomId));
             }
-            if(startDate== null){
-                predicates.add(cb.greaterThanOrEqualTo(root.get(Schedule.Fields.startDate), LocalDate.now()));
+            if(isAdmin==null) {
+                if (startDate == null) {
+                    predicates.add(cb.greaterThanOrEqualTo(root.get(Schedule.Fields.startDate), LocalDate.now()));
+                }
+                if(startTime== null){
+                    predicates.add(cb.greaterThanOrEqualTo(root.get(Schedule.Fields.startTime), LocalTime.now()));
+                }
             }
             if(startDate!= null){
                 predicates.add(cb.equal(root.get(Schedule.Fields.startDate), LocalDate.parse(startDate)));

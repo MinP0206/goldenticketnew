@@ -65,6 +65,7 @@ public class BillService implements IBillService {
         Bill billToCreate = new Bill();
         billToCreate.setUser(user);
         billToCreate.setCreatedTime(LocalDateTime.now());
+        System.out.println(LocalDateTime.now());
         billToCreate.setStatus(BillStatus.WAITING_PAYMENT);
         Bill createdBill = billRepository.save(billToCreate);
         bookingRequestDTO.setBillId(createdBill.getId());

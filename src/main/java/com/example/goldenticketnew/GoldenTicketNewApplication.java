@@ -2,21 +2,14 @@ package com.example.goldenticketnew;
 
 //import com.example.goldenticketnew.config.ConnectCadance;
 
-import com.example.goldenticketnew.enums.SeatType;
-import com.example.goldenticketnew.model.*;
-import com.example.goldenticketnew.repository.*;
-import com.example.goldenticketnew.service.bill.IBillService;
-import com.example.goldenticketnew.utils.BeanUtils;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.List;
+import javax.annotation.PostConstruct;
+import java.util.TimeZone;
 
 
 @SpringBootApplication
@@ -28,26 +21,30 @@ public class GoldenTicketNewApplication {
     public ModelMapper modelMapper() {
         return new ModelMapper();
     }
-
+    @PostConstruct
+    public void init(){
+        // Setting Spring Boot SetTimeZone
+        TimeZone.setDefault(TimeZone.getTimeZone("VST"));
+    }
     public static void main(String[] args) {
         SpringApplication.run(GoldenTicketNewApplication.class, args);
 //        IRoomRepository roomRepository = BeanUtils.getBean(IRoomRepository.class);
 //        ISeatRepository seatRepository = BeanUtils.getBean(ISeatRepository.class);
 //        IScheduleRepository scheduleRepository = BeanUtils.getBean(IScheduleRepository.class);
 //        IMovieRepository movieRepository = BeanUtils.getBean(IMovieRepository.class);
-////		Movie movie = movieRepository.getById(10);
-////		Movie movie2 = movieRepository.getById(11);
-////		Movie movie3 = movieRepository.getById(9);
-////		Movie movie4 = movieRepository.getById(8);
-////		Movie movie5 = movieRepository.getById(7);
-////		Movie movie6 = movieRepository.getById(5);
-//        List<Seat> seats = seatRepository.findAllByNameContaining("D");
-//        for(Seat seat : seats){
-//            seat.setSeatType(SeatType.VIP);
-//            seatRepository.save(seat);
-//        }
-//		Room room = roomRepository.getById(7);
-//		for(int i=1;i<=16;i++){
+//		Movie movie = movieRepository.getById(10);
+//		Movie movie2 = movieRepository.getById(11);
+//		Movie movie3 = movieRepository.getById(9);
+//		Movie movie4 = movieRepository.getById(8);
+//		Movie movie5 = movieRepository.getById(7);
+//		Movie movie6 = movieRepository.getById(5);
+////        List<Seat> seats = seatRepository.findAllByNameContaining("D");
+////        for(Seat seat : seats){
+////            seat.setSeatType(SeatType.VIP);
+////            seatRepository.save(seat);
+////        }
+//		Room room = roomRepository.getById(1);
+////		for(int i=1;i<=16;i++){
 //			Seat seat = new Seat();
 //			seat.setName("A"+i);
 //			seat.setRoom(room);
@@ -79,23 +76,29 @@ public class GoldenTicketNewApplication {
 //			seatRepository.save(seat);
 //		}
 //		IBranchRepository branchRepository = BeanUtils.getBean(IBranchRepository.class);
-//		Branch branch = branchRepository.getById(1);
+//		Branch branch = branchRepository.getById(4);
 //		Schedule schedule1 = new Schedule();
 //				schedule1.setBranch(branch);
-//				schedule1.setMovie(movie);
+//				schedule1.setMovie(movie6);
 //				schedule1.setRoom(room);
-//				schedule1.setStartDate(LocalDate.parse("2022-12-27"));
+//				schedule1.setStartDate(LocalDate.parse("2022-12-28"));
 //				schedule1.setStartTime(LocalTime.parse("07:10"));
-//				schedule1.setPrice(70000);
+//				schedule1.setPrice(50000);
 //				scheduleRepository.save(schedule1);
 //		Schedule schedule2 = new Schedule();
 //		schedule2.setBranch(branch);
 //		schedule2.setMovie(movie6);
 //		schedule2.setRoom(room);
-//		schedule2.setStartDate(LocalDate.parse("2022-12-27"));
-//		schedule2.setStartTime(LocalTime.parse("21:15"));
+//		schedule2.setStartDate(LocalDate.parse("2022-12-28"));
+//		schedule2.setStartTime(LocalTime.parse("10:15"));
 //		schedule2.setPrice(70000);
-//		scheduleRepository.save(schedule1);
+//		scheduleRepository.save(schedule2);
+//        schedule2.setStartTime(LocalTime.parse("14:10"));
+//
+//        scheduleRepository.save(schedule2);
+//        schedule2.setStartTime(LocalTime.parse("20:10"));
+//
+//        scheduleRepository.save(schedule2);
 //		Room room1 = new Room();
 //		room1.setName("Phòng 301");
 //		room1.setBranch(branch);
