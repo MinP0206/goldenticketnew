@@ -29,6 +29,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -213,5 +214,12 @@ public class BillService implements IBillService {
         List<Bill> listTrans = billRepository.findAll(request.getSpecification(), Sort.by(Bill.Fields.createdTime).ascending());
         List<BillDto> alist = listTrans.stream().map(BillDto::new).collect(Collectors.toList());
         return alist;
+    }
+
+    @Override
+    public BillDto getBill(Integer id) {
+        Optional<Bill> bill = billRepository.findById(id);
+        if(bill.isEmpty()) throw new InternalException(ResponseCode.BILL_NOT_FOUND);
+        return new BillDto(bill.get());
     }
 }

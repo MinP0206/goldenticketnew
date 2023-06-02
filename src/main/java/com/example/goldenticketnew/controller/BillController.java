@@ -13,7 +13,6 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.api.annotations.ParameterObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -93,5 +92,13 @@ public class BillController {
     @GetMapping("/getAllBill")
     public ResponseEntity<List<BillDto>> getList(@Valid @ParameterObject GetDashboardTransactionRequest request) {
         return new ResponseEntity<>(billService.getList(request), HttpStatus.OK);
+    }
+    @Operation(
+        summary = "Lấy thông tin chi tiết 1 Bill ",
+        description = "- Lấy thông tin chi tiết 1 Bill"
+    )
+    @GetMapping("/{id}}")
+    public ResponseEntity<BillDto> getBill(@Valid @PathVariable Integer id) {
+        return new ResponseEntity<>(billService.getBill(id), HttpStatus.OK);
     }
 }
