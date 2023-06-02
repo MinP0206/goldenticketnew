@@ -128,7 +128,7 @@ public ResponseEntity<ResponseBase<ArticleDto>> getDetailByTitle(@PathVariable S
         summary = "Kiểm tra bài viết lưu trữ ( yêu thích) của user đã được thêm chưa",
         description = "-Kiểm tra bài viết lưu trữ ( yêu thích) của user đã được thêm chưa"
     )
-    @PostMapping("/user/checkSaveArticle")
+    @GetMapping("/user/checkSaveArticle")
     public ResponseEntity<ResponseBase<ApiResponse>> removeArticleinUser(@Valid @Parameter Long userId, @Parameter Long articleId) {
         return ResponseEntity.ok(new ResponseBase<>(articleService.checkArticleinUser(userId,articleId)));
     }

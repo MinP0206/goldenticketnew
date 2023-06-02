@@ -23,6 +23,7 @@ public class MovieDto {
     private String trailerURL;
     private String language;
     private String rated;
+    private Integer isShowing;
 
     public MovieDto(Movie movie) {
         this.id = movie.getId();
@@ -39,5 +40,6 @@ public class MovieDto {
         this.trailerURL = movie.getTrailerURL();
         this.language = movie.getLanguage();
         this.rated = movie.getRated();
+        this.isShowing = movie.getIsShowing();
     }
 }
