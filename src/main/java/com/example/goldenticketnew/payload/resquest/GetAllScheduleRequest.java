@@ -56,11 +56,15 @@ public class GetAllScheduleRequest {
                 Join<Room, Schedule> join = root.join("room", JoinType.INNER);
                 predicates.add(cb.equal(join.get(Room.Fields.id), roomId));
             }
-            if (isAdmin == null) {
+            if (isAdmin == null && startDate == null) {
                 predicates.add(cb.greaterThanOrEqualTo(root.get(Schedule.Fields.dateTime), LocalDateTime.now()));
             }
             if (startDate != null) {
-                predicates.add(cb.equal(root.get(Schedule.Fields.startDate), LocalDate.parse(startDate)));
+                LocalDate date = LocalDate.parse(startDate);
+                predicates.add(cb.equal(root.get(Schedule.Fields.startDate), date));
+                if(date.equals(LocalDate.now())){
+                    predicates.add(cb.greaterThanOrEqualTo(root.get(Schedule.Fields.startTime), LocalTime.now()));
+                }
             }
             if (startTime != null) {
                 predicates.add(cb.equal(root.get(Schedule.Fields.startTime), LocalTime.parse(startTime)));
