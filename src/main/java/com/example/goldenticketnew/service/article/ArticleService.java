@@ -78,10 +78,13 @@ public class ArticleService implements IArticleService{
     @Transactional
     @Override
     public ArticleDto updateArticle(UpdateArticleRequest request) {
-        if(articleRepository.existsByTitle(request.getTitle())){
-            throw new InternalException(ResponseCode.TITLE_IS_DUPLICATE);
-        }
+
         Article article = articleRepository.findById(request.getId()).orElseThrow(() -> new InternalException(ResponseCode.ARTICLE_NOT_FOUND));
+        if(!request.getTitle().equals(article.getTitle())){
+            if(articleRepository.existsByTitle(request.getTitle())){
+                throw new InternalException(ResponseCode.TITLE_IS_DUPLICATE);
+            }
+        }
         if(request.getBrief() !=null) article.setBrief(request.getBrief());
         if(request.getTitle()!=null) article.setTitle(request.getTitle());
         if(request.getDescription()!=null) article.setDescription(request.getDescription());
