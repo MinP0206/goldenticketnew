@@ -61,9 +61,7 @@ public class GetAllScheduleRequest {
             }
             if (startDate != null) {
                 LocalDate date = LocalDate.parse(startDate);
-                if(date.equals(LocalDate.now())){
                     predicates.add(cb.greaterThanOrEqualTo(root.get(Schedule.Fields.dateTime), LocalDateTime.now()));
-                }
 
             }
             if (startTime != null) {
