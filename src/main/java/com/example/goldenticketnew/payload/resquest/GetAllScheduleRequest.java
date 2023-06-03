@@ -63,6 +63,8 @@ public class GetAllScheduleRequest {
                 LocalDate date = LocalDate.parse(startDate);
                 predicates.add(cb.equal(root.get(Schedule.Fields.startDate), date));
                 if(date.equals(LocalDate.now())){
+                    System.out.println("toi day r");
+                    System.out.println(LocalTime.now());
                     predicates.add(cb.greaterThanOrEqualTo(root.get(Schedule.Fields.startTime), LocalTime.now()));
                 }
             }
