@@ -57,7 +57,8 @@ public class GetAllScheduleRequest {
                 predicates.add(cb.equal(join.get(Room.Fields.id), roomId));
             }
             if (isAdmin == null && startDate == null) {
-                predicates.add(cb.greaterThanOrEqualTo(root.get(Schedule.Fields.dateTime), LocalDateTime.now()));
+                predicates.add(cb.greaterThanOrEqualTo(root.get(Schedule.Fields.startTime), LocalTime.now()));
+                predicates.add(cb.equal(root.get(Schedule.Fields.startDate), LocalDate.now()));
             }
             System.out.println(LocalDateTime.now());
             if (startDate != null) {
