@@ -59,10 +59,13 @@ public class GetAllScheduleRequest {
             if (isAdmin == null && startDate == null) {
                 predicates.add(cb.greaterThanOrEqualTo(root.get(Schedule.Fields.dateTime), LocalDateTime.now()));
             }
+            System.out.println(LocalDateTime.now());
             if (startDate != null) {
                 LocalDate date = LocalDate.parse(startDate);
-                    predicates.add(cb.greaterThanOrEqualTo(root.get(Schedule.Fields.dateTime), LocalDateTime.now()));
-
+                if(date.isEqual(LocalDate.now()) && startTime == null && isAdmin == null){
+                    predicates.add(cb.greaterThanOrEqualTo(root.get(Schedule.Fields.startTime), LocalTime.now()));
+                }
+                predicates.add(cb.equal(root.get(Schedule.Fields.startDate), date));
             }
             if (startTime != null) {
                 predicates.add(cb.equal(root.get(Schedule.Fields.startTime), LocalTime.parse(startTime)));
