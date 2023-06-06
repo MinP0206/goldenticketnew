@@ -21,7 +21,7 @@ public class BookingTicketWorkflow  implements IBookingTicketWorkflow {
         // This is a blocking call that returns only after the activity has completed.
         IBookingTicketActivity activity = Workflow.newActivityStub(IBookingTicketActivity.class,config.getActivityOptions());
         log.info("cho 120 s cho den khi huy ve");
-        Workflow.sleep(Duration.ofSeconds(300));
+        Workflow.sleep(Duration.ofSeconds(180));
         activity.composeBooking(request);
     }
 }
