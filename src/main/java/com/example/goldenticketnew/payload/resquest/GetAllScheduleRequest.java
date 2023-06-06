@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -25,6 +26,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Slf4j
 public class GetAllScheduleRequest {
     @JsonIgnore
     private Pageable pageable;
@@ -62,6 +64,7 @@ public class GetAllScheduleRequest {
             if (startDate != null) {
                 LocalDate date = LocalDate.parse(startDate);
                 if(date.isEqual(LocalDate.now()) && startTime == null && isAdmin == null){
+                    log.debug(String.valueOf(LocalDateTime.now()));
                     predicates.add(cb.greaterThanOrEqualTo(root.get(Schedule.Fields.startTime), LocalTime.now()));
                 }
                 predicates.add(cb.equal(root.get(Schedule.Fields.startDate), date));
