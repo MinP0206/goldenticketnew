@@ -32,5 +32,7 @@ public class Bill extends UserDateAudit {
     private User user;
     private BillStatus status;
     private Double price;
+    private Integer scheduleId;
+    private Integer amountTicket;
 
 }

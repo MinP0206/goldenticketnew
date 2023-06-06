@@ -7,3 +7,16 @@ public interface IBookingTicketActivity {
     @ActivityMethod()
     void composeBooking(BookingRequestDto request);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

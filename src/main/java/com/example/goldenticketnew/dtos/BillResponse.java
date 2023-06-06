@@ -2,8 +2,10 @@ package com.example.goldenticketnew.dtos;
 
 import com.example.goldenticketnew.enums.BillStatus;
 import com.example.goldenticketnew.model.Bill;
+import com.example.goldenticketnew.model.Schedule;
 import com.example.goldenticketnew.model.Ticket;
 import com.example.goldenticketnew.payload.UserProfile;
+import com.example.goldenticketnew.repository.IScheduleRepository;
 import com.example.goldenticketnew.repository.TicketRepository;
 import com.example.goldenticketnew.utils.BeanUtils;
 import lombok.Data;
@@ -35,14 +37,23 @@ public class BillResponse {
         this.user = new UserProfile(bill.getUser());
         this.status = bill.getStatus();
         this.price = bill.getPrice();
-        TicketRepository ticketRepository = BeanUtils.getBean(TicketRepository.class);
-        List<Ticket> tickets = ticketRepository.findTicketsByBillId(bill.getId());
-        this.amountTicket = tickets.size();
-        List<SeatDto> seatDtos = new ArrayList<>();
-        for(Ticket ticket : tickets){
-            seatDtos.add(new SeatDto(ticket.getSeat()));
+        if(!bill.getStatus().equals(BillStatus.EXPIRATION)) {
+            TicketRepository ticketRepository = BeanUtils.getBean(TicketRepository.class);
+            List<Ticket> tickets = ticketRepository.findTicketsByBillId(bill.getId());
+            this.amountTicket = tickets.size();
+            List<SeatDto> seatDtos = new ArrayList<>();
+            for (Ticket ticket : tickets) {
+                seatDtos.add(new SeatDto(ticket.getSeat()));
+            }
+            this.seats = seatDtos;
+            if (!tickets.isEmpty()) this.schedule = new ScheduleDto(tickets.get(0).getSchedule());
+        }else {
+            if(bill.getAmountTicket()!=null)  this.amountTicket  = bill.getAmountTicket();
+            if(bill.getScheduleId()!=null){
+                IScheduleRepository scheduleRepository = BeanUtils.getBean(IScheduleRepository.class);
+                Schedule schedule1 = scheduleRepository.getById(bill.getScheduleId());
+                this.schedule = new ScheduleDto(schedule1);
+            }
         }
-        this.seats = seatDtos;
-        if(!tickets.isEmpty()) this.schedule = new ScheduleDto(tickets.get(0).getSchedule());
     }
 }

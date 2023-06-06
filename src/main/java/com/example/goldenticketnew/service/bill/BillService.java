@@ -65,6 +65,7 @@ public class BillService implements IBillService {
         final double[] total = {0};
         //Lưu Bill gồm thông tin người dùng xuống trước
         Bill billToCreate = new Bill();
+        billToCreate.setScheduleId(schedule.getId());
         billToCreate.setUser(user);
         billToCreate.setCreatedTime(LocalDateTime.now());
         System.out.println(LocalDateTime.now());
@@ -95,6 +96,7 @@ public class BillService implements IBillService {
             ticket.setQrImageURL("https://scontent-sin6-2.xx.fbcdn.net/v/t1.15752-9/268794058_655331555823095_3657556108194277679_n.png?_nc_cat=105&ccb=1-5&_nc_sid=ae9488&_nc_ohc=BrNXGO8HufkAX_OGjWc&_nc_ht=scontent-sin6-2.xx&oh=03_AVK_zaJj7pziY9nLrVqoIQJAzbomu4KPgED1PxFFpYfCrQ&oe=61F778D8");
             ticketRepository.save(ticket);
         });
+        billToCreate.setAmountTicket(bookingRequestDTO.getListSeatIds().size());
         billToCreate.setPrice(total[0]);
         billToCreate = billRepository.save(billToCreate);
         return new BillDto(billToCreate);
