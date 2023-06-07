@@ -2,6 +2,9 @@ package com.example.goldenticketnew;
 
 //import com.example.goldenticketnew.config.ConnectCadance;
 
+import com.example.goldenticketnew.model.Schedule;
+import com.example.goldenticketnew.repository.IScheduleRepository;
+import com.example.goldenticketnew.utils.BeanUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,6 +12,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import javax.annotation.PostConstruct;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.TimeZone;
 
 
@@ -21,16 +26,18 @@ public class GoldenTicketNewApplication {
     public ModelMapper modelMapper() {
         return new ModelMapper();
     }
-    @PostConstruct
-    public void init(){
-        // Setting Spring Boot SetTimeZone
-        TimeZone.setDefault(TimeZone.getTimeZone("VST"));
-    }
+
     public static void main(String[] args) {
         SpringApplication.run(GoldenTicketNewApplication.class, args);
 //        IRoomRepository roomRepository = BeanUtils.getBean(IRoomRepository.class);
 //        ISeatRepository seatRepository = BeanUtils.getBean(ISeatRepository.class);
 //        IScheduleRepository scheduleRepository = BeanUtils.getBean(IScheduleRepository.class);
+//        List<Schedule> schedules = scheduleRepository.findAll();
+//        for(Schedule schedule : schedules){
+//            LocalDateTime localDateTime = schedule.getStartDate().atTime(schedule.getStartTime());
+//            schedule.setDateTime(localDateTime);
+//            scheduleRepository.save(schedule);
+//        }
 //        IMovieRepository movieRepository = BeanUtils.getBean(IMovieRepository.class);
 //		Movie movie = movieRepository.getById(10);
 //		Movie movie2 = movieRepository.getById(11);
