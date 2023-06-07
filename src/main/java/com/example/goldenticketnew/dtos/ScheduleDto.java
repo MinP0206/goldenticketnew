@@ -4,6 +4,7 @@ import com.example.goldenticketnew.model.Schedule;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.TimeZone;
 
@@ -16,6 +17,7 @@ public class ScheduleDto {
     private RoomDto room;
     private MovieDto movie;
     private Double price;
+    private LocalDateTime dateTime;
 
     public ScheduleDto(Schedule schedule) {
         this.id = schedule.getId();
@@ -28,5 +30,8 @@ public class ScheduleDto {
         this.room = new RoomDto(schedule.getRoom());
         this.movie = new MovieDto(schedule.getMovie());
         this.price = schedule.getPrice();
+        if(schedule.getDateTime()!=null){
+            this.dateTime = schedule.getDateTime();
+        }
     }
 }
