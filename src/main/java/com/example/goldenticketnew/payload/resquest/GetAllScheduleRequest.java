@@ -48,6 +48,7 @@ public class GetAllScheduleRequest {
                 Join<Movie, Schedule> join = root.join("movie", JoinType.INNER);
                 predicates.add(cb.equal(join.get(Movie.Fields.id), movieId));
             }
+
             if (branchId != null) {
                 Join<Branch, Schedule> join = root.join("branch", JoinType.INNER);
                 predicates.add(cb.equal(join.get(Branch.Fields.id), branchId));
