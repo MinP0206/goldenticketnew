@@ -1,84 +1,26 @@
-
+# Use the latest 2.1 version of CircleCI pipeline process engine.
+# See: https://circleci.com/docs/configuration-reference
 version: 2.1
-orbs:
-  docker: circleci/docker@2.0.1
 
+# Define a job to be invoked later in a workflow.
+# See: https://circleci.com/docs/configuration-reference/#jobs
 jobs:
-  build-and-push:
-    environment:
-      DOCKER_IMAGE: goldenticketnew
-      DOCKER_TAG: latest
+  say-hello:
+    # Specify the execution environment. You can specify an image from Docker Hub or use one of our convenience images from CircleCI's Developer Hub.
+    # See: https://circleci.com/docs/configuration-reference/#executor-job
     docker:
-      - image: cimg/openjdk:11.0.13
+      - image: cimg/base:stable
+    # Add steps to the job
+    # See: https://circleci.com/docs/configuration-reference/#steps
     steps:
       - checkout
-      - setup_remote_docker
       - run:
-          name: maven package
-          command: |
-            chmod +x mvnw
-            sed -i "s/\r$//" mvnw
-            ./mvnw --version
-            ./mvnw package
-      - run:
-          name: build-push-docker-image
-          command: |
-            echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-            docker build -t $DOCKER_USERNAME/$DOCKER_IMAGE:$DOCKER_TAG .
-            docker images
-            docker push $DOCKER_USERNAME/$DOCKER_IMAGE:$DOCKER_TAG
-  deploy:
-    environment:
-      DOCKER_IMAGE: goldenticketnew
-      DOCKER_TAG: latest
-    executor: docker/docker
-    steps:
-      - run:
-          name: create docker-compose file
-          command: |
-            cat \<<EOF > docker-compose.yaml
-            version: '3'
-            services:
-              goldenticketnew:
-                image: $DOCKER_USERNAME/$DOCKER_IMAGE:$DOCKER_TAG
-                environment:
-                  - TZ=Asia/Ho_Chi_Minh
-                ports:
-                  - "8080:8080"
-            EOF
-            cat \<<EOF > deploy.sh
-            docker-compose stop
-            docker-compose rm -f
-            docker-compose pull
-            docker-compose up -d
-            EOF
-      - add_ssh_keys:
-          fingerprints:
-            - $FINGER_PRINT
-      - run:
-          name: copy-file-to-remote-server
-          command: |
-            chmod +x deploy.sh
-            scp -oStrictHostKeyChecking=no deploy.sh $DEPLOY_USER@$DEPLOY_SERVER:~/
-            scp docker-compose.yaml $DEPLOY_USER@$DEPLOY_SERVER:~/
-      - run: ssh -v $DEPLOY_USER@$DEPLOY_SERVER './deploy.sh'
+          name: "Say hello"
+          command: "echo Hello, World!"
 
-
-# Invoke jobs via workflows s
+# Orchestrate jobs using workflows
+# See: https://circleci.com/docs/configuration-reference/#workflows
 workflows:
-  my-workflow:
-    #  sample: # This is the name of the workflow, feel free to change it to better match your workflow.
-    #    # Inside the workflow, you define the jobs you want to run.
+  say-hello-workflow:
     jobs:
-      - build-and-push:
-          filters:
-            branches:
-              only:
-                - develop
-      - deploy:
-          requires:
-            - build-and-push
-          filters:
-            branches:
-              only:
-                - develop
+      - say-hello
