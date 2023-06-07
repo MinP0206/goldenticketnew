@@ -59,9 +59,6 @@ public class GetAllScheduleRequest {
             if (isAdmin == null && startDate == null) {
                 predicates.add(cb.greaterThanOrEqualTo(root.get(Schedule.Fields.dateTime), LocalDateTime.now()));
             }
-            System.out.println("ngay gio hien tai" + LocalDateTime.now());
-            System.out.println("ngay  hien tai" + LocalDate.now());
-            System.out.println("gio hien tai" + LocalTime.now());
             if (startDate != null) {
                 LocalDate date = LocalDate.parse(startDate);
                 if(date.isEqual(LocalDate.now()) && startTime == null && isAdmin == null){
