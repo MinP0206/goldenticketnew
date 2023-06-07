@@ -26,7 +26,11 @@ public class GoldenTicketNewApplication {
     public ModelMapper modelMapper() {
         return new ModelMapper();
     }
-
+    @PostConstruct
+    public void init(){
+        // Setting Spring Boot SetTimeZone
+        TimeZone.setDefault(TimeZone.getTimeZone("VST"));
+    }
     public static void main(String[] args) {
         SpringApplication.run(GoldenTicketNewApplication.class, args);
 //        IRoomRepository roomRepository = BeanUtils.getBean(IRoomRepository.class);
