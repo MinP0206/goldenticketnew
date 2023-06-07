@@ -17,6 +17,7 @@ public class ScheduleDto {
     private RoomDto room;
     private MovieDto movie;
     private Double price;
+    private LocalDateTime dateTime;
 
     private boolean isWaiting = true;
 
@@ -39,6 +40,9 @@ public class ScheduleDto {
             if(schedule.getDateTime().isAfter(localDateTime)){
                 this.isWaiting = false;
             }
+        }
+        if(schedule.getDateTime()!=null){
+            this.dateTime = schedule.getDateTime();
         }
     }
 }
