@@ -32,12 +32,11 @@ public class ScheduleDto {
         this.room = new RoomDto(schedule.getRoom());
         this.movie = new MovieDto(schedule.getMovie());
         this.price = schedule.getPrice();
-        LocalDateTime localDateTime = LocalDateTime.now().minusHours(1);
-        System.out.println("Gio hien tai -1 la " + localDateTime);
-        System.out.println("gio chieu cua phim la" + schedule.getDateTime());
+        LocalDateTime localDateTime = LocalDateTime.now().plusHours(1);
+        System.out.println("Xem xem gio hien tai + 1 co lon hon gio chieu phim khong. Gio hien tai +1 la " + localDateTime);
         if(schedule.getDateTime()!=null){
             System.out.println("gio chieu cua phim la" + schedule.getDateTime());
-            if(schedule.getDateTime().isAfter(localDateTime)){
+            if(localDateTime.isAfter(schedule.getDateTime())){
                 this.isWaiting = false;
             }
         }

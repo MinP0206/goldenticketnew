@@ -57,15 +57,15 @@ public class GetAllScheduleRequest {
                 predicates.add(cb.equal(join.get(Room.Fields.id), roomId));
             }
             if (isAdmin == null && startDate == null) {
-                predicates.add(cb.greaterThanOrEqualTo(root.get(Schedule.Fields.startTime), LocalTime.now()));
-                predicates.add(cb.equal(root.get(Schedule.Fields.startDate), LocalDate.now()));
+                predicates.add(cb.greaterThanOrEqualTo(root.get(Schedule.Fields.dateTime), LocalDateTime.now()));
             }
-            System.out.println(LocalDateTime.now());
+            System.out.println("ngay gio hien tai" + LocalDateTime.now());
             if (startDate != null) {
                 LocalDate date = LocalDate.parse(startDate);
                 if(date.isEqual(LocalDate.now()) && startTime == null && isAdmin == null){
                     predicates.add(cb.greaterThanOrEqualTo(root.get(Schedule.Fields.startTime), LocalTime.now()));
                 }
+                System.out.println("ngay nhap vao" + date);
                 predicates.add(cb.equal(root.get(Schedule.Fields.startDate), date));
             }
             if (startTime != null) {
