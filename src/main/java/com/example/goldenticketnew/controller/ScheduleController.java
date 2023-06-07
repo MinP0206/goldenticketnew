@@ -75,6 +75,7 @@ public class ScheduleController {
     @GetMapping("/getAll")
     public ResponseEntity<ResponseBase<PageResponse<ScheduleDto>>> getSchedules(@ParameterObject Pageable pageable, @ParameterObject GetAllScheduleRequest request ){
         request.setPageable(pageable);
+
         return new ResponseEntity<>(new ResponseBase<>(scheduleService.getAllSchedule(request)), HttpStatus.OK);
     }
 
