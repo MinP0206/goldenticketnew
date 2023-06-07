@@ -66,6 +66,7 @@ public class GetAllScheduleRequest {
                     predicates.add(cb.greaterThanOrEqualTo(root.get(Schedule.Fields.startTime), LocalTime.now()));
                 }
                 System.out.println("ngay nhap vao" + date);
+
                 predicates.add(cb.equal(root.get(Schedule.Fields.startDate), date));
             }
             if (startTime != null) {
