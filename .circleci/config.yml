@@ -41,8 +41,11 @@ jobs:
             services:
               goldenticketnew:
                 image: $DOCKER_USERNAME/$DOCKER_IMAGE:$DOCKER_TAG
+                environment:
+                  - TZ=Asia/Ho_Chi_Minh
                 ports:
                   - "8080:8080"
+                
             EOF
             cat \<<EOF > deploy.sh
             docker-compose stop
