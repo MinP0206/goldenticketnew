@@ -15,6 +15,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,7 @@ import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 
-
+@Profile("!dev")
 @CrossOrigin("*")
 @RestController
 @RequestMapping(value = "/api/schedule", produces = "application/json")

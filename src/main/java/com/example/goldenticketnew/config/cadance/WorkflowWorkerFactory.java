@@ -28,25 +28,25 @@ public class WorkflowWorkerFactory implements InitializingBean {
 
     private final IBookingTicketActivity bookingTicketActivity;
     public void afterPropertiesSet() {
-        registerDomain();
-        runFactory();
+//        registerDomain();
+//        runFactory();
     }
 
     @SneakyThrows
     private void registerDomain() {
-        try {
-            RegisterDomainRequest request = new RegisterDomainRequest();
-            request.setName(workflowConfig.getDomain());
-            request.setWorkflowExecutionRetentionPeriodInDays(1);
-            workflowService.RegisterDomain(request);
-        } catch (DomainAlreadyExistsError ignore) {
-        }
+//        try {
+////            RegisterDomainRequest request = new RegisterDomainRequest();
+////            request.setName(workflowConfig.getDomain());
+////            request.setWorkflowExecutionRetentionPeriodInDays(1);
+////            workflowService.RegisterDomain(request);
+//        } catch (DomainAlreadyExistsError ignore) {
+//        }
     }
     private void runFactory() {
-        if (!workflowConfig.getDisabledWorkers().contains(BookingTicketWorkflow.class.getSimpleName())) {
-            createBookingWorker();
-        }
-        workerFactory.start();
+//        if (!workflowConfig.getDisabledWorkers().contains(BookingTicketWorkflow.class.getSimpleName())) {
+//            createBookingWorker();
+//        }
+//        workerFactory.start();
     }
 
     private void createBookingWorker() {

@@ -86,7 +86,7 @@ public class CadenceWorkflowConfig implements InitializingBean, Cloneable {
 
     @Override
     public void afterPropertiesSet() {
-        log.debug("Activity default options: {} {} {} {}", activityScheduleToCloseTimeout, activityInitialInterval, activityExpiration, activityMaximumAttempts);
+//        log.debug("Activity default options: {} {} {} {}", activityScheduleToCloseTimeout, activityInitialInterval, activityExpiration, activityMaximumAttempts);
         activityOptions = new ActivityOptions.Builder()
             .setScheduleToCloseTimeout(Duration.ofSeconds(activityScheduleToCloseTimeout))
             .setRetryOptions(

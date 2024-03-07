@@ -12,9 +12,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import javax.annotation.PostConstruct;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -35,11 +37,17 @@ public class GoldenTicketNewApplication {
 //    }
     public static void main(String[] args) {
         SpringApplication.run(GoldenTicketNewApplication.class, args);
-        TimeZone timeZone = TimeZone.getDefault();
-        System.out.println("Thoi gian lich chieu timezone:"+ timeZone.getDisplayName()  + "zoneId:"+timeZone.toZoneId());
-        System.out.println("ngay gio hien tai" + LocalDateTime.now());
-        System.out.println("ngay  hien tai" + LocalDate.now());
-        System.out.println("gio hien tai" + LocalTime.now());
+       String a = "13/03/2023 21:00";
+        String b = "14/03/2023 02:00";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+       LocalDateTime s = LocalDateTime.parse(a, formatter);
+        LocalDateTime s2 = LocalDateTime.parse(b, formatter);
+        Duration duration = Duration.between(s2,s);
+
+        System.out.println(duration.toHours());
+
+
+
 //        IRoomRepository roomRepository = BeanUtils.getBean(IRoomRepository.class);
 //        ISeatRepository seatRepository = BeanUtils.getBean(ISeatRepository.class);
 //        IScheduleRepository scheduleRepository = BeanUtils.getBean(IScheduleRepository.class);

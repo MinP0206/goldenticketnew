@@ -12,13 +12,14 @@ import com.example.goldenticketnew.service.auth.IAuthService;
 import com.example.goldenticketnew.service.user.IUserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-
+@Profile("!dev")
 @RestController
 @RequestMapping("/api/auth")
 @Tag(name = "Auth Controller", description = "Thao tác với auth")

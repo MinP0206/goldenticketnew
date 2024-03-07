@@ -96,6 +96,18 @@
 			<artifactId>cadence-client</artifactId>
 			<version>3.6.2</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.vladmihalcea/hibernate-types-52 -->
+		<dependency>
+			<groupId>com.vladmihalcea</groupId>
+			<artifactId>hibernate-types-52</artifactId>
+			<version>2.20.0</version>
+		</dependency>
+<!--		&lt;!&ndash; https://mvnrepository.com/artifact/org.hibernate/hibernate-envers &ndash;&gt;-->
+<!--		<dependency>-->
+<!--			<groupId>org.hibernate</groupId>-->
+<!--			<artifactId>hibernate-envers</artifactId>-->
+<!--			<version>6.4.4.Final</version>-->
+<!--		</dependency>-->
 
 	</dependencies>
 
